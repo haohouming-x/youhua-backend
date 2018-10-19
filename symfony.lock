@@ -140,6 +140,15 @@
             "ref": "fb7e19da7f013d0d422fa9bce16f5c510e27609b"
         }
     },
+    "sonata-project/admin-bundle": {
+        "version": "3.31",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.31",
+            "ref": "0e5931df1732e3dccfba42a20853049e5e9db6ae"
+        }
+    },
     "swiftmailer/swiftmailer": {
         "version": "v6.1.2"
     },

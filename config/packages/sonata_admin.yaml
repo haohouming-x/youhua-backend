@@ -1,0 +1,12 @@
+sonata_admin:
+    title: '油画'
+    options:
+      title_mode: 'single_text'
+    dashboard:
+        blocks:
+            - { type: sonata.admin.block.admin_list, position: left }
+
+sonata_block:
+    blocks:
+        sonata.admin.block.admin_list:
+            contexts: [admin]

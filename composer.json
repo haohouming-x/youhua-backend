@@ -7,6 +7,7 @@
         "fresh/doctrine-enum-bundle": "~6.2",
         "gedmo/doctrine-extensions": "^2.4",
         "sensio/framework-extra-bundle": "^5.1",
+        "sonata-project/admin-bundle": "^3.33",
         "symfony/asset": "^4.1",
         "symfony/console": "^4.1",
         "symfony/expression-language": "^4.1",

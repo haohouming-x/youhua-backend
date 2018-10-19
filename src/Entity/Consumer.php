@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\DBAL\Types\{ConsumerType, SexType};
 use Gedmo\Mapping\Annotation as Gedmo;
+use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ConsumerRepository")
@@ -35,6 +36,7 @@ class Consumer
 
     /**
      * @ORM\Column(type="ConsumerType")
+     * @DoctrineAssert\Enum(entity="App\DBAL\Types\ConsumerType")
      */
     private $type;
 
