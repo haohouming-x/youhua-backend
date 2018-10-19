@@ -5,3 +5,4 @@ doctrine:
         ConsumerType: App\DBAL\Types\ConsumerType
         OrderType: App\DBAL\Types\OrderType
         BannerType: App\DBAL\Types\BannerType
+        OrderBillType: App\DBAL\Types\OrderBillType

@@ -1,3 +1,6 @@
+imports:
+    - { resource: ../my_db_types.yaml }
+
 parameters:
     # Adds a fallback DATABASE_URL if the env var is not set.
     # This allows you to run cache:warmup even if your
@@ -16,6 +19,7 @@ doctrine:
             collate: utf8mb4_unicode_ci
 
         url: '%env(resolve:DATABASE_URL)%'
+
     orm:
         auto_generate_proxy_classes: '%kernel.debug%'
         naming_strategy: doctrine.orm.naming_strategy.underscore
