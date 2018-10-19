@@ -1,0 +1,86 @@
+F:\zhenqiao
+├── assets
+|  ├── css
+|  |  └── app.css
+|  └── js
+|     └── app.js
+├── bin
+|  ├── console
+|  └── phpunit
+├── composer.json
+├── composer.lock
+├── config
+|  ├── bundles.php
+|  ├── my_db_types.yaml
+|  ├── packages
+|  |  ├── assets.yaml
+|  |  ├── dev
+|  |  |  ├── debug.yaml
+|  |  |  ├── easy_log_handler.yaml
+|  |  |  ├── monolog.yaml
+|  |  |  ├── routing.yaml
+|  |  |  ├── swiftmailer.yaml
+|  |  |  └── web_profiler.yaml
+|  |  ├── doctrine.yaml
+|  |  ├── doctrine_migrations.yaml
+|  |  ├── framework.yaml
+|  |  ├── prod
+|  |  |  ├── doctrine.yaml
+|  |  |  └── monolog.yaml
+|  |  ├── routing.yaml
+|  |  ├── security.yaml
+|  |  ├── sensio_framework_extra.yaml
+|  |  ├── swiftmailer.yaml
+|  |  ├── test
+|  |  |  ├── framework.yaml
+|  |  |  ├── monolog.yaml
+|  |  |  ├── routing.yaml
+|  |  |  ├── swiftmailer.yaml
+|  |  |  └── web_profiler.yaml
+|  |  ├── translation.yaml
+|  |  ├── twig.yaml
+|  |  └── validator.yaml
+|  ├── routes
+|  |  ├── annotations.yaml
+|  |  └── dev
+|  |     ├── twig.yaml
+|  |     └── web_profiler.yaml
+|  ├── routes.yaml
+|  └── services.yaml
+├── package.json
+├── phpunit.xml.dist
+├── public
+|  └── index.php
+├── src
+|  ├── Controller
+|  ├── DBAL
+|  |  └── Types
+|  |     ├── BannerType.php
+|  |     ├── ConsumerType.php
+|  |     ├── OrderType.php
+|  |     └── SexType.php
+|  ├── Entity
+|  |  ├── Banner.php
+|  |  ├── ClassifyGoods.php
+|  |  ├── Consumer.php
+|  |  ├── Goods.php
+|  |  ├── Order.php
+|  |  └── ReceiptInfo.php
+|  ├── Kernel.php
+|  ├── Migrations
+|  └── Repository
+|     ├── BannerRepository.php
+|     ├── ClassifyGoodsRepository.php
+|     ├── ConsumerRepository.php
+|     ├── GoodsRepository.php
+|     ├── OrderRepository.php
+|     └── ReceiptInfoRepository.php
+├── symfony.lock
+├── templates
+|  └── base.html.twig
+├── tests
+├── translations
+├── tree.txt
+└── webpack.config.js
+
+directory: 2678 file: 12024 
