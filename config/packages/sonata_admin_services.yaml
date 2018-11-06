@@ -1,0 +1,16 @@
+services:
+  app.admin.banner:
+    class: App\Admin\BannerAdmin
+    arguments: [~, App\Entity\Banner, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: '轮播图管理' }
+    calls:
+      - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
+    public: true
+
+  app.admin.goods:
+    class: App\Admin\GoodsAdmin
+    arguments: [~, App\Entity\Goods, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, label: '商品管理' }
+    public: true

@@ -123,9 +123,4 @@ class Banner
     {
         $this->file = $file;
     }
-
-    // public function myCallback($fileInfo) {
-    //     dump($fileInfo); die();
-    //     $this->setImage($fileInfo['filePath']);
-    // }
 }

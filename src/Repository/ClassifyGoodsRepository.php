@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\ClassifyGoods;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Gedmo\Sortable\Entity\Repository\SortableRepository;
 
 /**
  * @method ClassifyGoods|null find($id, $lockMode = null, $lockVersion = null)
@@ -12,7 +13,7 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
  * @method ClassifyGoods[]    findAll()
  * @method ClassifyGoods[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class ClassifyGoodsRepository extends ServiceEntityRepository
+class ClassifyGoodsRepository extends SortableRepository
 {
     public function __construct(RegistryInterface $registry)
     {

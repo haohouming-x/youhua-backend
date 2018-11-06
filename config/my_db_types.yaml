@@ -6,3 +6,4 @@ doctrine:
         OrderType: App\DBAL\Types\OrderType
         BannerType: App\DBAL\Types\BannerType
         OrderBillType: App\DBAL\Types\OrderBillType
+        datetime: App\DBAL\Types\PRCDateTimeType

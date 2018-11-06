@@ -2,11 +2,22 @@ sonata_admin:
     title: '油画'
     options:
       title_mode: 'single_text'
+    show_mosaic_button: false
     dashboard:
         blocks:
             - { type: sonata.admin.block.admin_list, position: left }
+    assets:
+       extra_stylesheets:
+          - 'admin/css/common.css'
 
 sonata_block:
+    default_contexts: [sonata_page_bundle]
     blocks:
         sonata.admin.block.admin_list:
             contexts: [admin]
+
+picoss_sonata_extra_admin:
+  templates:
+    types:
+      show:
+        image: 'admin/show_image.html.twig'

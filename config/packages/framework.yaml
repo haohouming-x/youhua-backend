@@ -1,6 +1,10 @@
+parameters:
+    locale: 'zh_CN'
+
 framework:
     translator: { fallbacks: ["%locale%"] }
     secret: '%env(APP_SECRET)%'
+    # translator: ~
     #default_locale: en
     #csrf_protection: true
     #http_method_override: true
@@ -26,6 +30,7 @@ framework:
         # Redis
         #app: cache.adapter.redis
         #default_redis_provider: redis://localhost
+
 
         # APCu (not recommended with heavy random-write workloads as memory fragmentation can cause perf issues)
         #app: cache.adapter.apcu

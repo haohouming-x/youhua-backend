@@ -116,6 +116,9 @@
     "phpdocumentor/type-resolver": {
         "version": "0.4.0"
     },
+    "picoss/sonata-extra-admin-bundle": {
+        "version": "4.0"
+    },
     "psr/cache": {
         "version": "1.0.1"
     },
@@ -148,6 +151,9 @@
             "version": "3.31",
             "ref": "0e5931df1732e3dccfba42a20853049e5e9db6ae"
         }
+    },
+    "sonata-project/doctrine-orm-admin-bundle": {
+        "version": "3.6.3"
     },
     "swiftmailer/swiftmailer": {
         "version": "v6.1.2"

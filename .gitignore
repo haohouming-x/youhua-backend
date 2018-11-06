@@ -1,4 +1,3 @@
-
 ###> symfony/framework-bundle ###
 /.env
 /public/bundles/
@@ -9,6 +8,7 @@
 ###> symfony/webpack-encore-pack ###
 /node_modules/
 /public/build/
+/public/uploads/
 npm-debug.log
 yarn-error.log
 ###< symfony/webpack-encore-pack ###
