@@ -4,12 +4,20 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use App\Entity\Helper\TimestampableEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GoodsBannerRepository")
  */
 class GoodsBanner
 {
+    /**
+     * Hook timestampable behavior
+     * updates created_at, updated_at fields
+     */
+    use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -27,18 +35,6 @@ class GoodsBanner
      * @ORM\JoinColumn(nullable=false)
      */
     private $goods;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $created_at;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Gedmo\Timestampable(on="update")
-     */
-    private $updated_at;
 
     public function getId()
     {

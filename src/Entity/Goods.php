@@ -6,6 +6,8 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use App\Entity\Helper\TimestampableEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GoodsRepository")
@@ -14,11 +16,22 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Goods
 {
     /**
+     * Hook timestampable behavior
+     * updates created_at, updated_at fields
+     */
+    use TimestampableEntity;
+
+    /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $name;
 
     /**
      * @ORM\Column(type="integer")
@@ -30,18 +43,6 @@ class Goods
      * @Gedmo\UploadableFileName
      */
     private $image;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $created_at;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Gedmo\Timestampable(on="update")
-     */
-    private $updated_at;
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\ClassifyGoods", inversedBy="goods")
@@ -119,30 +120,6 @@ class Goods
     public function setImage(string $image): self
     {
         $this->image = $image;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(?\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
-    {
-        $this->updated_at = $updated_at;
 
         return $this;
     }
@@ -284,6 +261,18 @@ class Goods
     public function setOrderBill(?OrderBill $orderBill): self
     {
         $this->orderBill = $orderBill;
+
+        return $this;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): self
+    {
+        $this->name = $name;
 
         return $this;
     }

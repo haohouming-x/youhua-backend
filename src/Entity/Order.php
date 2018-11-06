@@ -5,6 +5,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\DBAL\Types\OrderType;
+use App\Entity\Helper\TimestampableEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
@@ -12,6 +14,12 @@ use App\DBAL\Types\OrderType;
  */
 class Order
 {
+    /**
+     * Hook timestampable behavior
+     * updates created_at, updated_at fields
+     */
+    use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -40,19 +48,7 @@ class Order
     private $status;
 
     /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $created_at;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
-     */
-    private $updated_at;
-
-    /**
-     * @ORM\Column(name="deletedAt", type="datetime", nullable=true)
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     private $deleted_at;
 
@@ -122,30 +118,6 @@ class Order
     public function setStatus(string $status): self
     {
         $this->status = $status;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
-    {
-        $this->updated_at = $updated_at;
 
         return $this;
     }

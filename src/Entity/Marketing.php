@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use App\Entity\Helper\TimestampableEntity;
 
 
 /**
@@ -11,6 +12,12 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Marketing
 {
+    /**
+     * Hook timestampable behavior
+     * updates created_at, updated_at fields
+     */
+    use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -52,18 +59,6 @@ class Marketing
      * @ORM\Column(type="integer")
      */
     private $validity_datet;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $created_at;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
-     */
-    private $updated_at;
 
     public function getId()
     {
@@ -150,30 +145,6 @@ class Marketing
     public function setValidityDatet(int $validity_datet): self
     {
         $this->validity_datet = $validity_datet;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(?\DateTimeInterface $updated_at): self
-    {
-        $this->updated_at = $updated_at;
 
         return $this;
     }

@@ -5,13 +5,22 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\DBAL\Types\BannerType;
+use App\Entity\Helper\TimestampableEntity;
+use Symfony\Component\HttpFoundation\File\{File, UploadedFile};
+
 
 /**
- * @Gedmo\Uploadable(path="/uploads/images", filenameGenerator="SHA1", allowOverwrite=false, appendNumber=true)
+ * @Gedmo\Uploadable(path="uploads/images", filenameGenerator="SHA1", allowOverwrite=false, appendNumber=true)
  * @ORM\Entity(repositoryClass="App\Repository\BannerRepository")
  */
 class Banner
 {
+    /**
+     * Hook timestampable behavior
+     * updates created_at, updated_at fields
+     */
+    use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -21,7 +30,7 @@ class Banner
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Gedmo\UploadableFileName
+     * @Gedmo\UploadableFilePath
      */
     private $image;
 
@@ -40,17 +49,7 @@ class Banner
      */
     private $goods;
 
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $created_at;
-
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     * @Gedmo\Timestampable(on="update")
-     */
-    private $updated_at;
+    private $file;
 
     public function getId()
     {
@@ -105,27 +104,28 @@ class Banner
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    /**
+     * Get file.
+     *
+     * @return UploadedFile
+     */
+    public function getFile()
     {
-        return $this->created_at;
+        return $this->file;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $created_at): self
+    /**
+     * Sets file.
+     *
+     * @param UploadedFile $file
+     */
+    public function setFile(UploadedFile $file = null)
     {
-        $this->created_at = $created_at;
-
-        return $this;
+        $this->file = $file;
     }
 
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
-    {
-        $this->updated_at = $updated_at;
-
-        return $this;
-    }
+    // public function myCallback($fileInfo) {
+    //     dump($fileInfo); die();
+    //     $this->setImage($fileInfo['filePath']);
+    // }
 }

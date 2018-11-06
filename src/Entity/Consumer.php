@@ -8,6 +8,8 @@ use Doctrine\ORM\Mapping as ORM;
 use App\DBAL\Types\{ConsumerType, SexType};
 use Gedmo\Mapping\Annotation as Gedmo;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
+use App\Entity\Helper\TimestampableEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ConsumerRepository")
@@ -16,6 +18,12 @@ use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
  */
 class Consumer
 {
+    /**
+     * Hook timestampable behavior
+     * updates created_at, updated_at fields
+     */
+    use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -49,18 +57,6 @@ class Consumer
      * @ORM\Column(type="integer", nullable=true)
      */
     private $serplusDate;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="create")
-     */
-    private $created_at;
-
-    /**
-     * @ORM\Column(type="datetime")
-     * @Gedmo\Timestampable(on="update")
-     */
-    private $updated_at;
 
     /**
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
@@ -154,30 +150,6 @@ class Consumer
     public function setSerplusDate(?int $serplusDate): self
     {
         $this->serplusDate = $serplusDate;
-
-        return $this;
-    }
-
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $created_at): self
-    {
-        $this->created_at = $created_at;
-
-        return $this;
-    }
-
-    public function getUpdatedAt(): ?\DateTimeInterface
-    {
-        return $this->updated_at;
-    }
-
-    public function setUpdatedAt(\DateTimeInterface $updated_at): self
-    {
-        $this->updated_at = $updated_at;
 
         return $this;
     }
