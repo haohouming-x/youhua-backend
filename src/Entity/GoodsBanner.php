@@ -9,6 +9,7 @@ use App\Entity\Helper\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GoodsBannerRepository")
+ * @Gedmo\Uploadable(path="uploads/images", filenameGenerator="SHA1", allowOverwrite=false, appendNumber=true)
  */
 class GoodsBanner
 {
@@ -27,6 +28,7 @@ class GoodsBanner
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Gedmo\UploadableFilePath
      */
     private $image;
 

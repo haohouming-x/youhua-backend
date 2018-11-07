@@ -16,6 +16,7 @@ use App\Entity\Banner;
 
 class BannerAdmin extends FileUploaderAdmin
 {
+    // protected $translationDomain = 'SonataPageBundle'; // default is 'messages'
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper

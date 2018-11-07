@@ -6,16 +6,16 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\Entity\Helper\TimestampableEntity;
+use App\Entity\Helper\{TimestampableEntity, FileUploadTrait};
 
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ClassifyGoodsRepository")
- * @Gedmo\Uploadable(path="/uploads/images", filenameGenerator="SHA1", allowOverwrite=false, appendNumber=true)
+ * @Gedmo\Uploadable(path="uploads/images", filenameGenerator="SHA1", allowOverwrite=false, appendNumber=true)
  */
 class ClassifyGoods
 {
-    use TimestampableEntity;
+    use TimestampableEntity, FileUploadTrait;
 
     /**
      * @ORM\Id()
@@ -31,7 +31,7 @@ class ClassifyGoods
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @Gedmo\UploadableFileName
+     * @Gedmo\UploadableFilePath
      */
     private $image;
 

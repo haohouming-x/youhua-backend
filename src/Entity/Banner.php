@@ -5,8 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\DBAL\Types\BannerType;
-use App\Entity\Helper\TimestampableEntity;
-use Symfony\Component\HttpFoundation\File\{File, UploadedFile};
+use App\Entity\Helper\{TimestampableEntity, FileUploadTrait};
 
 
 /**
@@ -19,7 +18,7 @@ class Banner
      * Hook timestampable behavior
      * updates created_at, updated_at fields
      */
-    use TimestampableEntity;
+    use TimestampableEntity, FileUploadTrait;
 
     /**
      * @ORM\Id()
@@ -102,25 +101,5 @@ class Banner
         $this->goods = $goods;
 
         return $this;
-    }
-
-    /**
-     * Get file.
-     *
-     * @return UploadedFile
-     */
-    public function getFile()
-    {
-        return $this->file;
-    }
-
-    /**
-     * Sets file.
-     *
-     * @param UploadedFile $file
-     */
-    public function setFile(UploadedFile $file = null)
-    {
-        $this->file = $file;
     }
 }

@@ -13,7 +13,7 @@ use App\Entity\Helper\TimestampableEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ConsumerRepository")
- * @Gedmo\Uploadable(path="/uploads/images", filenameGenerator="SHA1", allowOverwrite=false, appendNumber=true)
+ * @Gedmo\Uploadable(path="uploads/images", filenameGenerator="SHA1", allowOverwrite=false, appendNumber=true)
  * @Gedmo\SoftDeleteable(fieldName="deleted_at", timeAware=false, hardDelete=true)
  */
 class Consumer
@@ -33,7 +33,7 @@ class Consumer
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Gedmo\UploadableFileName
+     * @Gedmo\UploadableFilePath
      */
     private $image;
 

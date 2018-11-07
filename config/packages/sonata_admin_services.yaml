@@ -1,16 +1,25 @@
 services:
-  app.admin.banner:
+  admin.banner:
     class: App\Admin\BannerAdmin
     arguments: [~, App\Entity\Banner, ~]
     tags:
-      - { name: sonata.admin, manager_type: orm, label: '轮播图管理' }
+      - { name: sonata.admin, manager_type: orm, group: '运营管理', label: '轮播图管理' }
     calls:
       - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
     public: true
 
-  app.admin.goods:
+  admin.goods:
     class: App\Admin\GoodsAdmin
     arguments: [~, App\Entity\Goods, ~]
     tags:
-      - { name: sonata.admin, manager_type: orm, label: '商品管理' }
+      - { name: sonata.admin, manager_type: orm, group: '商品管理', label: '商品' }
+    public: true
+
+  admin.classify_goods:
+    class: App\Admin\ClassifyGoodsAdmin
+    arguments: [~, App\Entity\ClassifyGoods, PicossSonataExtraAdminBundle:ExtraAdmin]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: '商品管理', label: '商品分类' }
+    calls:
+      - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
     public: true
