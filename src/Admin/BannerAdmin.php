@@ -6,7 +6,6 @@ use Sonata\AdminBundle\Datagrid\{DatagridMapper, ListMapper};
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\Type\{ChoiceFieldMaskType, ModelListType};
-use Sonata\CoreBundle\Form\Type\CollectionType;
 use Symfony\Component\Form\Extension\Core\Type\{TextType, FileType};
 use Gedmo\Uploadable\UploadableListener;
 use App\Admin\FileUploaderAdmin;
@@ -14,7 +13,7 @@ use App\DBAL\Types\BannerType;
 use App\Entity\Banner;
 
 
-class BannerAdmin extends FileUploaderAdmin
+final class BannerAdmin extends FileUploaderAdmin
 {
     // protected $translationDomain = 'SonataPageBundle'; // default is 'messages'
     protected function configureListFields(ListMapper $listMapper)

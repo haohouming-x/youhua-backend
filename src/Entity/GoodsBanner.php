@@ -4,7 +4,7 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\Entity\Helper\TimestampableEntity;
+use App\Entity\Helper\{TimestampableEntity, FileUploadTrait};
 
 
 /**
@@ -17,7 +17,7 @@ class GoodsBanner
      * Hook timestampable behavior
      * updates created_at, updated_at fields
      */
-    use TimestampableEntity;
+    use TimestampableEntity, FileUploadTrait;
 
     /**
      * @ORM\Id()

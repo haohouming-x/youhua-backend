@@ -13,6 +13,8 @@ services:
     arguments: [~, App\Entity\Goods, ~]
     tags:
       - { name: sonata.admin, manager_type: orm, group: '商品管理', label: '商品' }
+    calls:
+      - [ setUploadableListener, [ "@rip.listener.uploadable" ] ]
     public: true
 
   admin.classify_goods:
@@ -23,3 +25,10 @@ services:
     calls:
       - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
     public: true
+
+  admin.goods_banner:
+    class: App\Admin\GoodsBannerAdmin
+    arguments: [~, App\Entity\GoodsBanner, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: admin, label: GoodsBanner, show_in_dashboard: false }
+    public: false

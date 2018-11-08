@@ -52,6 +52,13 @@ services:
         calls:
             - [ setAnnotationReader, [ "@annotation_reader" ] ]
 
+    rip.listener.uploadable:
+        class: App\DependencyInjection\UploadableListener
+        tags:
+          - { name: doctrine.event_subscriber, connection: default }
+        calls:
+          - [ setAnnotationReader, [ "@annotation_reader" ] ]
+
 doctrine:
     orm:
         entity_managers:

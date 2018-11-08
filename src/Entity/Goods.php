@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\Entity\Helper\TimestampableEntity;
+use App\Entity\Helper\{TimestampableEntity, FileUploadTrait};
 
 
 /**
@@ -19,7 +19,7 @@ class Goods
      * Hook timestampable behavior
      * updates created_at, updated_at fields
      */
-    use TimestampableEntity;
+    use TimestampableEntity, FileUploadTrait;
 
     /**
      * @ORM\Id()
@@ -80,14 +80,14 @@ class Goods
     private $details;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\GoodsBanner", mappedBy="goods", orphanRemoval=true)
-     */
-    private $pictures;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\OrderBill", inversedBy="goods")
      */
     private $orderBill;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\GoodsBanner", mappedBy="goods", orphanRemoval=true,cascade={"all"})
+     */
+    private $pictures;
 
     public function __construct()
     {
