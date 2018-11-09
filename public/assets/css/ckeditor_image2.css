@@ -1,0 +1,5 @@
+img {
+    vertical-align: baseline;
+    max-width: 100%;
+    height: auto !important;  // this line can cause problems in your design
+}

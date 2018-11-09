@@ -15,7 +15,8 @@ use App\Entity\Banner;
 
 final class BannerAdmin extends FileUploaderAdmin
 {
-    // protected $translationDomain = 'SonataPageBundle'; // default is 'messages'
+    protected $classnameLabel = '轮播图';
+
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -53,21 +54,24 @@ final class BannerAdmin extends FileUploaderAdmin
                 'label' => '类型',
                 'expanded' => true,
                 'choices' => BannerType::getChoices(),
+                'empty_data' => BannerType::LINK,
                 'map' => [
+                    BannerType::GOODS => ['goods'],
                     BannerType::LINK => ['link'],
-                    BannerType::GOODS => ['goods']
                 ]
             ])
             ->add('link', TextType::class, [
-                'label' => '链接'
+                'label' => '链接',
+                'required' => false
             ])
             ->add('goods', ModelListType::class, [
+                'by_reference' => true,
                 'label' => '商品选择',
                 'btn_list' => '选择',
                 'btn_delete' => '移除',
+                'btn_edit' => false,
                 'btn_add' => false
             ]);
-
     }
 
     public function prePersist($banner)

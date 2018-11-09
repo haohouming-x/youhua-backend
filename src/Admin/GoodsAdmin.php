@@ -7,7 +7,9 @@ use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\Type\{ModelType};
 use Sonata\CoreBundle\Form\Type\CollectionType;
 use Sonata\CoreBundle\Validator\ErrorElement;
+use Sonata\FormatterBundle\Form\Type\SimpleFormatterType;
 use Symfony\Component\Form\Extension\Core\Type\{TextType, FileType, IntegerType, NumberType, TextareaType, MoneyType};
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use App\DependencyInjection\UploadableListener;
 use App\Admin\FileUploaderAdmin;
 use App\Entity\Goods;
@@ -15,6 +17,7 @@ use App\Entity\Goods;
 
 final class GoodsAdmin extends FileUploaderAdmin
 {
+    protected $classnameLabel = '商品';
 
     protected function configureListFields(ListMapper $listMapper)
     {
@@ -86,23 +89,34 @@ final class GoodsAdmin extends FileUploaderAdmin
                     'min' => 0
                 ]
             ])
-            ->add('market_price', MoneyType::class, [
-                'label' => '市场价',
-                'currency' => 'CNY'
-            ])
-            ->add('deposit_price', MoneyType::class, [
-                'label' => '押金价',
-                'currency' => 'CNY'
-            ])
             ->end()
-            ->with('尺寸')
-            ->add('long_size', NumberType::class, [
-                    'label' => false
+            ->with('价格', [
+                'class' => 'col-xs-6'
+            ])
+                ->add('market_price', MoneyType::class, [
+                    'label' => '市场价',
+                    'currency' => 'CNY'
                 ])
-            ->add('wide_size', NumberType::class, [
-                    'label' => false
+                ->add('deposit_price', MoneyType::class, [
+                    'label' => '押金价',
+                    'currency' => 'CNY'
                 ])
             ->end()
+            ->with('尺寸', [
+                'class' => 'col-xs-6'
+            ])
+                ->add('long_size', NumberType::class, [
+                        'label' => false
+                    ])
+                ->add('wide_size', NumberType::class, [
+                        'label' => false
+                    ])
+            ->end()
+            ->add('details', SimpleFormatterType::class, [
+                'label' => '详情',
+                'format' => 'richhtml',
+                'ckeditor_context' => 'rip_config'
+            ])
             ;
     }
 

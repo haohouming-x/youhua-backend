@@ -15,6 +15,8 @@ use App\Admin\FileUploaderAdmin;
 
 final class ClassifyGoodsAdmin extends FileUploaderAdmin
 {
+    protected $classnameLabel = '商品分类';
+
     protected $datagridValues = array(
         '_page' => 1,
         '_sort_order' => 'ASC',

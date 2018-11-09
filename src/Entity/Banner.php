@@ -45,6 +45,7 @@ class Banner
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Goods")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $goods;
 
@@ -101,5 +102,10 @@ class Banner
         $this->goods = $goods;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getId();
     }
 }

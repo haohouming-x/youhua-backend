@@ -1,0 +1,57 @@
+fos_ck_editor:
+    input_sync: true
+    default_config: rip_config
+
+    plugins:
+        image2:
+            path:     "/vendor/ckeditor/plugin/image2/"
+            filename: "plugin.js"
+
+        # easyimage:
+        #     path:     "/vendor/ckeditor/plugin/easyimage/"
+        #     filename: "plugin.js"
+        # imagebase:
+        #     path:     "/vendor/ckeditor/plugin/imagebase/"
+        #     filename: "plugin.js"
+        # balloontoolbar:
+        #     path:     "/vendor/ckeditor/plugin/balloontoolbar/"
+        #     filename: "plugin.js"
+        # balloonpanel:
+        #     path:     "/vendor/ckeditor/plugin/balloonpanel/"
+        #     filename: "plugin.js"
+
+    configs:
+        rip_config:
+            extraPlugins: "image2"
+            # easyimage_toolbar: ['EasyImageFull', 'EasyImageSide']
+            removePlugins: "image"
+            toolbar: "full"
+            removeDialogTabs: "link:target;link:advanced;image:Link;image:advanced"
+
+            image2_prefillDimensions: false
+            contentsCss: "assets/css/ckeditor_image2.css"
+
+            filebrowserUploadMethod: 'form'
+            filebrowserBrowseRoute: admin_sonata_media_media_ckeditor_browser
+
+            filebrowserImageBrowseRoute: admin_sonata_media_media_ckeditor_browser
+            # Display images by default when clicking the image dialog browse button
+            filebrowserImageBrowseRouteParameters:
+                provider: sonata.media.provider.image
+
+            filebrowserUploadRoute: admin_sonata_media_media_ckeditor_upload
+            filebrowserUploadRouteParameters:
+                provider: sonata.media.provider.file
+
+            # Upload file as image when sending a file from the image dialog
+            filebrowserImageUploadRoute: admin_sonata_media_media_ckeditor_upload
+            filebrowserImageUploadRouteParameters:
+                provider: sonata.media.provider.image
+
+    toolbars:
+        items:
+            full.colors: [ "TextColor", "BGColor" ]
+            full.document: [ "Source", "-", "Preview", "Print" ]
+            full.insert: [ 'Image', 'Table', 'HorizontalRule', 'SpecialChar', 'Smiley', 'PageBreak']
+    # autoload: false
+    # async: true
