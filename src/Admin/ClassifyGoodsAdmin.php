@@ -32,12 +32,17 @@ final class ClassifyGoodsAdmin extends FileUploaderAdmin
         $collection->add('move', $this->getRouterIdParameter().'/move/{position}');
     }
 
-    // protected function configureDatagridFilters(DatagridMapper $datagridMapper)
-    // {
-    //     $datagridMapper
-    //         ->add('name')
-    //         ;
-    // }
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('name', null, [
+                'label' => '名称'
+            ])
+            ->add('created_at', 'doctrine_orm_date', [
+                'label' => '创建时间'
+            ])
+            ;
+    }
 
     protected function configureListFields(ListMapper $listMapper)
     {

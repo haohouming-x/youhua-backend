@@ -19,6 +19,35 @@ final class GoodsAdmin extends FileUploaderAdmin
 {
     protected $classnameLabel = '商品';
 
+    protected function configureDatagridFilters(DatagridMapper $datagridMapper)
+    {
+        $datagridMapper
+            ->add('name', null, [
+                'label' => '名称'
+            ])
+            ->add('classify', 'doctrine_orm_model', [
+                'label' => '分类'
+            ], null, [
+                'multiple' => true,
+                'class' => 'App\Entity\ClassifyGoods'
+            ])
+            ->add('stock', 'doctrine_orm_number', [
+                'label' => '库存'
+            ])
+            ->add('market_price', 'doctrine_orm_number', [
+                'label' => '市场价',
+                'currency' => '￥'
+            ])
+            ->add('deposit_price', 'doctrine_orm_number', [
+                'label' => '押金价',
+                'currency' => '￥'
+            ])
+            ->add('created_at', 'doctrine_orm_date', [
+                'label' => '创建时间'
+            ])
+            ;
+    }
+
     protected function configureListFields(ListMapper $listMapper)
     {
         $listMapper
@@ -45,6 +74,10 @@ final class GoodsAdmin extends FileUploaderAdmin
             ->add('deposit_price', 'currency', [
                 'label' => '押金价',
                 'currency' => '￥'
+            ])
+            ->add('created_at', null, [
+                'label' => '创建时间',
+                'format' => 'Y-m-d H:i:s'
             ])
             ->add('_action', null, [
                 'actions' => [

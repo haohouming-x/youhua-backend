@@ -6,7 +6,7 @@ use Sonata\AdminBundle\Datagrid\{DatagridMapper, ListMapper};
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Form\Type\{ChoiceFieldMaskType, ModelListType};
-use Symfony\Component\Form\Extension\Core\Type\{TextType, FileType};
+use Symfony\Component\Form\Extension\Core\Type\{TextType, FileType, ChoiceType};
 use Gedmo\Uploadable\UploadableListener;
 use App\Admin\FileUploaderAdmin;
 use App\DBAL\Types\BannerType;
@@ -25,6 +25,10 @@ final class BannerAdmin extends FileUploaderAdmin
                 'prefix' => '/',
                 'width' => 125,
                 'height' => 125,
+            ])
+            ->add('type', 'choice', [
+                'label' => '跳转类型',
+                'choices' => BannerType::getReadableValues()
             ])
             ->add('created_at', 'datetime', [
                 'label' => '创建时间',
@@ -100,7 +104,15 @@ final class BannerAdmin extends FileUploaderAdmin
 
     protected function configureDatagridFilters(DatagridMapper $datagridMapper)
     {
-        // $datagridMapper->add('name');
+        $datagridMapper
+            ->add('type', null, [
+                'label' => '跳转链接类型',
+            ], ChoiceType::class, [
+                'choices' => BannerType::getChoices()
+            ])
+            ->add('created_at', 'doctrine_orm_date', [
+                'label' => '创建时间'
+            ]);
     }
 
 }
