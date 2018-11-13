@@ -114,7 +114,7 @@ final class GoodsAdmin extends FileUploaderAdmin
             ], [
                 'edit' => 'inline',
                 'inline' => 'table',
-                'admin_code' => 'admin.goods_banner'
+                'admin_code' => 'app.admin.goods_banner'
             ])
             ->add('stock', IntegerType::class, [
                 'label' => '库存',

@@ -4,10 +4,11 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\Entity\Helper\TimestampableEntity;
+use App\Entity\Helper\{TimestampableEntity, FileUploadTrait};
 
 
 /**
+ * @Gedmo\Uploadable(path="uploads/images", filenameGenerator="SHA1", allowOverwrite=false, appendNumber=true)
  * @ORM\Entity(repositoryClass="App\Repository\MarketingRepository")
  */
 class Marketing
@@ -16,7 +17,7 @@ class Marketing
      * Hook timestampable behavior
      * updates created_at, updated_at fields
      */
-    use TimestampableEntity;
+    use TimestampableEntity, FileUploadTrait;
 
     /**
      * @ORM\Id()
@@ -27,6 +28,7 @@ class Marketing
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Gedmo\UploadableFilePath
      */
     private $image;
 
@@ -53,12 +55,12 @@ class Marketing
     /**
      * @ORM\Column(type="float")
      */
-    private $discount_price;
+    private $discount;
 
     /**
      * @ORM\Column(type="integer")
      */
-    private $validity_datet;
+    private $validity_date;
 
     public function getId()
     {
@@ -125,26 +127,26 @@ class Marketing
         return $this;
     }
 
-    public function getDiscountPrice(): ?float
+    public function getDiscount(): ?float
     {
-        return $this->discount_price;
+        return $this->discount;
     }
 
-    public function setDiscountPrice(float $discount_price): self
+    public function setDiscount(float $discount): self
     {
-        $this->discount_price = $discount_price;
+        $this->discount = $discount;
 
         return $this;
     }
 
-    public function getValidityDatet(): ?int
+    public function getValidityDate(): ?int
     {
-        return $this->validity_datet;
+        return $this->validity_date;
     }
 
-    public function setValidityDatet(int $validity_datet): self
+    public function setValidityDate(int $validity_date): self
     {
-        $this->validity_datet = $validity_datet;
+        $this->validity_date = $validity_date;
 
         return $this;
     }

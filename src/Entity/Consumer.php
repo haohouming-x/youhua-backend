@@ -54,11 +54,6 @@ class Consumer
     private $sex;
 
     /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $serplusDate;
-
-    /**
      * @ORM\Column(name="deleted_at", type="datetime", nullable=true)
      */
     private $deleted_at;
@@ -82,6 +77,11 @@ class Consumer
      * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="consumer")
      */
     private $orders;
+
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Member", mappedBy="consumer", cascade={"persist", "remove"})
+     */
+    private $member;
 
     public function __construct()
     {
@@ -138,18 +138,6 @@ class Consumer
     public function setSex(string $sex): self
     {
         $this->sex = $sex;
-
-        return $this;
-    }
-
-    public function getSerplusDate(): ?int
-    {
-        return $this->serplusDate;
-    }
-
-    public function setSerplusDate(?int $serplusDate): self
-    {
-        $this->serplusDate = $serplusDate;
 
         return $this;
     }
@@ -247,6 +235,23 @@ class Consumer
             if ($order->getConsumer() === $this) {
                 $order->setConsumer(null);
             }
+        }
+
+        return $this;
+    }
+
+    public function getMember(): ?Member
+    {
+        return $this->member;
+    }
+
+    public function setMember(Member $member): self
+    {
+        $this->member = $member;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $member->getConsumer()) {
+            $member->setConsumer($this);
         }
 
         return $this;

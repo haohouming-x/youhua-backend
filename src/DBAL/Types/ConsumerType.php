@@ -7,10 +7,10 @@ final class ConsumerType extends AbstractEnumType
 {
     public const YOU_KE = 'YK';
 
-    public const DIALOG_IMG = 'DI';
+    public const HUI_YUAN = 'HY';
 
     protected static $choices = [
         self::YOU_KE => '游客',
-        self::DIALOG_IMG => 'dialog image',
+        self::HUI_YUAN => '会员',
     ];
 }

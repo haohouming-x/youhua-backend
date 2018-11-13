@@ -1,5 +1,5 @@
 services:
-  admin.banner:
+  app.admin.banner:
     class: App\Admin\BannerAdmin
     arguments: [~, App\Entity\Banner, ~]
     tags:
@@ -8,7 +8,7 @@ services:
       - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
     public: true
 
-  admin.goods:
+  app.admin.goods:
     class: App\Admin\GoodsAdmin
     arguments: [~, App\Entity\Goods, ~]
     tags:
@@ -17,7 +17,7 @@ services:
       - [ setUploadableListener, [ "@rip.listener.uploadable" ] ]
     public: true
 
-  admin.classify_goods:
+  app.admin.classify_goods:
     class: App\Admin\ClassifyGoodsAdmin
     arguments: [~, App\Entity\ClassifyGoods, PicossSonataExtraAdminBundle:ExtraAdmin]
     tags:
@@ -26,9 +26,32 @@ services:
       - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
     public: true
 
-  admin.goods_banner:
+  app.admin.goods_banner:
     class: App\Admin\GoodsBannerAdmin
     arguments: [~, App\Entity\GoodsBanner, ~]
     tags:
       - { name: sonata.admin, manager_type: orm, group: admin, label: GoodsBanner, show_in_dashboard: false }
     public: false
+
+  app.admin.marketing:
+    class: App\Admin\MarketingAdmin
+    arguments: [~, App\Entity\Marketing, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: '运营管理', label: '营销设置' }
+    calls:
+      - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
+    public: true
+
+  app.admin.custom_page:
+    class: App\Admin\CustomPageAdmin
+    arguments: [~, App\Entity\CustomPage, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: '运营管理', label: '自定义页面' }
+    public: true
+
+  app.admin.consumer:
+    class: App\Admin\ConsumerAdmin
+    arguments: [~, App\Entity\Consumer, ~]
+    tags:
+      - { name: sonata.admin, manager_type: orm, group: '用户管理', label: '用户信息' }
+    public: true
