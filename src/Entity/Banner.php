@@ -34,7 +34,7 @@ class Banner
     private $image;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="BannerType", length=255)
      */
     private $type;
 
