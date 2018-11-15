@@ -40,3 +40,10 @@ picoss_sonata_extra_admin:
         types:
           show:
             image: 'admin/show_image.html.twig'
+
+# sonata_intl:
+#     timezone:
+#         locales:
+#             fr:    Europe/Paris
+#             en_UK: Europe/London
+#             zh_CN: PRC

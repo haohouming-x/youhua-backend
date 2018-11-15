@@ -34,3 +34,7 @@ doctrine:
 
             ApplicationSonataMediaBundle: ~
             SonataMediaBundle: ~
+
+            ApplicationSonataUserBundle: ~
+            SonataUserBundle: ~
+            FOSUserBundle: ~

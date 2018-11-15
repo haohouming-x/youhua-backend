@@ -14,6 +14,10 @@
                 <source>btn_filter</source>
                 <target>搜索</target>
             </trans-unit>
+            <trans-unit id="flash_position_updated_successfully">
+                <source>flash_position_updated_successfully</source>
+                <target>位置调整成功</target>
+            </trans-unit>
         </body>
     </file>
 </xliff>
