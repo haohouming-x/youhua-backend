@@ -3,9 +3,6 @@ security:
     providers:
         in_memory: { memory: ~ }
 
-        fos_userbundle:
-            id: fos_user.user_provider.username
-
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/

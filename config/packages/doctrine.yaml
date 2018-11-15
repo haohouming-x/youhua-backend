@@ -1,6 +1,3 @@
-imports:
-    - { resource: ../my_db_types.yaml }
-
 parameters:
     # Adds a fallback DATABASE_URL if the env var is not set.
     # This allows you to run cache:warmup even if your
@@ -31,10 +28,3 @@ doctrine:
                 dir: '%kernel.project_dir%/src/Entity'
                 prefix: 'App\Entity'
                 alias: App
-
-            ApplicationSonataMediaBundle: ~
-            SonataMediaBundle: ~
-
-            ApplicationSonataUserBundle: ~
-            SonataUserBundle: ~
-            FOSUserBundle: ~

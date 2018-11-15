@@ -1,57 +1,57 @@
 services:
-  app.admin.banner:
-    class: App\Admin\BannerAdmin
-    arguments: [~, App\Entity\Banner, ~]
-    tags:
-      - { name: sonata.admin, manager_type: orm, group: sonata_admin_operate, label: BannerAdmin }
-    calls:
-      - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
-    public: true
+    app.admin.banner:
+        class: App\Admin\BannerAdmin
+        arguments: [~, App\Entity\Banner, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: sonata_admin_operate, label: BannerAdmin }
+        calls:
+            - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
+        public: true
 
-  app.admin.goods:
-    class: App\Admin\GoodsAdmin
-    arguments: [~, App\Entity\Goods, ~]
-    tags:
-      - { name: sonata.admin, manager_type: orm, group: sonata_admin_goods, label: GoodsAdmin }
-    calls:
-      - [ setUploadableListener, [ "@rip.listener.uploadable" ] ]
-    public: true
+    app.admin.goods:
+        class: App\Admin\GoodsAdmin
+        arguments: [~, App\Entity\Goods, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: sonata_admin_goods, label: GoodsAdmin }
+        calls:
+            - [ setUploadableListener, [ "@rip.listener.uploadable" ] ]
+        public: true
 
-  app.admin.classify_goods:
-    class: App\Admin\ClassifyGoodsAdmin
-    arguments: [~, App\Entity\ClassifyGoods, PicossSonataExtraAdminBundle:ExtraAdmin]
-    tags:
-      - { name: sonata.admin, manager_type: orm, group: sonata_admin_goods, label: ClassifyGoodsAdmin }
-    calls:
-      - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
-    public: true
+    app.admin.classify_goods:
+        class: App\Admin\ClassifyGoodsAdmin
+        arguments: [~, App\Entity\ClassifyGoods, PicossSonataExtraAdminBundle:ExtraAdmin]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: sonata_admin_goods, label: ClassifyGoodsAdmin }
+        calls:
+            - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
+        public: true
 
-  app.admin.goods_banner:
-    class: App\Admin\GoodsBannerAdmin
-    arguments: [~, App\Entity\GoodsBanner, ~]
-    tags:
-      - { name: sonata.admin, manager_type: orm, group: admin, label: GoodsBanner, show_in_dashboard: false }
-    public: false
+    app.admin.goods_banner:
+        class: App\Admin\GoodsBannerAdmin
+        arguments: [~, App\Entity\GoodsBanner, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: admin, label: GoodsBanner, show_in_dashboard: false }
+        public: false
 
-  app.admin.marketing:
-    class: App\Admin\MarketingAdmin
-    arguments: [~, App\Entity\Marketing, ~]
-    tags:
-      - { name: sonata.admin, manager_type: orm, group: sonata_admin_operate, label: MarketingAdmin }
-    calls:
-      - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
-    public: true
+    app.admin.marketing:
+        class: App\Admin\MarketingAdmin
+        arguments: [~, App\Entity\Marketing, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: sonata_admin_operate, label: MarketingAdmin }
+        calls:
+            - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
+        public: true
 
-  app.admin.custom_page:
-    class: App\Admin\CustomPageAdmin
-    arguments: [~, App\Entity\CustomPage, ~]
-    tags:
-      - { name: sonata.admin, manager_type: orm, group: sonata_admin_operate, label: CustomPageAdmin }
-    public: true
+    app.admin.custom_page:
+        class: App\Admin\CustomPageAdmin
+        arguments: [~, App\Entity\CustomPage, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: sonata_admin_operate, label: CustomPageAdmin }
+        public: true
 
-  app.admin.consumer:
-    class: App\Admin\ConsumerAdmin
-    arguments: [~, App\Entity\Consumer, ~]
-    tags:
-      - { name: sonata.admin, manager_type: orm, group: sonata_admin_user, label: ConsumerAdmin }
-    public: true
+    app.admin.consumer:
+        class: App\Admin\ConsumerAdmin
+        arguments: [~, App\Entity\Consumer, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: sonata_admin_user, label: ConsumerAdmin }
+        public: true

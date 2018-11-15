@@ -1,0 +1,9 @@
+doctrine:
+    dbal:
+        types:
+            SexType: App\DBAL\Types\SexType
+            ConsumerType: App\DBAL\Types\ConsumerType
+            OrderType: App\DBAL\Types\OrderType
+            BannerType: App\DBAL\Types\BannerType
+            OrderBillType: App\DBAL\Types\OrderBillType
+            datetime: App\DBAL\Types\PRCDateTimeType

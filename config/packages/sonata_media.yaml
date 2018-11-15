@@ -27,3 +27,9 @@ sonata_media:
             # Directory for uploads should be writable
             directory: "%kernel.project_dir%/public/uploads/media"
             create: false
+
+doctrine:
+    orm:
+        mappings:
+            ApplicationSonataMediaBundle: ~
+            SonataMediaBundle: ~
