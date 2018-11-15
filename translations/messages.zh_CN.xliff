@@ -28,6 +28,15 @@
         <source>ConsumerAdmin</source>
         <target>用户信息</target>
       </trans-unit>
+
+      <trans-unit id="stat_goods">
+        <source>stat_goods</source>
+        <target>商品数量</target>
+      </trans-unit>
+       <trans-unit id="stat_consumer">
+        <source>stat_consumer</source>
+        <target>用户数量</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>
