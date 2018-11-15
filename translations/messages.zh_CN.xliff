@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="">
+    <body>
+      <trans-unit id="BannerAdmin">
+        <source>BannerAdmin</source>
+        <target>轮播图管理</target>
+      </trans-unit>
+      <trans-unit id="MarketingAdmin">
+        <source>MarketingAdmin</source>
+        <target>营销设置</target>
+      </trans-unit>
+      <trans-unit id="CustomPageAdmin">
+        <source>CustomPageAdmin</source>
+        <target>自定义页面</target>
+      </trans-unit>
+
+      <trans-unit id="GoodsAdmin">
+        <source>GoodsAdmin</source>
+        <target>商品</target>
+      </trans-unit>
+      <trans-unit id="ClassifyGoodsAdmin">
+        <source>ClassifyGoodsAdmin</source>
+        <target>商品分类</target>
+      </trans-unit>
+
+      <trans-unit id="ConsumerAdmin">
+        <source>ConsumerAdmin</source>
+        <target>用户信息</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

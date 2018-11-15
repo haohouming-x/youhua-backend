@@ -3,7 +3,7 @@ services:
     class: App\Admin\BannerAdmin
     arguments: [~, App\Entity\Banner, ~]
     tags:
-      - { name: sonata.admin, manager_type: orm, group: '运营管理', label: '轮播图管理' }
+      - { name: sonata.admin, manager_type: orm, group: sonata_admin_operate, label: BannerAdmin }
     calls:
       - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
     public: true
@@ -12,7 +12,7 @@ services:
     class: App\Admin\GoodsAdmin
     arguments: [~, App\Entity\Goods, ~]
     tags:
-      - { name: sonata.admin, manager_type: orm, group: '商品管理', label: '商品' }
+      - { name: sonata.admin, manager_type: orm, group: sonata_admin_goods, label: GoodsAdmin }
     calls:
       - [ setUploadableListener, [ "@rip.listener.uploadable" ] ]
     public: true
@@ -21,7 +21,7 @@ services:
     class: App\Admin\ClassifyGoodsAdmin
     arguments: [~, App\Entity\ClassifyGoods, PicossSonataExtraAdminBundle:ExtraAdmin]
     tags:
-      - { name: sonata.admin, manager_type: orm, group: '商品管理', label: '商品分类' }
+      - { name: sonata.admin, manager_type: orm, group: sonata_admin_goods, label: ClassifyGoodsAdmin }
     calls:
       - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
     public: true
@@ -37,7 +37,7 @@ services:
     class: App\Admin\MarketingAdmin
     arguments: [~, App\Entity\Marketing, ~]
     tags:
-      - { name: sonata.admin, manager_type: orm, group: '运营管理', label: '营销设置' }
+      - { name: sonata.admin, manager_type: orm, group: sonata_admin_operate, label: MarketingAdmin }
     calls:
       - [ setUploadableListener, [ "@gedmo.listener.uploadable" ] ]
     public: true
@@ -46,12 +46,12 @@ services:
     class: App\Admin\CustomPageAdmin
     arguments: [~, App\Entity\CustomPage, ~]
     tags:
-      - { name: sonata.admin, manager_type: orm, group: '运营管理', label: '自定义页面' }
+      - { name: sonata.admin, manager_type: orm, group: sonata_admin_operate, label: CustomPageAdmin }
     public: true
 
   app.admin.consumer:
     class: App\Admin\ConsumerAdmin
     arguments: [~, App\Entity\Consumer, ~]
     tags:
-      - { name: sonata.admin, manager_type: orm, group: '用户管理', label: '用户信息' }
+      - { name: sonata.admin, manager_type: orm, group: sonata_admin_user, label: ConsumerAdmin }
     public: true
