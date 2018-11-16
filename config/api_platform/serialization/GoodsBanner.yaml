@@ -1,0 +1,6 @@
+App\Entity\GoodsBanner:
+    attributes:
+        id:
+           groups: ['goods:item:read']
+        image:
+           groups: ['goods:item:read']

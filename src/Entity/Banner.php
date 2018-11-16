@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use App\DBAL\Types\BannerType;
 use App\Entity\Helper\{TimestampableEntity, FileUploadTrait};
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**

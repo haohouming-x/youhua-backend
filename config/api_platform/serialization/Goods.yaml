@@ -1,0 +1,37 @@
+App\Entity\Goods:
+    attributes:
+        id:
+            groups: ['banner:read', 'goods:read']
+
+        name:
+            groups: ['goods:read']
+
+        stock:
+            groups: ['goods:read']
+
+        image:
+            groups: ['goods:read']
+
+        classify:
+            groups: ['goods:read']
+
+        marketPrice:
+            groups: ['goods:read']
+
+        depositPrice:
+            groups: ['goods:read']
+
+        longSize:
+            groups: ['goods:read']
+
+        wideSize:
+            groups: ['goods:read']
+
+        describes:
+            groups: ['goods:read']
+
+        details:
+            groups: ['goods:item:read']
+
+        pictures:
+            groups: ['goods:item:read']

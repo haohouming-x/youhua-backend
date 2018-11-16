@@ -1,0 +1,45 @@
+resources:
+    App\Entity\ClassifyGoods:
+        attributes:
+            normalization_context:
+                groups: ['classify:read']
+        description: '分类'
+        shortName: 'Classify'
+
+        collectionOperations:
+            get:
+                swagger_context:
+                    summary: '查询分类数据集'
+                    description: '分类列表'
+                    parameters:
+                        - { name: 'page', in: 'query', type: 'integer', description: '分页页数' }
+
+        itemOperations:
+            get:
+                swagger_context:
+                    summary: '查询对应id的分类数据'
+                    description: '分类详情'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '分类id' }
+
+        properties:
+            id:
+                attributes:
+                    swagger_context:
+                        description: '编号'
+            image:
+                attributes:
+                    swagger_context:
+                        description: '图片地址'
+            name:
+                attributes:
+                    swagger_context:
+                        description: '名称'
+
+            goods:
+                attributes:
+                    swagger_context:
+                        description: '商品列表'
+                subresource:
+                    resourceClass: App\Entity\Goods
+                    collection: true

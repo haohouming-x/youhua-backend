@@ -80,11 +80,6 @@ class Goods
     private $details;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\OrderBill", inversedBy="goods")
-     */
-    private $orderBill;
-
-    /**
      * @ORM\OneToMany(targetEntity="App\Entity\GoodsBanner", mappedBy="goods", orphanRemoval=true,cascade={"all"})
      */
     private $pictures;
@@ -249,18 +244,6 @@ class Goods
                 $picture->setGoods(null);
             }
         }
-
-        return $this;
-    }
-
-    public function getOrderBill(): ?OrderBill
-    {
-        return $this->orderBill;
-    }
-
-    public function setOrderBill(?OrderBill $orderBill): self
-    {
-        $this->orderBill = $orderBill;
 
         return $this;
     }

@@ -1,0 +1,109 @@
+resources:
+    App\Entity\Goods:
+        attributes:
+            normalization_context:
+                groups: ['goods:read']
+        description: '商品'
+
+        collectionOperations:
+            api_classifies_goods_get_subresource:
+                method: 'GET' # nothing more to add if we want to keep the default controller
+                normalization_context:
+                    groups: ['goods:read']
+                path: "/classifies/{id}/goods"
+                swagger_context:
+                    summary: '查询对应分类id的商品数据集'
+                    description: '分类id下的商品列表'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '分类id' }
+                        - { name: 'order[id]', in: 'query', type: 'string', description: '排序字段:参数值可填为字段created_at、market_price等'}
+
+                        - { name: 'order[name]', in: 'query',  type: 'string', description: '排序方式:参数值id可填为字段asc、desc' }
+
+                        - { name: 'name', in: 'query', type: 'string', description: '商品名称过滤:传入商品名(模糊查找)'}
+                        - { name: 'page', in: 'query', type: 'integer', description: '分页页数' }
+
+            get:
+                swagger_context:
+                    summary: '查询商品数据集'
+                    description: '商品列表'
+                    parameters:
+                        - { name: 'order[id]', in: 'query', type: 'string', description: '排序字段:参数值可填为字段created_at、market_price等'}
+
+                        - { name: 'order[name]', in: 'query',  type: 'string', description: '排序方式:参数值id可填为字段asc、desc' }
+
+                        - { name: 'classify', in: 'query', type: 'string', description: '分类过滤:传入分类id(准确查找)' }
+                        - { name: 'classify[]', in: 'query', type: 'array[string]', description: '多个分类过滤:传入分类id(准确查找)' }
+                        - { name: 'name', in: 'query', type: 'string', description: '商品名称过滤:传入商品名(模糊查找)'}
+                        - { name: 'page', in: 'query', type: 'integer', description: '分页页数' }
+
+                filters: ['rip.order', 'rip.goods.search']
+
+        itemOperations:
+            get:
+                normalization_context:
+                    groups: ['goods:read', 'goods:item:read']
+                    swagger_definition_name: "goods:item:read"
+                swagger_context:
+                    summary: '查询对应id的商品数据'
+                    description: '商品详情'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '商品id' }
+
+        properties:
+            id:
+                attributes:
+                    swagger_context:
+                        description: '编号'
+            name:
+                attributes:
+                    swagger_context:
+                        description: '商品名称'
+            stock:
+                attributes:
+                    swagger_context:
+                        description: '商品库存'
+
+            image:
+                attributes:
+                    swagger_context:
+                        description: '主图片'
+
+            pictures:
+                attributes:
+                    swagger_context:
+                        description: '轮换图'
+
+            classify:
+                attributes:
+                    swagger_context:
+                        description: '分类'
+
+            describes:
+                attributes:
+                    swagger_context:
+                        description: '描述'
+
+            marketPrice:
+                attributes:
+                    swagger_context:
+                        description: '市场价'
+
+            depositPrice:
+                attributes:
+                    swagger_context:
+                        description: '押金价'
+
+            longSize:
+                attributes:
+                    swagger_context:
+                        description: '长'
+            wideSize:
+                attributes:
+                    swagger_context:
+                        description: '宽'
+
+            details:
+                attributes:
+                    swagger_context:
+                        description: '详情'

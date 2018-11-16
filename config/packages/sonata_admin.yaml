@@ -70,10 +70,6 @@ sonata_block:
             contexts:   [admin]
         # sonata.order.block.recent_orders:
 
-sonata_doctrine_orm_admin:
-    templates:
-        form: [ "admin/form_admin_fields.html.twig" ]
-
 picoss_sonata_extra_admin:
     templates:
         types:

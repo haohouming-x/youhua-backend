@@ -1,0 +1,502 @@
+{
+    "swagger": "2.0",
+    "basePath": "\/",
+    "info": {
+        "title": "\u6cb9\u753bapi",
+        "version": "0.0.0"
+    },
+    "paths": {
+        "\/api\/banners": {
+            "get": {
+                "summary": "\u67e5\u8be2\u8f6e\u6362\u56fe\u6570\u636e\u96c6",
+                "description": "\u8f6e\u6362\u56fe\u5217\u8868",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "\u5206\u9875\u9875\u6570"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "description": "The collection page number"
+                    }
+                ],
+                "tags": [
+                    "Banner"
+                ],
+                "operationId": "getBannerCollection",
+                "produces": [
+                    "application\/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Banner collection response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Banner-banner:read"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/classifies": {
+            "get": {
+                "summary": "\u67e5\u8be2\u5206\u7c7b\u6570\u636e\u96c6",
+                "description": "\u5206\u7c7b\u5217\u8868",
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "\u5206\u9875\u9875\u6570"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "description": "The collection page number"
+                    }
+                ],
+                "tags": [
+                    "Classify"
+                ],
+                "operationId": "getClassifyCollection",
+                "produces": [
+                    "application\/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Classify collection response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Classify-classify:read"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/classifies\/{id}": {
+            "get": {
+                "summary": "\u67e5\u8be2\u5bf9\u5e94id\u7684\u5206\u7c7b\u6570\u636e",
+                "description": "\u5206\u7c7b\u8be6\u60c5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "description": "\u5206\u7c7bid"
+                    }
+                ],
+                "tags": [
+                    "Classify"
+                ],
+                "operationId": "getClassifyItem",
+                "produces": [
+                    "application\/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Classify resource response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Classify-classify:read"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                }
+            }
+        },
+        "\/api\/classifies\/{id}\/goods": {
+            "get": {
+                "summary": "\u67e5\u8be2\u5bf9\u5e94\u5206\u7c7bid\u7684\u5546\u54c1\u6570\u636e\u96c6",
+                "description": "\u5206\u7c7bid\u4e0b\u7684\u5546\u54c1\u5217\u8868",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "description": "\u5206\u7c7bid"
+                    },
+                    {
+                        "name": "order[id]",
+                        "in": "query",
+                        "type": "string",
+                        "description": "\u6392\u5e8f\u5b57\u6bb5:\u53c2\u6570\u503c\u53ef\u586b\u4e3a\u5b57\u6bb5created_at\u3001market_price\u7b49"
+                    },
+                    {
+                        "name": "order[name]",
+                        "in": "query",
+                        "type": "string",
+                        "description": "\u6392\u5e8f\u65b9\u5f0f:\u53c2\u6570\u503cid\u53ef\u586b\u4e3a\u5b57\u6bb5asc\u3001desc"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "type": "string",
+                        "description": "\u5546\u54c1\u540d\u79f0\u8fc7\u6ee4:\u4f20\u5165\u5546\u54c1\u540d(\u6a21\u7cca\u67e5\u627e)"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "\u5206\u9875\u9875\u6570"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "description": "The collection page number"
+                    }
+                ],
+                "tags": [
+                    "Goods"
+                ],
+                "operationId": "api_classifies_goods_get_subresourceGoodsCollection",
+                "produces": [
+                    "application\/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Goods collection response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Goods-goods:read"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/goods": {
+            "get": {
+                "summary": "\u67e5\u8be2\u5546\u54c1\u6570\u636e\u96c6",
+                "description": "\u5546\u54c1\u5217\u8868",
+                "parameters": [
+                    {
+                        "name": "order[id]",
+                        "in": "query",
+                        "type": "string",
+                        "description": "\u6392\u5e8f\u5b57\u6bb5:\u53c2\u6570\u503c\u53ef\u586b\u4e3a\u5b57\u6bb5created_at\u3001market_price\u7b49"
+                    },
+                    {
+                        "name": "order[name]",
+                        "in": "query",
+                        "type": "string",
+                        "description": "\u6392\u5e8f\u65b9\u5f0f:\u53c2\u6570\u503cid\u53ef\u586b\u4e3a\u5b57\u6bb5asc\u3001desc"
+                    },
+                    {
+                        "name": "classify",
+                        "in": "query",
+                        "type": "string",
+                        "description": "\u5206\u7c7b\u8fc7\u6ee4:\u4f20\u5165\u5206\u7c7bid(\u51c6\u786e\u67e5\u627e)"
+                    },
+                    {
+                        "name": "classify[]",
+                        "in": "query",
+                        "type": "array[string]",
+                        "description": "\u591a\u4e2a\u5206\u7c7b\u8fc7\u6ee4:\u4f20\u5165\u5206\u7c7bid(\u51c6\u786e\u67e5\u627e)"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "type": "string",
+                        "description": "\u5546\u54c1\u540d\u79f0\u8fc7\u6ee4:\u4f20\u5165\u5546\u54c1\u540d(\u6a21\u7cca\u67e5\u627e)"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "\u5206\u9875\u9875\u6570"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "description": "The collection page number"
+                    }
+                ],
+                "tags": [
+                    "Goods"
+                ],
+                "operationId": "getGoodsCollection",
+                "produces": [
+                    "application\/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Goods collection response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Goods-goods:read"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "\/api\/goods\/{id}": {
+            "get": {
+                "summary": "\u67e5\u8be2\u5bf9\u5e94id\u7684\u5546\u54c1\u6570\u636e",
+                "description": "\u5546\u54c1\u8be6\u60c5",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "description": "\u5546\u54c1id"
+                    }
+                ],
+                "tags": [
+                    "Goods"
+                ],
+                "operationId": "getGoodsItem",
+                "produces": [
+                    "application\/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Goods resource response",
+                        "schema": {
+                            "$ref": "#\/definitions\/Goods-goods:item:read"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "Banner-banner:read": {
+            "type": "object",
+            "description": "\u8f6e\u6362\u56fe",
+            "properties": {
+                "id": {
+                    "description": "\u7f16\u53f7",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "image": {
+                    "description": "\u56fe\u7247\u5730\u5740",
+                    "type": "string"
+                },
+                "type": {
+                    "enum": [
+                        "LK",
+                        "GD"
+                    ],
+                    "description": "- LK: \u94fe\u63a5\n- GD: \u5546\u54c1\n",
+                    "type": "string"
+                },
+                "link": {
+                    "description": "\u94fe\u63a5",
+                    "type": "string"
+                },
+                "goods": {
+                    "description": "\u5546\u54c1",
+                    "$ref": "#\/definitions\/Goods-banner:read"
+                }
+            }
+        },
+        "Classify-classify:read": {
+            "type": "object",
+            "description": "\u5206\u7c7b",
+            "properties": {
+                "id": {
+                    "description": "\u7f16\u53f7",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "\u540d\u79f0",
+                    "type": "string"
+                },
+                "image": {
+                    "description": "\u56fe\u7247\u5730\u5740",
+                    "type": "string"
+                },
+                "goods": {
+                    "description": "\u5546\u54c1\u5217\u8868",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "Classify-goods:item:read": {
+            "type": "object",
+            "description": "\u5206\u7c7b",
+            "properties": {
+                "id": {
+                    "description": "\u7f16\u53f7",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "\u540d\u79f0",
+                    "type": "string"
+                },
+                "image": {
+                    "description": "\u56fe\u7247\u5730\u5740",
+                    "type": "string"
+                }
+            }
+        },
+        "Classify-goods:read": {
+            "type": "object",
+            "description": "\u5206\u7c7b",
+            "properties": {
+                "id": {
+                    "description": "\u7f16\u53f7",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "\u540d\u79f0",
+                    "type": "string"
+                },
+                "image": {
+                    "description": "\u56fe\u7247\u5730\u5740",
+                    "type": "string"
+                }
+            }
+        },
+        "Goods-banner:read": {
+            "type": "object",
+            "description": "\u5546\u54c1",
+            "properties": {
+                "id": {
+                    "description": "\u7f16\u53f7",
+                    "readOnly": true,
+                    "type": "integer"
+                }
+            }
+        },
+        "Goods-goods:item:read": {
+            "type": "object",
+            "description": "\u5546\u54c1",
+            "properties": {
+                "id": {
+                    "description": "\u7f16\u53f7",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "\u5546\u54c1\u540d\u79f0",
+                    "type": "string"
+                },
+                "stock": {
+                    "description": "\u5546\u54c1\u5e93\u5b58",
+                    "type": "integer"
+                },
+                "image": {
+                    "description": "\u4e3b\u56fe\u7247",
+                    "type": "string"
+                },
+                "classify": {
+                    "description": "\u5206\u7c7b",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#\/definitions\/Classify-goods:item:read"
+                    }
+                },
+                "describes": {
+                    "description": "\u63cf\u8ff0",
+                    "type": "string"
+                },
+                "details": {
+                    "description": "\u8be6\u60c5",
+                    "type": "string"
+                },
+                "pictures": {
+                    "description": "\u8f6e\u6362\u56fe",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "marketPrice": {
+                    "description": "\u5e02\u573a\u4ef7",
+                    "type": "number"
+                },
+                "depositPrice": {
+                    "description": "\u62bc\u91d1\u4ef7",
+                    "type": "number"
+                },
+                "longSize": {
+                    "description": "\u957f",
+                    "type": "integer"
+                },
+                "wideSize": {
+                    "description": "\u5bbd",
+                    "type": "integer"
+                }
+            }
+        },
+        "Goods-goods:read": {
+            "type": "object",
+            "description": "\u5546\u54c1",
+            "properties": {
+                "id": {
+                    "description": "\u7f16\u53f7",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "\u5546\u54c1\u540d\u79f0",
+                    "type": "string"
+                },
+                "stock": {
+                    "description": "\u5546\u54c1\u5e93\u5b58",
+                    "type": "integer"
+                },
+                "image": {
+                    "description": "\u4e3b\u56fe\u7247",
+                    "type": "string"
+                },
+                "classify": {
+                    "description": "\u5206\u7c7b",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#\/definitions\/Classify-goods:read"
+                    }
+                },
+                "describes": {
+                    "description": "\u63cf\u8ff0",
+                    "type": "string"
+                },
+                "marketPrice": {
+                    "type": "number"
+                },
+                "depositPrice": {
+                    "type": "number"
+                },
+                "longSize": {
+                    "type": "integer"
+                },
+                "wideSize": {
+                    "type": "integer"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,6 @@
+resources:
+    App\Entity\Goods:
+        attributes:
+            normalization_context:
+                groups: ['goods:read']
+            description: '用户'

@@ -36,5 +36,15 @@ framework:
         # APCu (not recommended with heavy random-write workloads as memory fragmentation can cause perf issues)
         #app: cache.adapter.apcu
 
+    serializer:
+        enabled: true
+        mapping:
+            paths: ['%kernel.project_dir%/config/api_platform/serialization']
+
+    validation:
+        enabled: true
+        mapping:
+            paths: ['%kernel.project_dir%/config/api_platform/validator']
+
     templating:
         engines: ['twig', 'php']

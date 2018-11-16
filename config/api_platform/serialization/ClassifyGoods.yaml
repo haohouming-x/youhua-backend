@@ -1,0 +1,10 @@
+App\Entity\ClassifyGoods:
+    attributes:
+        id:
+            groups: ['classify:read', 'goods:read']
+
+        name:
+            groups: ['classify:read', 'goods:read']
+
+        image:
+            groups: ['classify:read', 'goods:read']

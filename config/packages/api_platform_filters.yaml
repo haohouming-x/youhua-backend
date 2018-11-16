@@ -1,0 +1,14 @@
+services:
+    rip.order_filter:
+        parent:    'api_platform.doctrine.orm.order_filter'
+        arguments:
+            - { 'id': ~, 'name': 'desc', 'description': ~, 'relatedDummy.name': ~, 'embeddedDummy.dummyName': 'desc', 'relatedDummy.symfony': ~, 'dummyDate': ~}
+        tags:
+            - { name: 'api_platform.filter', id: 'rip.order' }
+
+    rip.goods.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments:
+            - { 'classify': 'exact', 'name': 'partial' }
+        tags:
+            - { name: 'api_platform.filter', id: 'rip.goods.search' }
