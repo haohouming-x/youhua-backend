@@ -26,7 +26,7 @@
                     }
                 ],
                 "tags": [
-                    "Banner"
+                    "轮换图"
                 ],
                 "operationId": "getBannerCollection",
                 "produces": [
@@ -65,7 +65,7 @@
                     }
                 ],
                 "tags": [
-                    "Classify"
+                    "分类"
                 ],
                 "operationId": "getClassifyCollection",
                 "produces": [
@@ -98,7 +98,7 @@
                     }
                 ],
                 "tags": [
-                    "Classify"
+                    "分类"
                 ],
                 "operationId": "getClassifyItem",
                 "produces": [
@@ -162,7 +162,7 @@
                     }
                 ],
                 "tags": [
-                    "Goods"
+                    "商品"
                 ],
                 "operationId": "api_classifies_goods_get_subresourceGoodsCollection",
                 "produces": [
@@ -231,7 +231,7 @@
                     }
                 ],
                 "tags": [
-                    "Goods"
+                    "商品"
                 ],
                 "operationId": "getGoodsCollection",
                 "produces": [
@@ -264,7 +264,7 @@
                     }
                 ],
                 "tags": [
-                    "Goods"
+                    "商品"
                 ],
                 "operationId": "getGoodsItem",
                 "produces": [
