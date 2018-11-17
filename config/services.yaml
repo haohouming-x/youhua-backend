@@ -29,3 +29,8 @@ services:
 
     Picoss\SonataExtraAdminBundle\Controller\ExtraAdminController:
       autowire: true
+
+
+    App\Controller\ReceiptInfoSpecial:
+      arguments: ['@doctrine.orm.entity_manager']
+      tags: ['controller.service_arguments']

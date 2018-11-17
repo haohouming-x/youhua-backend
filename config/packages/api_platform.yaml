@@ -1,9 +1,9 @@
 api_platform:
     title: '油画api'
     enable_swagger_ui: false
-    formats:
-        json:
-            mime_types: ['application/json']
+    # formats:
+    #     json:
+    #         mime_types: ['application/json']
 
     mapping:
         paths:
@@ -14,7 +14,3 @@ api_platform:
         # The default order of results.
         order: 'ASC'
         order_parameter_name: 'order'
-
-    exception_to_status:
-        # With a status code.
-        Symfony\Component\Serializer\Exception\ExceptionInterface: 400

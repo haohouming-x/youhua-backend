@@ -1,0 +1,92 @@
+resources:
+    App\Entity\ReceiptInfo:
+        attributes:
+            normalization_context:
+                groups: ['receipt_info:item:read']
+            denormalization_context:
+                groups: ['receipt_info:item:write']
+        description: '收货信息'
+
+        collectionOperations:
+            api_consumers_receipt_infos_get_subresource:
+                swagger_context:
+                    tags: ['用户']
+                    summary: '查询对应用户的收货信息数据集'
+                    description: '用户id下的收货信息列表'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '用户id' }
+
+            api_receipt_infos_api_consumers_receipt_infos_post_subresource:
+                method: "POST"
+                path: "/consumers/{id}/receipt_infos.{_format}"
+                controller: 'App\Controller\ReceiptInfoSpecial'
+                # defaults: {_api_receive: false}
+                swagger_context:
+                    tags: ['用户']
+                    summary: '创建对应用户新收货信息'
+                    description: '创建对应用户收货信息'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '用户id' }
+                        - { name: 'receiptInfo', in: 'body', schema: {$ref: "#\/definitions\/ReceiptInfo-receipt_info:item:write" } }
+
+        itemOperations:
+            get:
+                swagger_context:
+                    tags: ['收货信息']
+                    summary: '查询对应id的收货信息数据'
+                    description: '对应id的收货信息'
+                    parameters:
+                        - { name: 'pid', in: 'path', required: true, type: 'integer', description: '会员id' }
+            put:
+                swagger_context:
+                    tags: ['收货信息']
+                    summary: '修改对应用户的收货信息数据'
+                    description: '修改用户id下的收货信息'
+
+            delete:
+                swagger_context:
+                    tags: ['收货信息']
+                    summary: '删除对应用户的收货信息数据'
+                    description: '删除用户id下的收货信息'
+
+
+        properties:
+            id:
+                attributes:
+                    swagger_context:
+                        description: '编号'
+
+            name:
+                attributes:
+                    swagger_context:
+                        description: '收货人姓名'
+
+            contact:
+                attributes:
+                    swagger_context:
+                        description: '联系电话'
+
+            province:
+                attributes:
+                    swagger_context:
+                        description: '省'
+
+            city:
+                attributes:
+                    swagger_context:
+                        description: '市'
+
+            district:
+                attributes:
+                    swagger_context:
+                        description: '区'
+
+            detailedAddress:
+                attributes:
+                    swagger_context:
+                        description: '详细地址'
+
+            remark:
+                attributes:
+                    swagger_context:
+                        description: '备注'

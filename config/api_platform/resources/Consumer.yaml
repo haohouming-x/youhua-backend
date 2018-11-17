@@ -1,6 +1,76 @@
 resources:
-    App\Entity\Goods:
+    App\Entity\Consumer:
         attributes:
             normalization_context:
-                groups: ['goods:read']
-            description: '用户'
+                groups: ['consumer:item:read']
+            denormalization_context:
+                groups: ['consumer:item:write']
+        description: '用户'
+
+        collectionOperations:
+            post:
+                swagger_context:
+                    tags: ['用户']
+                    summary: '创建新用户'
+                    description: '创建用户'
+
+        itemOperations:
+            get:
+                swagger_context:
+                    tags: ['用户']
+                    summary: '查询对应id的用户数据'
+                    description: '用户详情'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '用户id' }
+
+            put:
+                swagger_context:
+                    tags: ['用户']
+                    summary: '修改用户对应id的基本信息'
+                    description: '修改对应id的用户信息'
+
+        properties:
+            id:
+                attributes:
+                    swagger_context:
+                        description: '编号'
+            image:
+                attributes:
+                    swagger_context:
+                        description: '图片地址'
+            nickName:
+                attributes:
+                    swagger_context:
+                        description: '昵称'
+
+            # type:
+            #     attributes:
+            #         swagger_context:
+            #             description: '类型'
+
+            sex:
+                attributes:
+                    swagger_context:
+                        enum: ['nan', 'nv']
+                        description:  >
+                          性别
+
+                          - nan: 男
+
+                          - nv: 女
+
+            member:
+                attributes:
+                    swagger_context:
+                        description: '会员'
+                subresource:
+                    resourceClass: App\Entity\Member
+                    collection: true
+
+            receiptInfos:
+                attributes:
+                    swagger_context:
+                        description: '收货信息'
+                subresource:
+                    resourceClass: App\Entity\ReceiptInfo
+                    collection: true

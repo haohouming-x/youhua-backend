@@ -1,0 +1,46 @@
+resources:
+    App\Entity\Member:
+        attributes:
+            normalization_context:
+                groups: ['member:item:read']
+        description: '会员信息'
+
+        collectionOperations: []
+
+        itemOperations:
+            get:
+                swagger_context:
+                    tags: ['会员']
+                    summary: '查询对应id的会员数据'
+                    description: '对应id的会员信息详情'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '会员id' }
+
+            api_consumers_member_get_subresource:
+                swagger_context:
+                    tags: ['用户']
+                    summary: '查询对应用户id的会员数据'
+                    description: '用户id下的会员信息'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '用户id' }
+
+        properties:
+            id:
+                attributes:
+                    swagger_context:
+                        description: '会员编号'
+            rechargeAt:
+                attributes:
+                    swagger_context:
+                        description: '会员充值时间'
+                        format: 'date-time'
+            expireAt:
+                attributes:
+                    swagger_context:
+                        description: '会员到期时间'
+                        format: 'date-time'
+
+            market:
+                attributes:
+                    swagger_context:
+                        description: '会员类型'

@@ -1,0 +1,19 @@
+App\Entity\Consumer:
+    attributes:
+        id:
+            groups: ['consumer:item:read']
+
+        image:
+            groups: ['consumer:item:read', 'consumer:item:write']
+
+        nickName:
+            groups: ['consumer:item:read', 'consumer:item:write']
+
+        # type:
+        #     groups: ['consumer:item:read']
+
+        sex:
+            groups: ['consumer:item:read', 'consumer:item:write']
+
+        member:
+            groups: ['consumer:item:read']

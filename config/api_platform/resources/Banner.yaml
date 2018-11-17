@@ -4,14 +4,15 @@ resources:
             normalization_context:
                 groups: ['banner:read']
         description: '轮换图'
+
         collectionOperations:
             get:
                 description: '轮换图列表'
                 swagger_context:
+                    tags: ['轮换图']
                     summary: '查询轮换图数据集'
                     description: '轮换图列表'
-                    parameters:
-                        - { name: 'page', in: 'query', type: 'integer', description: '分页页数' }
+
         itemOperations: []
 
         properties:
@@ -28,6 +29,8 @@ resources:
                   swagger_context:
                     enum: ['LK', 'GD']
                     description: >
+                      类型
+
                       - LK: 链接
 
                       - GD: 商品

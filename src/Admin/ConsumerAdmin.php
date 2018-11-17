@@ -21,11 +21,11 @@ final class ConsumerAdmin extends AbstractAdmin
             ->add('nick_name', null, [
                 'label' => '昵称'
             ])
-            ->add('type', null, [
-                'label' => '用户类型',
-            ], ChoiceType::class, [
-                'choices' => ConsumerType::getChoices()
-            ])
+            // ->add('type', null, [
+            //     'label' => '用户类型',
+            // ], ChoiceType::class, [
+            //     'choices' => ConsumerType::getChoices()
+            // ])
             ->add('sex', null, [
                 'label' => '性别'
             ])
@@ -61,10 +61,10 @@ final class ConsumerAdmin extends AbstractAdmin
             ->add('nick_name', null, [
                 'label' => '昵称'
             ])
-            ->add('type', 'choice', [
-                'label' => '类型',
-                'choices' => ConsumerType::getReadableValues()
-            ])
+            // ->add('type', 'choice', [
+            //     'label' => '类型',
+            //     'choices' => ConsumerType::getReadableValues()
+            // ])
             ->add('sex', 'choice', [
                 'label' => '性别',
                 'choices' => SexType::getReadableValues()
@@ -131,9 +131,9 @@ final class ConsumerAdmin extends AbstractAdmin
             ->add('nick_name', null, [
                 'label' => '昵称'
             ])
-            ->add('type', null, [
-                'label' => '类型'
-            ])
+            // ->add('type', null, [
+            //     'label' => '类型'
+            // ])
             ->add('sex', null, [
                 'label' => '性别'
             ])

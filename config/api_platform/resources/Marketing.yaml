@@ -1,0 +1,61 @@
+resources:
+    App\Entity\Marketing:
+        attributes:
+            normalization_context:
+                groups: ['market:read']
+        description: '会员类型'
+
+        collectionOperations: []
+
+        itemOperations:
+            get:
+                swagger_context:
+                    tags: ['会员']
+                    summary: '查询对应id的会员类型数据'
+                    description: '对应id的会员类型详情'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '会员类型id' }
+
+        properties:
+            id:
+                attributes:
+                    swagger_context:
+                        description: '会员类型编号'
+
+            name:
+                attributes:
+                    swagger_context:
+                        description: '会员类型名称'
+
+            explainText:
+                attributes:
+                    swagger_context:
+                        description: '说明'
+
+            originalPrice:
+                attributes:
+                    swagger_context:
+                        description: '原价'
+
+            discount:
+                attributes:
+                    swagger_context:
+                        description: '折扣'
+
+            validityDate:
+                attributes:
+                    swagger_context:
+                        description: '过期时间'
+                        format: 'date-time'
+
+            createdAt:
+                attributes:
+                    swagger_context:
+                        description: '创建时间'
+                        format: 'date-time'
+
+            updatedAt:
+                attributes:
+                    swagger_context:
+                        description: '创建时间'
+                        format: 'date-time'

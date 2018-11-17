@@ -42,11 +42,11 @@ class Consumer
      */
     private $nick_name;
 
-    /**
-     * @ORM\Column(type="ConsumerType")
-     * @DoctrineAssert\Enum(entity="App\DBAL\Types\ConsumerType")
-     */
-    private $type;
+    // /**
+    //  * @ORM\Column(type="ConsumerType")
+    //  * @DoctrineAssert\Enum(entity="App\DBAL\Types\ConsumerType")
+    //  */
+    // private $type;
 
     /**
      * @ORM\Column(type="SexType")
@@ -118,17 +118,17 @@ class Consumer
         return $this;
     }
 
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
+    // public function getType(): ?string
+    // {
+    //     return $this->type;
+    // }
 
-    public function setType(string $type): self
-    {
-        $this->type = $type;
+    // public function setType(string $type): self
+    // {
+    //     $this->type = $type;
 
-        return $this;
-    }
+    //     return $this;
+    // }
 
     public function getSex(): ?string
     {

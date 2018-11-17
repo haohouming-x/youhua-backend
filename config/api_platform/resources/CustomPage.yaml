@@ -1,0 +1,26 @@
+resources:
+    App\Entity\CustomPage:
+        # attributes:
+        #     normalization_context:
+        #         groups: ['custom_page:read']
+        description: '自定义页面'
+
+        collectionOperations: []
+            # get:
+            #     swagger_context:
+            #         tags: ['自定义页面']
+            #         summary: '查询自定义页面数据集'
+            #         description: '自定义页面列表'
+
+        itemOperations:
+            get:
+                # normalization_context:
+                #     groups: ['custom_page:read', 'custom_page:item:read']
+                #     swagger_definition_name: "custom_page:item:read"
+
+                swagger_context:
+                    tags: ['自定义页面']
+                    summary: '查询对应id的自定义页面数据'
+                    description: '自定义页面详情'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '自定义页面id' }

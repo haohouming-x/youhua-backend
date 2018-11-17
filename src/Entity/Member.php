@@ -3,12 +3,20 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Helper\TimestampableEntity;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MemberRepository")
  */
 class Member
 {
+    /**
+     * Hook timestampable behavior
+     * updates created_at, updated_at fields
+     */
+    use TimestampableEntity;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -31,6 +39,12 @@ class Member
      * @ORM\Column(type="datetime")
      */
     private $expire_at;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Marketing", inversedBy="members")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $market;
 
     public function getId(): ?int
     {
@@ -69,6 +83,18 @@ class Member
     public function setExpireAt(\DateTimeInterface $expire_at): self
     {
         $this->expire_at = $expire_at;
+
+        return $this;
+    }
+
+    public function getMarket(): ?Marketing
+    {
+        return $this->market;
+    }
+
+    public function setMarket(?Marketing $market): self
+    {
+        $this->market = $market;
 
         return $this;
     }

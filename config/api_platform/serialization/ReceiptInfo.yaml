@@ -1,0 +1,25 @@
+App\Entity\ReceiptInfo:
+    attributes:
+        id:
+            groups: ['receipt_info:item:read']
+
+        name:
+            groups: ['receipt_info:item:read', 'receipt_info:item:write']
+
+        contact:
+            groups: ['receipt_info:item:read', 'receipt_info:item:write']
+
+        province:
+            groups: ['receipt_info:item:read', 'receipt_info:item:write']
+
+        city:
+            groups: ['receipt_info:item:read', 'receipt_info:item:write']
+
+        district:
+            groups: ['receipt_info:item:read', 'receipt_info:item:write']
+
+        detailedAddress:
+            groups: ['receipt_info:item:read', 'receipt_info:item:write']
+
+        remark:
+            groups: ['receipt_info:item:read', 'receipt_info:item:write']

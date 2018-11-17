@@ -9,14 +9,14 @@ resources:
         collectionOperations:
             get:
                 swagger_context:
+                    tags: ['分类']
                     summary: '查询分类数据集'
                     description: '分类列表'
-                    parameters:
-                        - { name: 'page', in: 'query', type: 'integer', description: '分页页数' }
 
         itemOperations:
             get:
                 swagger_context:
+                    tags: ['分类']
                     summary: '查询对应id的分类数据'
                     description: '分类详情'
                     parameters:

@@ -1,0 +1,16 @@
+App\Entity\Member:
+    attributes:
+        id:
+            groups: ['consumer:item:read', 'member:item:read']
+
+        rechargeAt:
+            groups: ['consumer:item:read', 'member:item:read']
+
+        expireAt:
+            groups: ['consumer:item:read', 'member:item:read']
+
+        market:
+            groups: ['consumer:item:read', 'member:item:read']
+
+        createdAt:
+            groups: ['member:item:read']
