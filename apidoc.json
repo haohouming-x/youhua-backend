@@ -750,13 +750,6 @@
                 "image": {
                     "description": "图片地址",
                     "type": "string"
-                },
-                "goods": {
-                    "description": "商品列表",
-                    "type": "array",
-                    "items": {
-                        "type": "string"
-                    }
                 }
             }
         },

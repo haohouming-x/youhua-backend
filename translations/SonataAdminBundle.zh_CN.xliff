@@ -36,6 +36,10 @@
         <source>stats_view_more</source>
         <target>查看统计详情</target>
       </trans-unit>
+      <trans-unit id="title_show">
+        <source>title_show</source>
+        <target>查看</target>
+      </trans-unit>
     </body>
   </file>
 </xliff>

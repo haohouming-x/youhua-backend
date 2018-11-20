@@ -64,8 +64,8 @@ final class ConsumerAdmin extends AbstractAdmin
             ->add('nick_name', null, [
                 'label' => '昵称'
             ])
-            ->add('member.market.name', null, [
-                'label' => '用户类型'
+            ->add('member.market', null, [
+                'label' => '会员类型'
             ])
             ->add('sex', 'choice', [
                 'label' => '性别',
@@ -127,8 +127,8 @@ final class ConsumerAdmin extends AbstractAdmin
             ->add('nick_name', null, [
                 'label' => '昵称'
             ])
-            ->add('member.market.name', null, [
-                'label' => '用户类型'
+            ->add('member.market', null, [
+                'label' => '会员类型'
             ])
             // ->add('type', null, [
             //     'label' => '类型'

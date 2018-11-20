@@ -64,10 +64,18 @@ final class ReceiptInfosAdmin extends AbstractAdmin
             ])
             ->add('_action', null, [
                 'actions' => [
-                    'edit' => [],
-                    'delete' => [],
+                    'show' => [],
+                    // 'delete' => [],
                 ],
             ]);
+    }
+
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        unset($actions['delete']);
+
+        return $actions;
     }
 
     protected function configureShowFields(ShowMapper $showMapper)
@@ -91,6 +99,9 @@ final class ReceiptInfosAdmin extends AbstractAdmin
             ])
             ->add('detailed_address', null, [
                 'label' => '详细地址'
+            ])
+            ->add('remark', null, [
+                'label' => '备注'
             ])
             ->add('created_at', null, [
                 'format' => 'Y-m-d H:i:s'

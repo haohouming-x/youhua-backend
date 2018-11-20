@@ -2,7 +2,7 @@ resources:
     App\Entity\Marketing:
         attributes:
             normalization_context:
-                groups: ['market:read']
+                groups: ['market:item:read']
         description: '会员类型'
 
         collectionOperations: []

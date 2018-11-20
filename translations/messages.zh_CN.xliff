@@ -41,6 +41,10 @@
         <source>ConsumerAdmin</source>
         <target>用户信息</target>
       </trans-unit>
+      <trans-unit id="ReceiptInfosAdmin">
+        <source>ReceiptInfosAdmin</source>
+        <target>收货信息</target>
+      </trans-unit>
 
       <trans-unit id="stat_goods">
         <source>stat_goods</source>
