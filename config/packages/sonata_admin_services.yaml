@@ -54,4 +54,13 @@ services:
         arguments: [~, App\Entity\Consumer, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: sonata_admin_user, label: ConsumerAdmin }
+        calls:
+            - [addChild, ['@app.admin.receipt_infos', 'consumer']]
         public: true
+
+    app.admin.receipt_infos:
+        class: App\Admin\ReceiptInfosAdmin
+        arguments: [~, App\Entity\ReceiptInfo, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: sonata_admin_user, label: ReceiptInfosAdmin, show_in_dashboard: false }
+        public: false
