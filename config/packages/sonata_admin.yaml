@@ -9,7 +9,7 @@ sonata_admin:
                 position: right
                 type: sonata.admin.block.admin_list
                 settings:
-                    groups: [ sonata_user, sonata_media ]
+                    groups: [ sonata_user, sonata_media, sonata_admin_order ]
 
             -
                 position: left
@@ -40,6 +40,19 @@ sonata_admin:
                     color: bg-red
                     filters:
                         status: { type: 3, value: 0 } # 3 => NumberType::TYPE_EQUAL
+
+            # -
+            #     class:    col-lg-3 col-xs-6
+            #     position: top
+            #     type:     sonata.admin.block.stats
+            #     settings:
+            #         code: app.admin.order
+            #         icon: fa-leaf
+            #         text: stat_order
+            #         color: bg-orange
+            #         filters:
+            #             status: { type: 3, value: 0 } # 3 => NumberType::TYPE_EQUAL
+
 
             # - { position: right, type: sonata.order.block.recent_orders, settings: { title: Recent Orders, number: 5, mode: admin }}
 

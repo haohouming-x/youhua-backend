@@ -46,6 +46,11 @@
         <target>收货信息</target>
       </trans-unit>
 
+      <trans-unit id="OrderAdmin">
+        <source>OrderAdmin</source>
+        <target>订单信息</target>
+      </trans-unit>
+
       <trans-unit id="stat_goods">
         <source>stat_goods</source>
         <target>商品数量</target>

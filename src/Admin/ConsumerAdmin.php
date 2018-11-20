@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\CoreBundle\Form\Type\CollectionType;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Sonata\AdminBundle\Admin\AdminInterface;
 use Symfony\Component\Form\Extension\Core\Type\{TextType, ChoiceType};
@@ -27,6 +28,8 @@ final class ConsumerAdmin extends AbstractAdmin
             ])
             ->add('sex', null, [
                 'label' => '性别'
+            ], ChoiceType::class, [
+                'choices' => SexType::getChoices()
             ])
             // ->add('deleted_at')
             ->add('last_login_at', 'doctrine_orm_date', [
@@ -106,14 +109,6 @@ final class ConsumerAdmin extends AbstractAdmin
             ]);
     }
 
-    public function getBatchActions()
-    {
-        $actions = parent::getBatchActions();
-        unset($actions['delete']);
-
-        return $actions;
-    }
-
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
@@ -174,5 +169,19 @@ final class ConsumerAdmin extends AbstractAdmin
         $menu->addChild('consumer_show', [
             'uri' => $admin->generateUrl('show', ['id' => $id])
         ]);
+    }
+
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        unset($actions['delete']);
+
+        return $actions;
+    }
+
+    public function configureRoutes(RouteCollection $collection) {
+        $collection
+            ->remove('create')
+            ->remove('delete');
     }
 }

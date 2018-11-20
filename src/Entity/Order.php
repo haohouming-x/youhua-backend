@@ -11,6 +11,7 @@ use App\Entity\Helper\TimestampableEntity;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\OrderRepository")
  * @Gedmo\SoftDeleteable(fieldName="deleted_at", timeAware=false, hardDelete=true)
+ * @ORM\Table(name="`order`")
  */
 class Order
 {
@@ -36,6 +37,11 @@ class Order
      * @ORM\Column(type="string", length=16)
      */
     private $consignee_concat;
+
+    // /**
+    //  * @ORM\Column(type="string", length=255)
+    //  */
+    // private $consignee_address;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -166,6 +172,18 @@ class Order
     public function setOrderBill(?OrderBill $orderBill): self
     {
         $this->orderBill = $orderBill;
+
+        return $this;
+    }
+
+    public function getConsigneeAddress(): ?string
+    {
+        return $this->consignee_address;
+    }
+
+    public function setConsigneeAddress(string $consignee_address): self
+    {
+        $this->consignee_address = $consignee_address;
 
         return $this;
     }

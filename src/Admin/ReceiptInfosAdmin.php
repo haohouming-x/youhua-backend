@@ -70,14 +70,6 @@ final class ReceiptInfosAdmin extends AbstractAdmin
             ]);
     }
 
-    public function getBatchActions()
-    {
-        $actions = parent::getBatchActions();
-        unset($actions['delete']);
-
-        return $actions;
-    }
-
     protected function configureShowFields(ShowMapper $showMapper)
     {
         $showMapper
@@ -110,5 +102,20 @@ final class ReceiptInfosAdmin extends AbstractAdmin
                 'format' => 'Y-m-d H:i:s'
             ])
             ;
+    }
+
+
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        unset($actions['delete']);
+
+        return $actions;
+    }
+
+    public function configureRoutes(RouteCollection $collection) {
+        $collection
+            ->remove('create')
+            ->remove('delete');
     }
 }

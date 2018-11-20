@@ -64,3 +64,10 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: sonata_admin_user, label: ReceiptInfosAdmin, show_in_dashboard: false }
         public: false
+
+    app.admin.order:
+        class: App\Admin\OrderAdmin
+        arguments: [~, App\Entity\Order, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: sonata_admin_order, label: OrderAdmin }
+        public: true
