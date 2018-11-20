@@ -6,12 +6,12 @@
         <source>Action</source>
         <target>操作</target>
       </trans-unit>
-      <trans-unit id="created_at">
-        <source>created_at</source>
+      <trans-unit id="Created At">
+        <source>Created At</source>
         <target>创建时间</target>
       </trans-unit>
-      <trans-unit id="updated_at">
-        <source>updated_at</source>
+      <trans-unit id="Updated At">
+        <source>Updated At</source>
         <target>更新时间</target>
       </trans-unit>
 
