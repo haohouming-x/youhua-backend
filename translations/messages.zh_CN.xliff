@@ -2,6 +2,19 @@
 <xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
   <file source-language="en" datatype="plaintext" original="">
     <body>
+      <trans-unit id="Action">
+        <source>Action</source>
+        <target>操作</target>
+      </trans-unit>
+      <trans-unit id="created_at">
+        <source>created_at</source>
+        <target>创建时间</target>
+      </trans-unit>
+      <trans-unit id="updated_at">
+        <source>updated_at</source>
+        <target>更新时间</target>
+      </trans-unit>
+
       <trans-unit id="BannerAdmin">
         <source>BannerAdmin</source>
         <target>轮播图管理</target>
@@ -33,9 +46,19 @@
         <source>stat_goods</source>
         <target>商品数量</target>
       </trans-unit>
-       <trans-unit id="stat_consumer">
+      <trans-unit id="stat_consumer">
         <source>stat_consumer</source>
         <target>用户数量</target>
+      </trans-unit>
+
+
+      <trans-unit id="Receipt_infos">
+        <source>Receipt_infos</source>
+        <target>收货信息</target>
+      </trans-unit>
+      <trans-unit id="consumer_show">
+        <source>consumer_show</source>
+        <target>查看用户信息</target>
       </trans-unit>
     </body>
   </file>

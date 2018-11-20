@@ -35,9 +35,7 @@ final class MarketingAdmin extends FileUploaderAdmin
             ->add('validity_date', null, [
                 'label' => '天数'
             ])
-            ->add('created_at', 'doctrine_orm_date', [
-                'label' => '创建时间'
-            ])
+            ->add('created_at', 'doctrine_orm_date')
             ;
     }
 
@@ -70,13 +68,12 @@ final class MarketingAdmin extends FileUploaderAdmin
                 'label' => '天数'
             ])
             ->add('created_at', null, [
-                'label' => '创建时间',
                 'format' => 'Y-m-d H:i:s'
             ])
             ->add('_action', null, [
                 'actions' => [
                     'edit' => [],
-                    'delete' => [],
+                    // 'delete' => [],
                 ],
             ]);
     }
@@ -118,6 +115,14 @@ final class MarketingAdmin extends FileUploaderAdmin
             ])
             ->end()
             ;
+    }
+
+    public function getBatchActions()
+    {
+        $actions = parent::getBatchActions();
+        unset($actions['delete']);
+
+        return $actions;
     }
 
     public function prePersist($market)

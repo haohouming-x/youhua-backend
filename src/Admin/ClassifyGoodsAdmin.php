@@ -38,9 +38,7 @@ final class ClassifyGoodsAdmin extends FileUploaderAdmin
             ->add('name', null, [
                 'label' => '名称'
             ])
-            ->add('created_at', 'doctrine_orm_date', [
-                'label' => '创建时间'
-            ])
+            ->add('created_at', 'doctrine_orm_date')
             ;
     }
 
@@ -57,11 +55,9 @@ final class ClassifyGoodsAdmin extends FileUploaderAdmin
                 'height' => 125,
             ])
             ->add('created_at', 'datetime', [
-                'label' => '创建时间',
                 'format' => 'Y-m-d H:i:s'
             ])
             ->add('updated_at', 'datetime', [
-                'label' => '修改时间',
                 'format' => 'Y-m-d H:i:s'
             ])
             ->add('_action', null, [
@@ -72,8 +68,7 @@ final class ClassifyGoodsAdmin extends FileUploaderAdmin
                         'template' => '@PicossSonataExtraAdmin/CRUD/list__action_sort.html.twig',
                         'hide_label' => false, // Hide button text, default to true
                     ]
-                ],
-                'label' => '操作'
+                ]
             ]);
     }
 

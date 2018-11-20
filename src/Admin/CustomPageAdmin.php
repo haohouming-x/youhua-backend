@@ -24,12 +24,8 @@ final class CustomPageAdmin extends AbstractAdmin
             ->add('name', null, [
                 'label' => '页面名称'
             ])
-            ->add('created_at', 'doctrine_orm_date', [
-                'label' => '创建时间'
-            ])
-            ->add('updated_at', 'doctrine_orm_date', [
-                'label' => '更新时间'
-            ])
+            ->add('created_at', 'doctrine_orm_date')
+            ->add('updated_at', 'doctrine_orm_date')
             ;
     }
 
@@ -46,11 +42,9 @@ final class CustomPageAdmin extends AbstractAdmin
                 'label' => '页面链接'
             ])
             ->add('created_at', null, [
-                'label' => '创建时间',
                 'format' => 'Y-m-d H:i:s'
             ])
             ->add('updated_at', null, [
-                'label' => '更新时间',
                 'format' => 'Y-m-d H:i:s'
             ])
             ->add('_action', null, [

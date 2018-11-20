@@ -5,6 +5,7 @@ namespace App\Admin;
 use Sonata\AdminBundle\Datagrid\{DatagridMapper, ListMapper};
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
+use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Form\Type\{ChoiceFieldMaskType, ModelListType};
 use Symfony\Component\Form\Extension\Core\Type\{TextType, FileType, ChoiceType};
 use Gedmo\Uploadable\UploadableListener;
@@ -31,19 +32,16 @@ final class BannerAdmin extends FileUploaderAdmin
                 'choices' => BannerType::getReadableValues()
             ])
             ->add('created_at', 'datetime', [
-                'label' => '创建时间',
                 'format' => 'Y-m-d H:i:s'
             ])
             ->add('updated_at', 'datetime', [
-                'label' => '修改时间',
                 'format' => 'Y-m-d H:i:s'
             ])
             ->add('_action', null, [
                 'actions' => [
                     'edit' => [],
                     'delete' => [],
-                ],
-                'label' => '操作'
+                ]
             ]);
     }
 
@@ -58,7 +56,6 @@ final class BannerAdmin extends FileUploaderAdmin
                 'label' => '类型',
                 'expanded' => true,
                 'choices' => BannerType::getChoices(),
-                'empty_data' => BannerType::LINK,
                 'map' => [
                     BannerType::GOODS => ['goods'],
                     BannerType::LINK => ['link'],
@@ -110,9 +107,10 @@ final class BannerAdmin extends FileUploaderAdmin
             ], ChoiceType::class, [
                 'choices' => BannerType::getChoices()
             ])
-            ->add('created_at', 'doctrine_orm_date', [
-                'label' => '创建时间'
-            ]);
+            ->add('created_at', 'doctrine_orm_date');
     }
 
+    public function configureRoutes(RouteCollection $collection) {
+        $collection->remove('export');
+    }
 }

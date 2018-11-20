@@ -42,9 +42,7 @@ final class GoodsAdmin extends FileUploaderAdmin
                 'label' => '押金价',
                 'currency' => '￥'
             ])
-            ->add('created_at', 'doctrine_orm_date', [
-                'label' => '创建时间'
-            ])
+            ->add('created_at', 'doctrine_orm_date')
             ;
     }
 
@@ -76,15 +74,13 @@ final class GoodsAdmin extends FileUploaderAdmin
                 'currency' => '￥'
             ])
             ->add('created_at', null, [
-                'label' => '创建时间',
                 'format' => 'Y-m-d H:i:s'
             ])
             ->add('_action', null, [
                 'actions' => [
                     'edit' => [],
                     'delete' => [],
-                ],
-                'label' => '操作'
+                ]
             ]);
     }
 
