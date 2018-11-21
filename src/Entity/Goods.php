@@ -12,7 +12,6 @@ use App\Entity\Helper\{TimestampableEntity, FileUploadTrait};
 /**
  * @ORM\Entity(repositoryClass="App\Repository\GoodsRepository")
  * @Gedmo\Uploadable(path="uploads/images", filenameGenerator="SHA1", allowOverwrite=false, appendNumber=true)
- * @ORM\Table(name="`order`")
  */
 class Goods
 {
