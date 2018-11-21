@@ -3,7 +3,8 @@
     "basePath": "/",
     "info": {
         "title": "油画api",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "description": "油画api"
     },
     "paths": {
         "/api/banners": {
@@ -534,6 +535,41 @@
                 }
             }
         },
+         "\/api\/marketings": {
+            "get": {
+                "tags": [
+                    "\u4f1a\u5458"
+                ],
+                "summary": "\u67e5\u8be2\u4f1a\u5458\u7c7b\u578b\u6570\u636e\u96c6",
+                "description": "\u4f1a\u5458\u7c7b\u578b\u5217\u8868",
+                "operationId": "getMarketingCollection",
+                "produces": [
+                    "application\/ld+json",
+                    "application\/json",
+                    "text\/html"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Marketing collection response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#\/definitions\/Marketing-market--read"
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "required": false,
+                        "type": "integer",
+                        "description": "The collection page number"
+                    }
+                ]
+            }
+        },
         "/api/marketings/{id}": {
             "get": {
                 "tags": [
@@ -558,7 +594,7 @@
                     "200": {
                         "description": "Marketing resource response",
                         "schema": {
-                            "$ref": "#/definitions/Marketing-market--read"
+                            "$ref": "#/definitions/Marketing-market_item--read"
                         }
                     },
                     "404": {
@@ -1036,6 +1072,40 @@
                     "description": "过期时间",
                     "readOnly": true,
                     "type": "integer"
+                }
+            }
+        },
+        "Marketing-market_item--read": {
+            "type": "object",
+            "description": "会员类型",
+            "properties": {
+                "id": {
+                    "description": "会员类型编号",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "会员类型名称",
+                    "type": "string"
+                },
+                "explainText": {
+                    "description": "说明",
+                    "readOnly": true,
+                    "type": "string"
+                },
+                "originalPrice": {
+                    "description": "原价",
+                    "readOnly": true,
+                    "type": "number"
+                },
+                "discount": {
+                    "description": "折扣",
+                    "type": "number"
+                },
+                "validityDate": {
+                    "description": "过期时间",
+                    "readOnly": true,
+                    "type": "integer"
                 },
                 "createdAt": {
                     "description": "创建时间",
@@ -1063,6 +1133,11 @@
                 "name": {
                     "description": "会员类型名称",
                     "type": "string"
+                },
+                "validityDate": {
+                    "description": "过期时间",
+                    "readOnly": true,
+                    "type": "integer"
                 }
             }
         },

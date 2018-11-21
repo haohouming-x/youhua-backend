@@ -2,13 +2,21 @@ resources:
     App\Entity\Marketing:
         attributes:
             normalization_context:
-                groups: ['market:item:read']
+                groups: ['market:read']
         description: '会员类型'
 
-        collectionOperations: []
+        collectionOperations:
+            get:
+                swagger_context:
+                    tags: ['会员']
+                    summary: '查询会员类型数据集'
+                    description: '会员类型列表'
 
         itemOperations:
             get:
+                normalization_context:
+                    groups: ['market:read', 'market:item:read']
+                    swagger_definition_name: "market:item:read"
                 swagger_context:
                     tags: ['会员']
                     summary: '查询对应id的会员类型数据'
@@ -45,8 +53,7 @@ resources:
             validityDate:
                 attributes:
                     swagger_context:
-                        description: '过期时间'
-                        format: 'date-time'
+                        description: '过期天数'
 
             createdAt:
                 attributes:
