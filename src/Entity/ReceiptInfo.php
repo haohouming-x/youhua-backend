@@ -169,6 +169,6 @@ class ReceiptInfo
 
     public function __toString()
     {
-        return (string) $this->getId();
+        return (string) $this->getId() . '-' . $this->getName();
     }
 }

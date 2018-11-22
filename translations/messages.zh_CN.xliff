@@ -59,11 +59,18 @@
         <source>stat_consumer</source>
         <target>用户数量</target>
       </trans-unit>
+      <trans-unit id="stat_order">
+        <source>stat_order</source>
+        <target>订单数量</target>
+      </trans-unit>
 
-
-      <trans-unit id="Receipt_infos">
-        <source>Receipt_infos</source>
+      <trans-unit id="btn_receipt_infos">
+        <source>btn_receipt_infos</source>
         <target>收货信息</target>
+      </trans-unit>
+      <trans-unit id="btn_orders">
+        <source>btn_orders</source>
+        <target>订单信息</target>
       </trans-unit>
       <trans-unit id="consumer_show">
         <source>consumer_show</source>

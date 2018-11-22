@@ -31,13 +31,20 @@ final class ReceiptInfosAdmin extends AbstractAdmin
 
     protected function configureListFields(ListMapper $listMapper)
     {
-        $listMapper
-            ->add('id', null, [
+        $listMapper->add('id', null, [
                 'label' => '编号'
-            ])
-            ->add('consumer.nick_name', null, [
-                'label' => '用户昵称',
-            ])
+            ]);
+
+        if(!$this->isChild())
+        {
+            $listMapper
+                ->add('consumer', null, [
+                    'label' => '用户昵称',
+                    'route' => ['name' => 'show']
+                ]);
+        }
+
+        $listMapper
             ->add('name', null, [
                 'label' => '收货人姓名'
             ])
@@ -72,6 +79,15 @@ final class ReceiptInfosAdmin extends AbstractAdmin
 
     protected function configureShowFields(ShowMapper $showMapper)
     {
+        if(!$this->isChild())
+        {
+            $showMapper
+                ->add('consumer', null, [
+                    'label' => '用户昵称',
+                    'route' => ['name' => 'show']
+                ]);
+        }
+
         $showMapper
             ->add('id')
             ->add('name', null, [
