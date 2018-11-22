@@ -31,7 +31,8 @@ resources:
                         - { name: 'order[name]', in: 'query',  type: 'string', description: '排序方式:参数值id可填为字段asc、desc' }
 
                         - { name: 'classify', in: 'query', type: 'string', description: '分类过滤:传入分类id(准确查找)' }
-                        - { name: 'classify[]', in: 'query', type: 'array[string]', description: '多个分类过滤:传入分类id(准确查找)' }
+                        - { name: 'classify[]', in: 'query', type: 'array', items: {type: 'string'}, description: '多个分类过滤:传入分类id(准确查找)' }
+                        - { name: 'id[]', in: 'query', type: 'array', items: {type: 'integer'}, description: '多个商品id过滤:传入商品id(准确查找)' }
                         - { name: 'name', in: 'query', type: 'string', description: '商品名称过滤:传入商品名(模糊查找)'}
                         - { name: 'page', in: 'query', type: 'integer', description: '分页页数' }
                 filters: ['rip.order', 'rip.goods.search']
