@@ -101,9 +101,11 @@ final class ConsumerAdmin extends AbstractAdmin
                 'actions' => [
                     'show' => [],
                     // 'edit' => [],
-                    'delete' => [],
                     'receipt_infos' => [
                         'template' => 'admin/consumer_receipt_infos.html.twig'
+                    ],
+                    'orders' => [
+                        'template' => 'admin/consumer_orders.html.twig'
                     ]
                 ],
             ]);
@@ -159,7 +161,7 @@ final class ConsumerAdmin extends AbstractAdmin
 
     protected function configureSideMenu(MenuItemInterface $menu, $action, AdminInterface $childAdmin = null)
     {
-        if (!$childAdmin && !in_array($action, ['edit', 'show'])) {
+        if (!$childAdmin) {
             return;
         }
 
@@ -182,6 +184,7 @@ final class ConsumerAdmin extends AbstractAdmin
     public function configureRoutes(RouteCollection $collection) {
         $collection
             ->remove('create')
+            ->remove('edit')
             ->remove('delete');
     }
 }

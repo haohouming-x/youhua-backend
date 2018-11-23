@@ -34,6 +34,7 @@ final class GoodsBannerAdmin extends FileUploaderAdmin
                 'attr' => [
                     'class' => 'col-xs-3'
                 ],
+                'required' => $this->isCurrentRoute('create'),
                 'help' => $this->createPreview('image')
             ]);
     }

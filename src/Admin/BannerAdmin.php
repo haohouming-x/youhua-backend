@@ -50,6 +50,7 @@ final class BannerAdmin extends FileUploaderAdmin
         $formMapper
             ->add('file', FileType::class, [
                 'label' => '图片',
+                'required' => $this->isCurrentRoute('create'),
                 'help' => $this->createPreview('image')
             ])
             ->add('type', ChoiceFieldMaskType::class, [

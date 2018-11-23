@@ -83,6 +83,7 @@ final class MarketingAdmin extends FileUploaderAdmin
         $formMapper
             ->add('file', FileType::class, [
                 'label' => '图片',
+                'required' => $this->isCurrentRoute('create'),
                 'help' => $this->createPreview('image')
             ])
             ->add('name', TextType::class, [

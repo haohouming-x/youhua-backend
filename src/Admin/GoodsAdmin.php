@@ -86,6 +86,7 @@ final class GoodsAdmin extends FileUploaderAdmin
 
     protected function configureFormFields(FormMapper $formMapper)
     {
+
         $formMapper
             ->add('name', TextType::class, [
                 'label' => '商品名称'
@@ -101,6 +102,7 @@ final class GoodsAdmin extends FileUploaderAdmin
             ])
             ->add('file', FileType::class, [
                 'label' => '主图',
+                'required' => $this->isCurrentRoute('create'),
                 'help' => $this->createPreview('image')
             ])
             ->add('pictures', CollectionType::class, [
