@@ -51,7 +51,7 @@ class Order
     private $order_number;
 
     /**
-     * @ORM\Column(type="OrderType")
+     * @ORM\Column(type="OrderType", options={"default" : OrderType::WAIT_PAY})
      */
     private $status;
 
@@ -67,7 +67,7 @@ class Order
     private $consumer;
 
     /**
-     * @ORM\Column(type="float")
+     * @ORM\Column(type="float", options={"default" : 0})
      */
     private $total;
 
@@ -76,10 +76,6 @@ class Order
      */
     private $total_excl;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\OrderBill", inversedBy="orders")
-     */
-    private $orderBill;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
@@ -98,6 +94,11 @@ class Order
      * @Gedmo\Timestampable(on="change", field="status", value=OrderType::ALREADY_TAKE)
      */
     private $took_at;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderBill", mappedBy="order_info", orphanRemoval=true, cascade={"persist"})
+     */
+    private $orderBill;
 
     public function __construct()
     {
@@ -239,32 +240,6 @@ class Order
         return $this->getOrderNumber();
     }
 
-    /**
-     * @return Collection|OrderBill[]
-     */
-    public function getOrderBill(): Collection
-    {
-        return $this->orderBill;
-    }
-
-    public function addOrderBill(OrderBill $orderBill): self
-    {
-        if (!$this->orderBill->contains($orderBill)) {
-            $this->orderBill[] = $orderBill;
-        }
-
-        return $this;
-    }
-
-    public function removeOrderBill(OrderBill $orderBill): self
-    {
-        if ($this->orderBill->contains($orderBill)) {
-            $this->orderBill->removeElement($orderBill);
-        }
-
-        return $this;
-    }
-
     public function getPaidAt(): ?\DateTimeInterface
     {
         return $this->paid_at;
@@ -297,6 +272,37 @@ class Order
     public function setTookAt(?\DateTimeInterface $took_at): self
     {
         $this->took_at = $took_at;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|OrderBill[]
+     */
+    public function getOrderBill(): Collection
+    {
+        return $this->orderBill;
+    }
+
+    public function addOrderBill(OrderBill $orderBill): self
+    {
+        if (!$this->orderBill->contains($orderBill)) {
+            $this->orderBill[] = $orderBill;
+            $orderBill->setOrderInfo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderBill(OrderBill $orderBill): self
+    {
+        if ($this->orderBill->contains($orderBill)) {
+            $this->orderBill->removeElement($orderBill);
+            // set the owning side to null (unless already changed)
+            if ($orderBill->getOrderInfo() === $this) {
+                $orderBill->setOrderInfo(null);
+            }
+        }
 
         return $this;
     }

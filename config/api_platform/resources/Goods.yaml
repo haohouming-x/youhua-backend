@@ -13,12 +13,20 @@ resources:
                     description: '分类id下的商品列表'
                     parameters:
                         - { name: 'id', in: 'path', required: true, type: 'integer', description: '分类id' }
-                        - { name: 'order[id]', in: 'query', type: 'string', description: '排序字段:参数值可填为字段created_at、market_price等'}
+                        - { name: 'order[id]', in: 'query', type: 'string', enum: ['asc', 'desc'], description: '排序字段id:按编号排序。asc: 升序, desc: 降序' }
 
-                        - { name: 'order[name]', in: 'query',  type: 'string', description: '排序方式:参数值id可填为字段asc、desc' }
+                        - { name: 'order[name]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段name:按名称排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'order[stock]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段stock:按库存排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'order[market_price]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段market_price:按市场价排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'order[deposit_price]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段deposit_price:按押金价排序。asc: 升序, desc: 降序' }
 
                         - { name: 'name', in: 'query', type: 'string', description: '商品名称过滤:传入商品名(模糊查找)'}
                         - { name: 'page', in: 'query', type: 'integer', description: '分页页数' }
+                filters: ['rip.goods.order', 'rip.classify_goods.search']
+
 
             get:
                 swagger_context:
@@ -26,16 +34,22 @@ resources:
                     summary: '查询商品数据集'
                     description: '商品列表'
                     parameters:
-                        - { name: 'order[id]', in: 'query', type: 'string', description: '排序字段:参数值可填为字段created_at、market_price等'}
+                        - { name: 'order[id]', in: 'query', type: 'string', enum: ['asc', 'desc'], description: '排序字段id:按编号排序。asc: 升序, desc: 降序' }
 
-                        - { name: 'order[name]', in: 'query',  type: 'string', description: '排序方式:参数值id可填为字段asc、desc' }
+                        - { name: 'order[name]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段name:按名称排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'order[stock]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段stock:按库存排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'order[market_price]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段market_price:按市场价排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'order[deposit_price]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段deposit_price:按押金价排序。asc: 升序, desc: 降序' }
 
                         - { name: 'classify', in: 'query', type: 'string', description: '分类过滤:传入分类id(准确查找)' }
                         - { name: 'classify[]', in: 'query', type: 'array', items: {type: 'string'}, description: '多个分类过滤:传入分类id(准确查找)' }
                         - { name: 'id[]', in: 'query', type: 'array', items: {type: 'integer'}, description: '多个商品id过滤:传入商品id(准确查找)' }
                         - { name: 'name', in: 'query', type: 'string', description: '商品名称过滤:传入商品名(模糊查找)'}
                         - { name: 'page', in: 'query', type: 'integer', description: '分页页数' }
-                filters: ['rip.order', 'rip.goods.search']
+                filters: ['rip.goods.order', 'rip.goods.search']
 
         itemOperations:
             get:

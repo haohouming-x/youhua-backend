@@ -1,10 +1,18 @@
 services:
-    rip.order_filter:
+    rip.goods.order_filter:
         parent:    'api_platform.doctrine.orm.order_filter'
         arguments:
-            - { 'id': ~, 'name': 'desc', 'description': ~, 'relatedDummy.name': ~, 'embeddedDummy.dummyName': 'desc', 'relatedDummy.symfony': ~, 'dummyDate': ~}
+            - { 'id': 'desc', 'created_at': ~, 'name': ~, 'stock': ~, 'market_price': ~, 'deposit_price': ~}
         tags:
-            - { name: 'api_platform.filter', id: 'rip.order' }
+            - { name: 'api_platform.filter', id: 'rip.goods.order' }
+
+    rip.order.order_filter:
+        parent:    'api_platform.doctrine.orm.order_filter'
+        arguments:
+            - { 'id': ~, 'created_at': ~, 'updated_at': ~, 'paid_at': ~, 'sent_at': ~, 'took_at': ~}
+        tags:
+            - { name: 'api_platform.filter', id: 'rip.order.order' }
+
 
     rip.goods.search_filter:
         parent:    'api_platform.doctrine.orm.search_filter'
@@ -12,3 +20,31 @@ services:
             - { 'classify': 'exact', 'id': 'exact', 'name': 'partial' }
         tags:
             - { name: 'api_platform.filter', id: 'rip.goods.search' }
+
+    rip.classify_goods.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments:
+            - { 'name': 'partial' }
+        tags:
+            - { name: 'api_platform.filter', id: 'rip.classify_goods.search' }
+
+    rip.order_bill.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments:
+            - { 'order_info.status': 'exact' }
+        tags:
+            - { name: 'api_platform.filter', id: 'rip.order_bill.search' }
+
+    rip.order.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments:
+            - { 'status': 'exact', 'consumer': 'exact', 'orderBill.status': 'exact' }
+        tags:
+            - { name: 'api_platform.filter', id: 'rip.order.search' }
+
+    rip.consumer_order.search_filter:
+        parent:    'api_platform.doctrine.orm.search_filter'
+        arguments:
+            - { 'status': 'exact', 'orderBill.status': 'exact' }
+        tags:
+            - { name: 'api_platform.filter', id: 'rip.consumer_order.search' }

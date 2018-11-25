@@ -1,0 +1,175 @@
+resources:
+    App\Entity\Order:
+        attributes:
+            normalization_context:
+                groups: ['order:read']
+        description: '订单'
+
+        collectionOperations:
+            api_consumers_orders_get_subresource:
+                swagger_context:
+                    tags: ['用户']
+                    summary: '查询对应用户的订单数据集'
+                    description: '用户id下的订单列表'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '用户id' }
+                        - { name: 'order[id]', in: 'query', type: 'string', enum: ['asc', 'desc'], description: '排序字段id:按编号排序。asc: 升序, desc: 降序'}
+
+                        - { name: 'order[created_at]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段created_at:按创建时间排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'order[updated_at]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段updated_at:按更改时间排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'order[paid_at]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段paid_at:按付款时间排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'order[sent_at]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段sent_at:按发货时间排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'order[took_at]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段took_at:按收货时间排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'status', in: 'query', type: 'string', enum: ['WP', 'WS', 'AS', 'AT', 'AC'], description: '订单过滤:传入订单状态(准确查找), 值的代表状态与返回数据的一致'}
+
+                        - { name: 'status[]', in: 'query', type: 'array', items: {type: 'string', enum: ['WP', 'WS', 'AS', 'AT', 'AC']}, description: '订单过滤:传入多个订单状态(准确查找), 值的代表状态与返回数据的一致'}
+                        - { name: 'orderBill.status', in: 'query', type: 'string', enum: ['RT', 'AE'], description: '订单过滤:传入订单细则状态(准确查找), 值的代表状态与返回数据的一致'}
+
+                        - { name: 'orderBill.status[]', in: 'query', type: 'array', items: {type: 'string', enum: ['RT', 'AE']}, description: '订单过滤:传入多个订单细则状态(准确查找), 值的代表状态与返回数据的一致'}
+
+                        - { name: 'page', in: 'query', type: 'integer', description: '分页页数' }
+                filters: ['rip.order.order', 'rip.consumer_order.search']
+
+            get:
+                swagger_context:
+                    tags: ['订单']
+                    summary: '查询订单数据集'
+                    description: '对应订单列表'
+                    parameters:
+                        - { name: 'order[id]', in: 'query', type: 'string', enum: ['asc', 'desc'], description: '排序字段id:按编号排序。asc: 升序, desc: 降序'}
+
+                        - { name: 'order[created_at]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段created_at:按创建时间排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'order[updated_at]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段updated_at:按更改时间排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'order[paid_at]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段paid_at:按付款时间排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'order[sent_at]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段sent_at:按发货时间排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'order[took_at]', in: 'query',  type: 'string', enum: ['asc', 'desc'], description: '排序字段took_at:按收货时间排序。asc: 升序, desc: 降序' }
+
+                        - { name: 'consumer', in: 'query', type: 'string', description: '订单过滤:传入用户id(准确查找)'}
+
+                        - { name: 'status', in: 'query', type: 'string', enum: ['WP', 'WS', 'AS', 'AT', 'AC'], description: '订单过滤:传入订单状态(准确查找), 值的代表状态与返回数据的一致'}
+
+                        - { name: 'status[]', in: 'query', type: 'array', items: {type: 'string', enum: ['WP', 'WS', 'AS', 'AT', 'AC']}, description: '订单过滤:传入多个订单状态(准确查找), 值的代表状态与返回数据的一致'}
+
+                        - { name: 'orderBill.status', in: 'query', type: 'string', enum: ['RT', 'AE'], description: '订单过滤:传入订单细则状态(准确查找), 值的代表状态与返回数据的一致'}
+
+                        - { name: 'orderBill.status[]', in: 'query', type: 'array', items: {type: 'string', enum: ['RT', 'AE']}, description: '订单过滤:传入多个订单细则状态(准确查找), 值的代表状态与返回数据的一致'}
+
+                        - { name: 'page', in: 'query', type: 'integer', description: '分页页数' }
+                filters: ['rip.order.order', 'rip.order.search']
+
+            api_consumers_orders_post_subresource:
+                method: "POST"
+                path: "/consumers/{id}/orders.{_format}"
+                normalization_context:
+                    groups: ['order:return:read']
+                denormalization_context:
+                    groups: ['order:write']
+                controller: 'App\Controller\OrderSpecial'
+                # defaults: {_api_receive: false}
+                swagger_context:
+                    tags: ['用户']
+                    summary: '创建对应用户新订单'
+                    description: '创建对应用户订单'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '用户id' }
+                        - { name: 'order', in: 'body', schema: {$ref: "#\/definitions\/Order-order:write" } }
+
+        itemOperations:
+            get:
+                swagger_context:
+                    tags: ['订单']
+                    summary: '查询对应id的订单数据'
+                    description: '对应id的订单'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '订单id' }
+            get_logistics:
+                 method: "GET"
+                 normalization_context:
+                    groups: ['order:logistics:read']
+                 path: "/orders/{id}/logistics.{_format}"
+                 swagger_context:
+                    tags: ['订单']
+                    summary: '查询对应id的订单物流数据'
+                    description: '对应id的订单物流'
+
+        properties:
+            id:
+                attributes:
+                    swagger_context:
+                        description: '编号'
+
+            orderNumber:
+                attributes:
+                    swagger_context:
+                        description: '订单编号'
+
+            consigneeName:
+                attributes:
+                    swagger_context:
+                        description: '收货人名称'
+
+            consigneeConcat:
+                attributes:
+                    swagger_context:
+                        description: '收货人电话'
+
+            consigneeAddress:
+                attributes:
+                    swagger_context:
+                        description: '收货地址'
+
+            status:
+                attributes:
+                    swagger_context:
+                        enum: ['WP', 'WS', 'AS', 'AT', 'AC']
+                        description:  >
+                          订单状态
+
+                          - WP: 未付款
+
+                          - WS: 待发货
+
+                          - AS: 已发货
+
+                          - AT: 已收货
+
+                          - AC: 已取消
+
+            orderBill:
+                attributes:
+                    swagger_context:
+                        description: '订单细则'
+
+            paidAt:
+                attributes:
+                    swagger_context:
+                        description: '付款时间'
+
+            sentAt:
+                attributes:
+                    swagger_context:
+                        description: '发货时间'
+
+            tookAt:
+                attributes:
+                    swagger_context:
+                        description: '收货时间'
+
+            createdAt:
+                attributes:
+                    swagger_context:
+                        description: '创建时间'
+
+            updatedAt:
+                attributes:
+                    swagger_context:
+                        description: '更改时间'

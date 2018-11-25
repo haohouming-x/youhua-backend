@@ -73,7 +73,7 @@ services:
         tags:
             - { name: sonata.admin, manager_type: orm, group: sonata_admin_order, label: OrderAdmin }
         calls:
-            - [addChild, ['@app.admin.order_bill', 'orders']]
+            - [addChild, ['@app.admin.order_bill', 'order_info']]
         public: true
 
     app.admin.order_bill:

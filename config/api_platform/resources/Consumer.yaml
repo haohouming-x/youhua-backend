@@ -14,6 +14,16 @@ resources:
                     summary: '创建新用户'
                     description: '创建用户'
 
+            # loginOrCreate:
+            #     route_name: 'mpapp_login_or_create'
+            #     swagger_context:
+            #         tags: ['用户']
+            #         summary: '小程序登录'
+            #         description: '登录（没账号会创建）'
+            #         parameters:
+            #             - { name: 'code', in: 'query', required: true, type: 'string', description: 'wx.login生成的code值' }
+            #             - { name: 'consumer', in: 'body', schema: {$ref: "#\/definitions\/Consumer-consumer:item:write" } }
+
         itemOperations:
             get:
                 swagger_context:
@@ -74,3 +84,10 @@ resources:
                 subresource:
                     resourceClass: App\Entity\ReceiptInfo
                     collection: true
+
+            orders:
+                attributes:
+                    swagger_context:
+                        description: '订单'
+                subresource:
+                    resourceClass: App\Entity\Order

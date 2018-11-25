@@ -139,13 +139,51 @@
                         "name": "order[id]",
                         "in": "query",
                         "type": "string",
-                        "description": "排序字段:参数值可填为字段created_at、market_price等"
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段id:按编号排序。asc: 升序, desc: 降序"
                     },
                     {
                         "name": "order[name]",
                         "in": "query",
                         "type": "string",
-                        "description": "排序方式:参数值id可填为字段asc、desc"
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段name:按名称排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[stock]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段stock:按库存排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[market_price]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段market_price:按市场价排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[deposit_price]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段deposit_price:按押金价排序。asc: 升序, desc: 降序"
                     },
                     {
                         "name": "name",
@@ -262,6 +300,14 @@
                         "required": true,
                         "type": "integer",
                         "description": "用户id"
+                    },
+                    {
+                        "name": "consumer",
+                        "in": "body",
+                        "description": "The updated Consumer resource",
+                        "schema": {
+                            "$ref": "#/definitions/Consumer-consumer_item--write"
+                        }
                     }
                 ],
                 "operationId": "putConsumerItem",
@@ -275,7 +321,7 @@
                     "200": {
                         "description": "Consumer resource updated",
                         "schema": {
-                            "$ref": "#/definitions/Consumer-consumer_item--write"
+                            "$ref": "#/definitions/Consumer-consumer_item--read"
                         }
                     },
                     "400": {
@@ -313,6 +359,205 @@
                         "schema": {
                             "$ref": "#/definitions/Member-member_item--read"
                         }
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                }
+            }
+        },
+        "/api/consumers/{id}/orders": {
+            "get": {
+                "tags": [
+                    "用户"
+                ],
+                "summary": "查询对应用户的订单数据集",
+                "description": "用户id下的订单列表",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "description": "用户id"
+                    },
+                    {
+                        "name": "order[id]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段id:按编号排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[created_at]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段created_at:按创建时间排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[updated_at]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段updated_at:按更改时间排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[paid_at]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段paid_at:按付款时间排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[sent_at]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段sent_at:按发货时间排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[took_at]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段took_at:按收货时间排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "WP",
+                            "WS",
+                            "AS",
+                            "AT",
+                            "AC"
+                        ],
+                        "description": "订单过滤:传入订单状态(准确查找), 值的代表状态与返回数据的一致"
+                    },
+                    {
+                        "name": "status[]",
+                        "in": "query",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "WP",
+                                "WS",
+                                "AS",
+                                "AT",
+                                "AC"
+                            ]
+                        },
+                        "description": "订单过滤:传入多个订单状态(准确查找), 值的代表状态与返回数据的一致"
+                    },
+                    {
+                        "name": "orderBill.status",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "RT",
+                            "AE"
+                        ],
+                        "description": "订单过滤:传入订单细则状态(准确查找), 值的代表状态与返回数据的一致"
+                    },
+                    {
+                        "name": "orderBill.status[]",
+                        "in": "query",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "RT",
+                                "AE"
+                            ]
+                        },
+                        "description": "订单过滤:传入多个订单细则状态(准确查找), 值的代表状态与返回数据的一致"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "分页页数"
+                    }
+                ],
+                "operationId": "api_consumers_orders_get_subresourceOrderCollection",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Order collection response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Order-order--read"
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "\u7528\u6237"
+                ],
+                "summary": "\u521b\u5efa\u5bf9\u5e94\u7528\u6237\u65b0\u8ba2\u5355",
+                "description": "\u521b\u5efa\u5bf9\u5e94\u7528\u6237\u8ba2\u5355",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "description": "\u7528\u6237id"
+                    },
+                    {
+                        "name": "order",
+                        "in": "body",
+                        "schema": {
+                            "$ref": "#\/definitions\/Order-order--write"
+                        }
+                    }
+                ],
+                "operationId": "api_consumers_orders_post_subresourceOrderCollection",
+                "consumes": [
+                    "application\/ld+json",
+                    "application\/json",
+                    "text\/html"
+                ],
+                "produces": [
+                    "application\/ld+json",
+                    "application\/json",
+                    "text\/html"
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Order resource created",
+                        "schema": {
+                            "$ref": "#\/definitions\/Order-order_return--read"
+                        }
+                    },
+                    "400": {
+                        "description": "Invalid input"
                     },
                     "404": {
                         "description": "Resource not found"
@@ -449,13 +694,51 @@
                         "name": "order[id]",
                         "in": "query",
                         "type": "string",
-                        "description": "排序字段:参数值可填为字段created_at、market_price等"
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段id:按编号排序。asc: 升序, desc: 降序"
                     },
                     {
                         "name": "order[name]",
                         "in": "query",
                         "type": "string",
-                        "description": "排序方式:参数值id可填为字段asc、desc"
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段name:按名称排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[stock]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段stock:按库存排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[market_price]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段market_price:按市场价排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[deposit_price]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段deposit_price:按押金价排序。asc: 升序, desc: 降序"
                     },
                     {
                         "name": "classify",
@@ -471,6 +754,15 @@
                             "type": "string"
                         },
                         "description": "多个分类过滤:传入分类id(准确查找)"
+                    },
+                    {
+                        "name": "id[]",
+                        "in": "query",
+                        "type": "array",
+                        "items": {
+                            "type": "integer"
+                        },
+                        "description": "多个商品id过滤:传入商品id(准确查找)"
                     },
                     {
                         "name": "name",
@@ -535,18 +827,16 @@
                 }
             }
         },
-         "\/api\/marketings": {
+        "/api/marketings": {
             "get": {
                 "tags": [
-                    "\u4f1a\u5458"
+                    "会员"
                 ],
-                "summary": "\u67e5\u8be2\u4f1a\u5458\u7c7b\u578b\u6570\u636e\u96c6",
-                "description": "\u4f1a\u5458\u7c7b\u578b\u5217\u8868",
+                "summary": "查询会员类型数据集",
+                "description": "会员类型列表",
                 "operationId": "getMarketingCollection",
                 "produces": [
-                    "application\/ld+json",
-                    "application\/json",
-                    "text\/html"
+                    "application/json"
                 ],
                 "responses": {
                     "200": {
@@ -554,7 +844,7 @@
                         "schema": {
                             "type": "array",
                             "items": {
-                                "$ref": "#\/definitions\/Marketing-market--read"
+                                "$ref": "#/definitions/Marketing-market--read"
                             }
                         }
                     }
@@ -636,6 +926,254 @@
                 }
             }
         },
+        "/api/order_bills/{id}": {
+            "get": {
+                "tags": [
+                    "订单"
+                ],
+                "summary": "查询对应id的订单细则数据",
+                "description": "对应id的细则订单",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "description": "订单细则id"
+                    }
+                ],
+                "operationId": "getOrderBillItem",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OrderBill resource response",
+                        "schema": {
+                            "$ref": "#/definitions/OrderBill-order_bill--read"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                }
+            }
+        },
+        "/api/orders": {
+            "get": {
+                "tags": [
+                    "订单"
+                ],
+                "summary": "查询订单数据集",
+                "description": "对应订单列表",
+                "parameters": [
+                    {
+                        "name": "order[id]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段id:按编号排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[created_at]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段created_at:按创建时间排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[updated_at]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段updated_at:按更改时间排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[paid_at]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段paid_at:按付款时间排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[sent_at]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段sent_at:按发货时间排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "order[took_at]",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "asc",
+                            "desc"
+                        ],
+                        "description": "排序字段took_at:按收货时间排序。asc: 升序, desc: 降序"
+                    },
+                    {
+                        "name": "consumer",
+                        "in": "query",
+                        "type": "string",
+                        "description": "订单过滤:传入用户id(准确查找)"
+                    },
+                    {
+                        "name": "status",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "WP",
+                            "WS",
+                            "AS",
+                            "AT",
+                            "AC"
+                        ],
+                        "description": "订单过滤:传入订单状态(准确查找), 值的代表状态与返回数据的一致"
+                    },
+                    {
+                        "name": "status[]",
+                        "in": "query",
+                        "type": "array",
+                        "items": {
+                            "enum": [
+                                "WP",
+                                "WS",
+                                "AS",
+                                "AT",
+                                "AC"
+                            ]
+                        },
+                        "description": "订单过滤:传入多个订单状态(准确查找), 值的代表状态与返回数据的一致"
+                    },
+                    {
+                        "name": "orderBill.status",
+                        "in": "query",
+                        "type": "string",
+                        "enum": [
+                            "RT",
+                            "AE"
+                        ],
+                        "description": "订单过滤:传入订单细则状态(准确查找), 值的代表状态与返回数据的一致"
+                    },
+                    {
+                        "name": "orderBill.status[]",
+                        "in": "query",
+                        "type": "array",
+                        "items": {
+                            "type": "string",
+                            "enum": [
+                                "RT",
+                                "AE"
+                            ]
+                        },
+                        "description": "订单过滤:传入多个订单细则状态(准确查找), 值的代表状态与返回数据的一致"
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "type": "integer",
+                        "description": "分页页数"
+                    }
+                ],
+                "operationId": "getOrderCollection",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Order collection response",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/Order-order--read"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}": {
+            "get": {
+                "tags": [
+                    "订单"
+                ],
+                "summary": "查询对应id的订单数据",
+                "description": "对应id的订单",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "description": "订单id"
+                    }
+                ],
+                "operationId": "getOrderItem",
+                "produces": [
+                    "application/json"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Order resource response",
+                        "schema": {
+                            "$ref": "#/definitions/Order-order--read"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                }
+            }
+        },
+        "/api/orders/{id}/logistics": {
+            "get": {
+                "tags": [
+                    "订单"
+                ],
+                "summary": "查询对应id的订单物流数据",
+                "description": "对应id的订单物流",
+                "operationId": "get_logisticsOrderItem",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "integer",
+                        "description": "订单id"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Order resource response",
+                        "schema": {
+                            "$ref": "#/definitions/Order-order_logistics--read"
+                        }
+                    },
+                    "404": {
+                        "description": "Resource not found"
+                    }
+                }
+            }
+        },
         "/api/receipt_infos/{id}": {
             "get": {
                 "tags": [
@@ -649,7 +1187,7 @@
                         "in": "path",
                         "required": true,
                         "type": "integer",
-                        "description": "会员id"
+                        "description": "收货信息id"
                     }
                 ],
                 "operationId": "getReceiptInfoItem",
@@ -672,8 +1210,8 @@
                 "tags": [
                     "收货信息"
                 ],
-                "summary": "修改对应用户id的收货信息数据",
-                "description": "修改用户id下的收货信息",
+                "summary": "修改对应id的收货信息数据",
+                "description": "修改收货信息id下的收货信息",
                 "operationId": "putReceiptInfoItem",
                 "consumes": [
                     "application/json"
@@ -685,6 +1223,7 @@
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "收货信息id",
                         "type": "string",
                         "required": true
                     },
@@ -716,8 +1255,8 @@
                 "tags": [
                     "收货信息"
                 ],
-                "summary": "删除对应用户id的收货信息数据",
-                "description": "删除用户id下的收货信息",
+                "summary": "删除对应id的收货信息数据",
+                "description": "删除收货信息id下的收货信息",
                 "operationId": "deleteReceiptInfoItem",
                 "responses": {
                     "204": {
@@ -731,6 +1270,7 @@
                     {
                         "name": "id",
                         "in": "path",
+                        "description": "收货信息id",
                         "type": "string",
                         "required": true
                     }
@@ -1026,6 +1566,76 @@
                 }
             }
         },
+        "Goods-order--read": {
+            "type": "object",
+            "description": "商品",
+            "properties": {
+                "id": {
+                    "description": "编号",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "商品名称",
+                    "type": "string"
+                },
+                "image": {
+                    "description": "主图片",
+                    "type": "string"
+                },
+                "marketPrice": {
+                    "description": "市场价",
+                    "type": "number"
+                },
+                "depositPrice": {
+                    "description": "押金价",
+                    "type": "number"
+                },
+                "longSize": {
+                    "description": "长",
+                    "type": "integer"
+                },
+                "wideSize": {
+                    "description": "宽",
+                    "type": "integer"
+                }
+            }
+        },
+        "Goods-order_bill--read": {
+            "type": "object",
+            "description": "商品",
+            "properties": {
+                "id": {
+                    "description": "编号",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "name": {
+                    "description": "商品名称",
+                    "type": "string"
+                },
+                "image": {
+                    "description": "主图片",
+                    "type": "string"
+                },
+                "marketPrice": {
+                    "description": "市场价",
+                    "type": "number"
+                },
+                "depositPrice": {
+                    "description": "押金价",
+                    "type": "number"
+                },
+                "longSize": {
+                    "description": "长",
+                    "type": "integer"
+                },
+                "wideSize": {
+                    "description": "宽",
+                    "type": "integer"
+                }
+            }
+        },
         "Marketing-consumer_item--read": {
             "type": "object",
             "description": "会员类型",
@@ -1054,7 +1664,7 @@
                     "description": "会员类型名称",
                     "type": "string"
                 },
-                "explainText": {
+                "xplainText": {
                     "description": "说明",
                     "readOnly": true,
                     "type": "string"
@@ -1186,6 +1796,323 @@
                     "description": "会员到期时间",
                     "type": "string",
                     "format": "date-time"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Order-order_logistics--read": {
+            "type": "object",
+            "description": "订单",
+            "properties": {
+                "status": {
+                    "enum": [
+                        "WP",
+                        "WS",
+                        "AS",
+                        "AT",
+                        "AC"
+                    ],
+                    "description": "订单状态\n- WP: 未付款\n- WS: 待发货\n- AS: 已发货\n- AT: 已收货\n- AC: 已取消\n",
+                    "type": "string"
+                },
+                "consigneeName": {
+                    "description": "收货人名称",
+                    "type": "string"
+                },
+                "consigneeConcat": {
+                    "description": "收货人电话",
+                    "type": "string"
+                },
+                "consigneeAddress": {
+                    "description": "收货地址",
+                    "type": "string"
+                },
+                "paidAt": {
+                    "description": "付款时间",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "sentAt": {
+                    "description": "发货时间",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "tookAt": {
+                    "description": "收货时间",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Order-order--read": {
+            "type": "object",
+            "description": "订单",
+            "properties": {
+                "id": {
+                    "description": "编号",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "status": {
+                    "enum": [
+                        "WP",
+                        "WS",
+                        "AS",
+                        "AT",
+                        "AC"
+                    ],
+                    "description": "订单状态\n- WP: 未付款\n- WS: 待发货\n- AS: 已发货\n- AT: 已收货\n- AC: 已取消\n",
+                    "type": "string"
+                },
+                "orderBill": {
+                    "description": "订单细则",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/OrderBill-order--read"
+                    }
+                },
+                "consigneeName": {
+                    "description": "收货人名称",
+                    "type": "string"
+                },
+                "consigneeConcat": {
+                    "description": "收货人电话",
+                    "type": "string"
+                },
+                "consigneeAddress": {
+                    "description": "收货地址",
+                    "type": "string"
+                },
+                "orderNumber": {
+                    "description": "订单编号",
+                    "type": "string"
+                },
+                "paidAt": {
+                    "description": "付款时间",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "sentAt": {
+                    "description": "发货时间",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "tookAt": {
+                    "description": "收货时间",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updatedAt": {
+                    "description": "更改时间",
+                    "type": "string"
+                }
+            }
+        },
+        "Order-order_return--read": {
+            "type": "object",
+            "description": "\u8ba2\u5355",
+            "properties": {
+                "id": {
+                    "description": "\u7f16\u53f7",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "status": {
+                    "enum": [
+                        "WP",
+                        "WS",
+                        "AS",
+                        "AT",
+                        "AC"
+                    ],
+                    "description": "\u8ba2\u5355\u72b6\u6001\n- WP: \u672a\u4ed8\u6b3e\n- WS: \u5f85\u53d1\u8d27\n- AS: \u5df2\u53d1\u8d27\n- AT: \u5df2\u6536\u8d27\n- AC: \u5df2\u53d6\u6d88\n",
+                    "type": "string"
+                },
+                "orderNumber": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "Order-order--write": {
+            "type": "object",
+            "description": "\u8ba2\u5355",
+            "properties": {
+                "orderBill": {
+                    "description": "\u8ba2\u5355\u7ec6\u5219",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#\/definitions\/OrderBill-order--write"
+                    }
+                },
+                "consigneeName": {
+                    "description": "收货人名称",
+                    "type": "string"
+                },
+                "consigneeConcat": {
+                    "description": "收货人电话",
+                    "type": "string"
+                },
+                "consigneeAddress": {
+                    "description": "收货地址",
+                    "type": "string"
+                }
+            }
+        },
+        "OrderBill-order--write": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "status": {
+                    "enum": [
+                        "RT",
+                        "AE"
+                    ],
+                    "description": "\u7ec6\u5219\u72b6\u6001\n- RT: \u9000\u8fd8\n- AE: \u65b0\u589e\n",
+                    "type": "string"
+                },
+                "goodsId": {
+                    "type": "string",
+                    "description": "商品id"
+                }
+            }
+        },
+        "Order-order_bill--read": {
+            "type": "object",
+            "description": "订单",
+            "properties": {
+                "id": {
+                    "description": "编号",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "status": {
+                    "enum": [
+                        "WP",
+                        "WS",
+                        "AS",
+                        "AT",
+                        "AC"
+                    ],
+                    "description": "订单状态\n- WP: 未付款\n- WS: 待发货\n- AS: 已发货\n- AT: 已收货\n- AC: 已取消\n",
+                    "type": "string"
+                },
+                "consigneeName": {
+                    "description": "收货人名称",
+                    "type": "string"
+                },
+                "consigneeConcat": {
+                    "description": "收货人电话",
+                    "type": "string"
+                },
+                "consigneeAddress": {
+                    "description": "收货地址",
+                    "type": "string"
+                },
+                "orderNumber": {
+                    "description": "订单编号",
+                    "type": "string"
+                },
+                "paidAt": {
+                    "description": "付款时间",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "sentAt": {
+                    "description": "发货时间",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "tookAt": {
+                    "description": "收货时间",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "date-time"
+                },
+                "updatedAt": {
+                    "description": "更改时间",
+                    "type": "string"
+                }
+            }
+        },
+        "OrderBill-order--read": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "id": {
+                    "description": "编号",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "status": {
+                    "enum": [
+                        "RT",
+                        "AE"
+                    ],
+                    "description": "细则状态\n- RT: 退还\n- AE: 新增\n",
+                    "type": "string"
+                },
+                "goods": {
+                    "description": "所含商品",
+                    "$ref": "#/definitions/Goods-order--read"
+                },
+                "depositPrice": {
+                    "description": "押金",
+                    "type": "number"
+                },
+                "createdAt": {
+                    "description": "创建时间",
+                    "type": "string",
+                    "format": "date-time"
+                }
+            }
+        },
+        "OrderBill-order_bill--read": {
+            "type": "object",
+            "description": "",
+            "properties": {
+                "id": {
+                    "description": "编号",
+                    "readOnly": true,
+                    "type": "integer"
+                },
+                "status": {
+                    "enum": [
+                        "RT",
+                        "AE"
+                    ],
+                    "description": "细则状态\n- RT: 退还\n- AE: 新增\n",
+                    "type": "string"
+                },
+                "goods": {
+                    "description": "所含商品",
+                    "$ref": "#/definitions/Goods-order_bill--read"
+                },
+                "depositPrice": {
+                    "description": "押金",
+                    "type": "number"
+                },
+                "orderInfo": {
+                    "$ref": "#/definitions/Order-order_bill--read"
                 },
                 "createdAt": {
                     "description": "创建时间",

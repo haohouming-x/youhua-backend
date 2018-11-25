@@ -69,12 +69,12 @@ class Consumer
     private $first_login_at;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\ReceiptInfo", mappedBy="consumer", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\ReceiptInfo", mappedBy="consumer", orphanRemoval=true, fetch="EXTRA_LAZY")
      */
     private $receiptInfos;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="consumer")
+     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="consumer", fetch="EXTRA_LAZY")
      */
     private $orders;
 
@@ -83,16 +83,10 @@ class Consumer
      */
     private $member;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\OrderBill", mappedBy="consumer")
-     */
-    private $orderBills;
-
     public function __construct()
     {
         $this->receiptInfos = new ArrayCollection();
         $this->orders = new ArrayCollection();
-        $this->orderBills = new ArrayCollection();
     }
 
     public function getId()
@@ -266,36 +260,5 @@ class Consumer
     public function __toString()
     {
         return (string) $this->getNickName();
-    }
-
-    /**
-     * @return Collection|OrderBill[]
-     */
-    public function getOrderBills(): Collection
-    {
-        return $this->orderBills;
-    }
-
-    public function addOrderBill(OrderBill $orderBill): self
-    {
-        if (!$this->orderBills->contains($orderBill)) {
-            $this->orderBills[] = $orderBill;
-            $orderBill->setConsumer($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrderBill(OrderBill $orderBill): self
-    {
-        if ($this->orderBills->contains($orderBill)) {
-            $this->orderBills->removeElement($orderBill);
-            // set the owning side to null (unless already changed)
-            if ($orderBill->getConsumer() === $this) {
-                $orderBill->setConsumer(null);
-            }
-        }
-
-        return $this;
     }
 }

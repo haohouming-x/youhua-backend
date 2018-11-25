@@ -1,0 +1,22 @@
+App\Entity\OrderBill:
+    attributes:
+        id:
+            groups: ['order_bill:read', 'order:read']
+
+        depositPrice:
+            groups: ['order_bill:read', 'order:read', 'order:write']
+
+        status:
+            groups: ['order_bill:read', 'order:read', 'order:write']
+
+        goods:
+            groups: ['order_bill:read', 'order:read']
+
+        goodsId:
+            groups: ['order:write']
+
+        orderInfo:
+            groups: ['order_bill:read']
+
+        createdAt:
+            groups: ['order_bill:read', 'order:read']

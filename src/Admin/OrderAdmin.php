@@ -142,10 +142,35 @@ final class OrderAdmin extends AbstractAdmin
             ->with('订单信息', [
                 'class' => 'col-xs-7'
             ])
-            ->add('id')
-            ->add('order_number', null, [
-                'label' => '订单号'
-            ])
+                ->add('id')
+                ->add('order_number', null, [
+                    'label' => '订单号'
+                ])
+                ->add('status', 'choice', [
+                    'label' => '状态',
+                    'choices' => OrderType::getReadableValues()
+                ])
+                ->add('getTotalBillByReturn', null, [
+                    'label' => '退画数量'
+                ])
+                ->add('getTotalBillByAppend', null, [
+                    'label' => '增画数量'
+                ])
+                ->add('total', 'currency', [
+                    'label' => '押金',
+                    'currency' => '￥'
+                ])
+                ->add('total_excl', 'currency', [
+                    'label' => '押金差价',
+                    'currency' => '￥'
+                ])
+                // ->add('deleted_at')
+                ->add('created_at', null, [
+                    'format' => 'Y-m-d H:i:s'
+                ])
+                ->add('updated_at', null, [
+                    'format' => 'Y-m-d H:i:s'
+                ])
             ->end()
             ->with('用户信息', [
                 'class' => 'col-xs-5'
@@ -170,33 +195,20 @@ final class OrderAdmin extends AbstractAdmin
                 'label' => '收货人地址'
             ])
             ->end()
-            ->with('订单信息', [
-                'class' => 'col-xs-7'
+            ->with('操作时间', [
+                'class' => 'col-xs-5'
             ])
-            ->add('status', 'choice', [
-                'label' => '状态',
-                'choices' => OrderType::getReadableValues()
+            ->add('paid_at', null, [
+                'format' => 'Y-m-d H:i:s',
+                'label' => '付款时间'
             ])
-            ->add('getTotalBillByReturn', null, [
-                'label' => '退画数量'
+            ->add('sent_at', null, [
+                'format' => 'Y-m-d H:i:s',
+                'label' => '发货时间'
             ])
-            ->add('getTotalBillByAppend', null, [
-                'label' => '增画数量'
-            ])
-            ->add('total', 'currency', [
-                'label' => '押金',
-                'currency' => '￥'
-            ])
-            ->add('total_excl', 'currency', [
-                'label' => '押金差价',
-                'currency' => '￥'
-            ])
-            // ->add('deleted_at')
-            ->add('created_at', null, [
-                'format' => 'Y-m-d H:i:s'
-            ])
-            ->add('updated_at', null, [
-                'format' => 'Y-m-d H:i:s'
+            ->add('took_at', null, [
+                'format' => 'Y-m-d H:i:s',
+                'label' => '收货时间'
             ])
             ->end()
             ;
@@ -255,6 +267,11 @@ final class OrderAdmin extends AbstractAdmin
         $menu->addChild(
             'order_bill_list',
             ['uri' => $admin->generateUrl('app.admin.order_bill.list', ['id' => $id])]
+        );
+
+        $menu->addChild(
+            'order_edit',
+            ['uri' => $admin->generateUrl('edit', ['id' => $id])]
         );
     }
 }

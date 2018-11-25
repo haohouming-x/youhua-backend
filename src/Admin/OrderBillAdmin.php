@@ -20,7 +20,7 @@ final class OrderBillAdmin extends AbstractAdmin
     {
         if(!$this->isChild())
         {
-            $datagridMapper->add('orders', null, [
+            $datagridMapper->add('order_info', null, [
                 'label' => '订单',
             ], null, [
                 'multiple' => true
@@ -38,7 +38,6 @@ final class OrderBillAdmin extends AbstractAdmin
                 'choices' => OrderBillType::getChoices()
             ])
             ->add('created_at', 'doctrine_orm_date')
-            ->add('updated_at', 'doctrine_orm_date')
             ;
     }
 
@@ -49,7 +48,7 @@ final class OrderBillAdmin extends AbstractAdmin
 
         if(!$this->isChild())
         {
-            $listMapper->add('orders', null, [
+            $listMapper->add('order_info', null, [
                 'label' => '订单',
                 'route' => ['name' => 'show']
             ]);
@@ -67,9 +66,6 @@ final class OrderBillAdmin extends AbstractAdmin
             // ->add('quantity')
             ->add('created_at', null, [
                 'format' => 'Y-m-d H:i:s'
-            ])
-            ->add('updated_at', null, [
-                'format' => 'Y-m-d H:i:s'
             ]);
     }
 
@@ -80,7 +76,6 @@ final class OrderBillAdmin extends AbstractAdmin
             ->add('deposit_price')
             ->add('status')
             ->add('created_at')
-            ->add('updated_at')
             ;
     }
 

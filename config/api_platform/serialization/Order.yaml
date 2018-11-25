@@ -1,0 +1,37 @@
+App\Entity\Order:
+    attributes:
+        id:
+            groups: ['order:read', 'order_bill:read', 'order:return:read']
+
+        orderNumber:
+            groups: ['order:read', 'order_bill:read', 'order:return:read']
+
+        consigneeName:
+            groups: ['order:read', 'order_bill:read', 'order:logistics:read', 'order:write']
+
+        consigneeConcat:
+            groups: ['order:read', 'order_bill:read', 'order:logistics:read', 'order:write']
+
+        consigneeAddress:
+            groups: ['order:read', 'order_bill:read', 'order:logistics:read', 'order:write']
+
+        status:
+            groups: ['order:read', 'order_bill:read', 'order:logistics:read', 'order:write', 'order:return:read']
+
+        orderBill:
+            groups: ['order:read', 'order:write']
+
+        paidAt:
+            groups: ['order:read', 'order_bill:read', 'order:logistics:read']
+
+        sentAt:
+            groups: ['order:read', 'order_bill:read', 'order:logistics:read']
+
+        tookAt:
+            groups: ['order:read', 'order_bill:read', 'order:logistics:read']
+
+        createdAt:
+            groups: ['order:read', 'order_bill:read', 'order:return:read']
+
+        updatedAt:
+            groups: ['order:read', 'order_bill:read']

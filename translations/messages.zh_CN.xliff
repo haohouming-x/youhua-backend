@@ -85,6 +85,10 @@
         <source>order_bill_list</source>
         <target>查看细单</target>
       </trans-unit>
+      <trans-unit id="order_edit">
+        <source>order_edit</source>
+        <target>返回编辑</target>
+      </trans-unit>
        <trans-unit id="order_show">
         <source>order_show</source>
         <target>返回订单详细</target>

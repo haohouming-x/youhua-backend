@@ -1,0 +1,48 @@
+resources:
+    App\Entity\OrderBill:
+        attributes:
+            normalization_context:
+                groups: ['order_bill:read']
+
+        collectionOperations: []
+
+        itemOperations:
+              get:
+                  swagger_context:
+                      tags: ['订单']
+                      summary: '查询对应id的订单细则数据'
+                      description: '对应id的细则订单'
+                      parameters:
+                          - { name: 'id', in: 'path', required: true, type: 'integer', description: '订单细则id' }
+
+        properties:
+            id:
+                attributes:
+                  swagger_context:
+                      description: '编号'
+
+            depositPrice:
+                attributes:
+                  swagger_context:
+                      description: '押金'
+
+            status:
+                attributes:
+                  swagger_context:
+                      enum: ['RT', 'AE']
+                      description: >
+                        细则状态
+
+                        - RT: 退还
+
+                        - AE: 新增
+
+            goods:
+                attributes:
+                  swagger_context:
+                      description: '所含商品'
+
+            createdAt:
+                attributes:
+                  swagger_context:
+                      description: '创建时间'

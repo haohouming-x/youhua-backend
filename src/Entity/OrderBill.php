@@ -50,25 +50,27 @@ class OrderBill
     private $goods;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Consumer", inversedBy="orderBills")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Order", inversedBy="orderBill")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $consumer;
+    private $order_info;
 
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Order", mappedBy="orderBill")
-     */
-    private $orders;
-
-    public function __construct()
-    {
-        $this->orders = new ArrayCollection();
-    }
-
+    private $goods_id;
 
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getGoodsId()
+    {
+        return $this->goods_id;
+    }
+
+    public function setGoodsId($goods_id)
+    {
+        $this->goods_id = $goods_id;
+        return $this;
     }
 
     public function getDepositPrice(): ?float
@@ -119,48 +121,20 @@ class OrderBill
         return $this;
     }
 
-    public function getConsumer(): ?Consumer
-    {
-        return $this->consumer;
-    }
-
-    public function setConsumer(?Consumer $consumer): self
-    {
-        $this->consumer = $consumer;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Order[]
-     */
-    public function getOrders(): Collection
-    {
-        return $this->orders;
-    }
-
-    public function addOrder(Order $order): self
-    {
-        if (!$this->orders->contains($order)) {
-            $this->orders[] = $order;
-            $order->addOrderBill($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrder(Order $order): self
-    {
-        if ($this->orders->contains($order)) {
-            $this->orders->removeElement($order);
-            $order->removeOrderBill($this);
-        }
-
-        return $this;
-    }
-
     public function __toString()
     {
         return (string) $this->getId();
+    }
+
+    public function getOrderInfo(): ?Order
+    {
+        return $this->order_info;
+    }
+
+    public function setOrderInfo(?Order $order_info): self
+    {
+        $this->order_info = $order_info;
+
+        return $this;
     }
 }

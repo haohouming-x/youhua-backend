@@ -16,7 +16,7 @@ resources:
                     parameters:
                         - { name: 'id', in: 'path', required: true, type: 'integer', description: '用户id' }
 
-            api_receipt_infos_api_consumers_receipt_infos_post_subresource:
+            api_consumers_receipt_infos_post_subresource:
                 method: "POST"
                 path: "/consumers/{id}/receipt_infos.{_format}"
                 controller: 'App\Controller\ReceiptInfoSpecial'
@@ -36,19 +36,23 @@ resources:
                     summary: '查询对应id的收货信息数据'
                     description: '对应id的收货信息'
                     parameters:
-                        - { name: 'pid', in: 'path', required: true, type: 'integer', description: '会员id' }
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '收货信息id' }
             put:
                 swagger_context:
                     tags: ['收货信息']
-                    summary: '修改对应用户的收货信息数据'
-                    description: '修改用户id下的收货信息'
+                    summary: '修改对应id的收货信息数据'
+                    description: '修改收货信息id下的收货信息'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '收货信息id' }
+                        - { name: 'receiptInfo', in: 'body', schema: {$ref: "#\/definitions\/ReceiptInfo-receipt_info:item:write" } }
 
             delete:
                 swagger_context:
                     tags: ['收货信息']
-                    summary: '删除对应用户的收货信息数据'
-                    description: '删除用户id下的收货信息'
-
+                    summary: '删除对应id的收货信息数据'
+                    description: '删除收货信息id下的收货信息'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '收货信息id' }
 
         properties:
             id:

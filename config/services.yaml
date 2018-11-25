@@ -34,3 +34,11 @@ services:
     App\Controller\ReceiptInfoSpecial:
       arguments: ['@doctrine.orm.entity_manager']
       tags: ['controller.service_arguments']
+
+    App\Controller\OrderSpecial:
+      arguments: ['@doctrine.orm.entity_manager']
+      tags: ['controller.service_arguments']
+
+    App\Controller\WechatMpapp:
+      arguments: ['%rip.miniapp%']
+      tags: ['controller.service_arguments']
