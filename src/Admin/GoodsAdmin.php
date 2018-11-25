@@ -25,11 +25,10 @@ final class GoodsAdmin extends FileUploaderAdmin
             ->add('name', null, [
                 'label' => '名称'
             ])
-            ->add('classify', 'doctrine_orm_model', [
+            ->add('classify', null, [
                 'label' => '分类'
             ], null, [
-                'multiple' => true,
-                'class' => 'App\Entity\ClassifyGoods'
+                'multiple' => true
             ])
             ->add('stock', 'doctrine_orm_number', [
                 'label' => '库存'
@@ -172,7 +171,8 @@ final class GoodsAdmin extends FileUploaderAdmin
         }
     }
 
-    private function setGoodsBanner(Goods $goods, Array $banners) {
+    private function setGoodsBanner(Goods $goods, Array $banners)
+    {
         foreach($banners as $banner)
         {
             $this->manageFileUpload($banner);

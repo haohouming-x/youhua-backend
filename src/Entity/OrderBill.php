@@ -29,16 +29,6 @@ class OrderBill
     private $id;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Goods", mappedBy="orderBill")
-     */
-    private $goods;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Order", mappedBy="orderBill", orphanRemoval=true)
-     */
-    private $orders;
-
-    /**
      * @ORM\Column(type="float")
      */
     private $deposit_price;
@@ -48,77 +38,37 @@ class OrderBill
      */
     private $status;
 
+    /**
+     * @ORM\Column(type="integer", options={"default" : 1})
+     */
+    private $quantity;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Goods")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $goods;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Consumer", inversedBy="orderBills")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $consumer;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Order", mappedBy="orderBill")
+     */
+    private $orders;
+
     public function __construct()
     {
-        $this->goods = new ArrayCollection();
         $this->orders = new ArrayCollection();
     }
+
 
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * @return Collection|Goods[]
-     */
-    public function getGoods(): Collection
-    {
-        return $this->goods;
-    }
-
-    public function addGood(Goods $good): self
-    {
-        if (!$this->goods->contains($good)) {
-            $this->goods[] = $good;
-            $good->setOrderBill($this);
-        }
-
-        return $this;
-    }
-
-    public function removeGood(Goods $good): self
-    {
-        if ($this->goods->contains($good)) {
-            $this->goods->removeElement($good);
-            // set the owning side to null (unless already changed)
-            if ($good->getOrderBill() === $this) {
-                $good->setOrderBill(null);
-            }
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Order[]
-     */
-    public function getOrders(): Collection
-    {
-        return $this->orders;
-    }
-
-    public function addOrder(Order $order): self
-    {
-        if (!$this->orders->contains($order)) {
-            $this->orders[] = $order;
-            $order->setOrderBill($this);
-        }
-
-        return $this;
-    }
-
-    public function removeOrder(Order $order): self
-    {
-        if ($this->orders->contains($order)) {
-            $this->orders->removeElement($order);
-            // set the owning side to null (unless already changed)
-            if ($order->getOrderBill() === $this) {
-                $order->setOrderBill(null);
-            }
-        }
-
-        return $this;
     }
 
     public function getDepositPrice(): ?float
@@ -143,5 +93,74 @@ class OrderBill
         $this->status = $status;
 
         return $this;
+    }
+
+    public function getQuantity(): ?int
+    {
+        return $this->quantity;
+    }
+
+    public function setQuantity(int $quantity): self
+    {
+        $this->quantity = $quantity;
+
+        return $this;
+    }
+
+    public function getGoods(): ?Goods
+    {
+        return $this->goods;
+    }
+
+    public function setGoods(?Goods $goods): self
+    {
+        $this->goods = $goods;
+
+        return $this;
+    }
+
+    public function getConsumer(): ?Consumer
+    {
+        return $this->consumer;
+    }
+
+    public function setConsumer(?Consumer $consumer): self
+    {
+        $this->consumer = $consumer;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Order[]
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): self
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders[] = $order;
+            $order->addOrderBill($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): self
+    {
+        if ($this->orders->contains($order)) {
+            $this->orders->removeElement($order);
+            $order->removeOrderBill($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return (string) $this->getId();
     }
 }

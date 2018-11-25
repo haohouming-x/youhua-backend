@@ -102,10 +102,10 @@ final class ConsumerAdmin extends AbstractAdmin
                     'show' => [],
                     // 'edit' => [],
                     'receipt_infos' => [
-                        'template' => 'admin/consumer_receipt_infos.html.twig'
+                        'template' => 'admin/consumer_receipt_infos_action.html.twig'
                     ],
                     'orders' => [
-                        'template' => 'admin/consumer_orders.html.twig'
+                        'template' => 'admin/consumer_orders_action.html.twig'
                     ]
                 ],
             ]);
@@ -181,7 +181,8 @@ final class ConsumerAdmin extends AbstractAdmin
         return $actions;
     }
 
-    public function configureRoutes(RouteCollection $collection) {
+    public function configureRoutes(RouteCollection $collection)
+    {
         $collection
             ->remove('create')
             ->remove('edit')

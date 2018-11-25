@@ -56,6 +56,8 @@ services:
             - { name: sonata.admin, manager_type: orm, group: sonata_admin_user, label: ConsumerAdmin }
         calls:
             - [addChild, ['@app.admin.receipt_infos', 'consumer']]
+            - [addChild, ['@app.admin.order', 'consumer']]
+
         public: true
 
     app.admin.receipt_infos:
@@ -70,4 +72,13 @@ services:
         arguments: [~, App\Entity\Order, ~]
         tags:
             - { name: sonata.admin, manager_type: orm, group: sonata_admin_order, label: OrderAdmin }
+        calls:
+            - [addChild, ['@app.admin.order_bill', 'orders']]
+        public: true
+
+    app.admin.order_bill:
+        class: App\Admin\OrderBillAdmin
+        arguments: [~, App\Entity\OrderBill, ~]
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: sonata_admin_order, label: OrderBillAdmin }
         public: true

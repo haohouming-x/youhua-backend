@@ -50,6 +50,10 @@
         <source>OrderAdmin</source>
         <target>订单信息</target>
       </trans-unit>
+      <trans-unit id="OrderBiilAdmin">
+        <source>OrderBillAdmin</source>
+        <target>订单细单</target>
+      </trans-unit>
 
       <trans-unit id="stat_goods">
         <source>stat_goods</source>
@@ -76,6 +80,16 @@
         <source>consumer_show</source>
         <target>查看用户信息</target>
       </trans-unit>
+
+      <trans-unit id="order_bill_list">
+        <source>order_bill_list</source>
+        <target>查看细单</target>
+      </trans-unit>
+       <trans-unit id="order_show">
+        <source>order_show</source>
+        <target>返回订单详细</target>
+       </trans-unit>
+
     </body>
   </file>
 </xliff>

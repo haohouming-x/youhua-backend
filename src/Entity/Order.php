@@ -2,9 +2,11 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
-use App\DBAL\Types\OrderType;
+use App\DBAL\Types\{OrderType, OrderBillType};
 use App\Entity\Helper\TimestampableEntity;
 
 
@@ -38,10 +40,10 @@ class Order
      */
     private $consignee_concat;
 
-    // /**
-    //  * @ORM\Column(type="string", length=255)
-    //  */
-    // private $consignee_address;
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $consignee_address;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -65,19 +67,63 @@ class Order
     private $consumer;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="float")
      */
-    private $logistics_number;
+    private $total;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\OrderBill", inversedBy="orders")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\Column(type="float", options={"default" : 0})
+     */
+    private $total_excl;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\OrderBill", inversedBy="orders")
      */
     private $orderBill;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="change", field="status", value=OrderType::WAIT_SEND)
+     */
+    private $paid_at;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="change", field="status", value=OrderType::ALREADY_SEND)
+     */
+    private $sent_at;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Gedmo\Timestampable(on="change", field="status", value=OrderType::ALREADY_TAKE)
+     */
+    private $took_at;
+
+    public function __construct()
+    {
+        $this->orderBill = new ArrayCollection();
+    }
 
     public function getId()
     {
         return $this->id;
+    }
+
+    private function getTotalBillByStatus($type)
+    {
+        return $this->getOrderBill()->filter(function($entry) use($type) {
+            return $entry->getStatus() === $type;
+        })->count();
+    }
+
+    public function getTotalBillByReturn()
+    {
+        return $this->getTotalBillByStatus(OrderBillType::RETURN);
+    }
+
+    public function getTotalBillByAppend()
+    {
+        return $this->getTotalBillByStatus(OrderBillType::APPEND);
     }
 
     public function getConsigneeName(): ?string
@@ -152,30 +198,6 @@ class Order
         return $this;
     }
 
-    public function getLogisticsNumber(): ?string
-    {
-        return $this->logistics_number;
-    }
-
-    public function setLogisticsNumber(?string $logistics_number): self
-    {
-        $this->logistics_number = $logistics_number;
-
-        return $this;
-    }
-
-    public function getOrderBill(): ?OrderBill
-    {
-        return $this->orderBill;
-    }
-
-    public function setOrderBill(?OrderBill $orderBill): self
-    {
-        $this->orderBill = $orderBill;
-
-        return $this;
-    }
-
     public function getConsigneeAddress(): ?string
     {
         return $this->consignee_address;
@@ -184,6 +206,97 @@ class Order
     public function setConsigneeAddress(string $consignee_address): self
     {
         $this->consignee_address = $consignee_address;
+
+        return $this;
+    }
+
+    public function getTotal(): ?float
+    {
+        return $this->total;
+    }
+
+    public function setTotal(float $total): self
+    {
+        $this->total = $total;
+
+        return $this;
+    }
+
+    public function getTotalExcl(): ?float
+    {
+        return $this->total_excl;
+    }
+
+    public function setTotalExcl(float $total_excl): self
+    {
+        $this->total_excl = $total_excl;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getOrderNumber();
+    }
+
+    /**
+     * @return Collection|OrderBill[]
+     */
+    public function getOrderBill(): Collection
+    {
+        return $this->orderBill;
+    }
+
+    public function addOrderBill(OrderBill $orderBill): self
+    {
+        if (!$this->orderBill->contains($orderBill)) {
+            $this->orderBill[] = $orderBill;
+        }
+
+        return $this;
+    }
+
+    public function removeOrderBill(OrderBill $orderBill): self
+    {
+        if ($this->orderBill->contains($orderBill)) {
+            $this->orderBill->removeElement($orderBill);
+        }
+
+        return $this;
+    }
+
+    public function getPaidAt(): ?\DateTimeInterface
+    {
+        return $this->paid_at;
+    }
+
+    public function setPaidAt(?\DateTimeInterface $paid_at): self
+    {
+        $this->paid_at = $paid_at;
+
+        return $this;
+    }
+
+    public function getSentAt(): ?\DateTimeInterface
+    {
+        return $this->sent_at;
+    }
+
+    public function setSentAt(?\DateTimeInterface $sent_at): self
+    {
+        $this->sent_at = $sent_at;
+
+        return $this;
+    }
+
+    public function getTookAt(): ?\DateTimeInterface
+    {
+        return $this->took_at;
+    }
+
+    public function setTookAt(?\DateTimeInterface $took_at): self
+    {
+        $this->took_at = $took_at;
 
         return $this;
     }

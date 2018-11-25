@@ -129,7 +129,8 @@ final class ReceiptInfosAdmin extends AbstractAdmin
         return $actions;
     }
 
-    public function configureRoutes(RouteCollection $collection) {
+    public function configureRoutes(RouteCollection $collection)
+    {
         $collection
             ->remove('create')
             ->remove('delete');
