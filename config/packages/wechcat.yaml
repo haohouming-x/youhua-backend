@@ -1,0 +1,22 @@
+parameters:
+    rip.miniapp:
+      app_id: "wx7c0c304a87dddaca"
+      secret: ""
+      token: ""
+      aes_key: ""
+
+    # 微信支付
+    rip.payment:
+      app_id: ""
+      mch_id: ""
+      key: ""
+      # 如需使用敏感接口（如退款、发送红包等）需要配置 API 证书路径(登录商户平台下载 API 证书)
+      cert_path: "" # 绝对路径
+      key_path: ""  # 绝对路径
+
+      notify_url: ""
+
+# rip.wechat:
+#     oauth:
+#         scopes: ['snsapi_userinfo']
+#         callback: 'route_name'

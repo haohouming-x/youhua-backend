@@ -41,10 +41,10 @@ framework:
         mapping:
             paths: ['%kernel.project_dir%/config/api_platform/serialization']
 
-    validation:
-        enabled: true
-        mapping:
-            paths: ['%kernel.project_dir%/config/api_platform/validator']
+    # validation:
+    #     enabled: true
+    #     mapping:
+    #         paths: ['%kernel.project_dir%/config/api_platform/validator']
 
     templating:
         engines: ['twig', 'php']

@@ -17,3 +17,9 @@ App\Entity\Consumer:
 
         member:
             groups: ['consumer:item:read']
+
+        firstLoginAt:
+            groups: ['consumer:item:read']
+
+        lastLoginAt:
+            groups: ['consumer:item:read']

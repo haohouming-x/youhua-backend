@@ -83,6 +83,11 @@ class Consumer
      */
     private $member;
 
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Wechat", mappedBy="consumer", cascade={"persist", "remove"})
+     */
+    private $wechat;
+
     public function __construct()
     {
         $this->receiptInfos = new ArrayCollection();
@@ -260,5 +265,22 @@ class Consumer
     public function __toString()
     {
         return (string) $this->getNickName();
+    }
+
+    public function getWechat(): ?Wechat
+    {
+        return $this->wechat;
+    }
+
+    public function setWechat(Wechat $wechat): self
+    {
+        $this->wechat = $wechat;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $wechat->getConsumer()) {
+            $wechat->setConsumer($this);
+        }
+
+        return $this;
     }
 }
