@@ -1,6 +1,6 @@
 parameters:
     rip.miniapp:
-      app_id: "wx7c0c304a87dddaca"
+      app_id: ""
       secret: ""
       token: ""
       aes_key: ""
@@ -14,7 +14,7 @@ parameters:
       cert_path: "" # 绝对路径
       key_path: ""  # 绝对路径
 
-      notify_url: ""
+      notify_url: "/mpapp/pay/notify"
 
 # rip.wechat:
 #     oauth:

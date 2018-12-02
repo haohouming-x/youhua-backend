@@ -101,6 +101,15 @@ resources:
                     summary: '查询对应id的订单物流数据'
                     description: '对应id的订单物流'
 
+            mp_pay_order:
+                route_name: 'mpapp_pay_order'
+                swagger_context:
+                    tags: ['微信相关']
+                    summary: '租画支付'
+                    description: '租画支付'
+                    parameters:
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '订单id' }
+
         properties:
             id:
                 attributes:

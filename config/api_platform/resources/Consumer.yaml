@@ -14,7 +14,7 @@ resources:
                     summary: '创建新用户'
                     description: '创建用户'
 
-            loginOrCreate:
+            mp_login_or_create:
                 route_name: 'mpapp_login_or_create'
                 swagger_context:
                     tags: ['微信相关']

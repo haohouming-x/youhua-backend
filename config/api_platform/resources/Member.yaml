@@ -24,6 +24,16 @@ resources:
                     parameters:
                         - { name: 'id', in: 'path', required: true, type: 'integer', description: '用户id' }
 
+            mp_pay_member:
+                route_name: 'mpapp_pay_member'
+                swagger_context:
+                    tags: ['微信相关']
+                    summary: '会员支付'
+                    description: '会员支付'
+                    parameters:
+                        - { name: 'consumer_id', in: 'path', required: true, type: 'integer', description: '用户id' }
+                        - { name: 'id', in: 'path', required: true, type: 'integer', description: '会员类型id' }
+
         properties:
             id:
                 attributes:
