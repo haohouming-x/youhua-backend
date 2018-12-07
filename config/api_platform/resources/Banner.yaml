@@ -7,13 +7,17 @@ resources:
 
         collectionOperations:
             get:
-                description: '轮换图列表'
                 swagger_context:
                     tags: ['轮换图']
                     summary: '查询轮换图数据集'
                     description: '轮换图列表'
 
-        itemOperations: []
+        itemOperations:
+            get:
+                swagger_context:
+                    tags: ['轮换图']
+                    summary: '查询对应id轮换图数据'
+                    description: '对应id轮换图数据'
 
         properties:
             id:

@@ -2,6 +2,7 @@
 
 namespace App\EventSubscriber;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use App\Event\Events;
 use App\Entity\{Wechat, Consumer, Member, Marketing};
@@ -9,7 +10,7 @@ use App\Entity\{Wechat, Consumer, Member, Marketing};
 
 class MemberPaySubscriber implements EventSubscriberInterface
 {
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
@@ -17,6 +18,7 @@ class MemberPaySubscriber implements EventSubscriberInterface
     public function onRipWechatMemberPay($event)
     {
         $message = $event->getCallBackMessages();
+        $em = $this->em;
 
         $marketing_id = strstr($message['out_trade_no'], '@').trim('@');
         $openId = $message['openid'];

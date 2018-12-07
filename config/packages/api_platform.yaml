@@ -1,9 +1,9 @@
 api_platform:
     title: '油画api'
     enable_swagger_ui: false
-    # formats:
-    #     json:
-    #         mime_types: ['application/json']
+    formats:
+        json:
+            mime_types: ['application/json']
 
     mapping:
         paths:
@@ -12,5 +12,5 @@ api_platform:
 
     collection:
         # The default order of results.
-        order: 'ASC'
+        order: 'DESC'
         order_parameter_name: 'order'

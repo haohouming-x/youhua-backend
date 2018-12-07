@@ -42,3 +42,7 @@ services:
     App\Controller\WechatMpapp:
       arguments: ['%rip.miniapp%', '%rip.payment%']
       tags: ['controller.service_arguments']
+
+    App\EventSubscriber\:
+      resource: '../src/EventSubscriber'       
+      tags: ['kernel.event_subscriber']

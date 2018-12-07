@@ -31,7 +31,7 @@ App\Entity\Order:
             groups: ['order:read', 'order_bill:read', 'order:logistics:read']
 
         createdAt:
-            groups: ['order:read', 'order_bill:read', 'order:return:read']
+            groups: ['order:read', 'order_bill:read', 'order:return:read', 'order:logistics:read']
 
         updatedAt:
             groups: ['order:read', 'order_bill:read']

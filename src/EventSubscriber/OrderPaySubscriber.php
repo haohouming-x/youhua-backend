@@ -2,7 +2,7 @@
 
 namespace App\EventSubscriber;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use App\DBAL\Types\OrderType;
 use App\Event\Events;
@@ -11,7 +11,7 @@ use App\Entity\Order;
 
 class OrderPaySubscriber implements EventSubscriberInterface
 {
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
@@ -19,6 +19,7 @@ class OrderPaySubscriber implements EventSubscriberInterface
     public function onRipWechatOrderPay($event)
     {
         $message = $event->getCallBackMessages();
+        $em = $this->em;
         // ...
         $order = $em
                ->getRepository(Order::class)

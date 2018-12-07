@@ -4,7 +4,9 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
-use ApiPlatform\Core\Exception\ItemNotFoundException;
+use ApiPlatform\Core\Exception\{InvalidArgumentException, ItemNotFoundException};
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Psr\Log\LoggerInterface;
 use EasyWeChat\Factory;
 use App\Event\{Events, WechatPayNotifyEvent};
 use App\DBAL\Types\SexType;
@@ -13,10 +15,11 @@ use App\Entity\{Consumer, Wechat, Order, Marketing};
 
 class WechatMpapp extends Controller
 {
-    public function __construct(array $config, array $pay_config)
+    public function __construct(array $config, array $pay_config, EventDispatcherInterface $event_dispatcher)
     {
         $this->app = Factory::miniProgram($config);
         $this->pay = Factory::payment($pay_config);
+        $this->event_dispatcher = $event_dispatcher;
     }
 
     private function payment(array $config)
@@ -25,8 +28,16 @@ class WechatMpapp extends Controller
             'trade_type' => 'JSAPI',
             'body' => '琥珀艺术-' . $config['title']
         ];
+        unset($config['title']);
+        $config['total_fee'] = $config['total_fee'] * 100;
 
-        return $this->pay->order->unify(array_merge($default_config, $config));
+        $result = $this->pay->order->unify(array_merge($default_config, $config));
+        
+        if($result['return_code'] === 'SUCCESS') {
+          return $this->pay->jssdk->sdkConfig($result['prepay_id']);
+        } else {
+          throw new InvalidArgumentException('wecaht pay faid'); 
+        }
     }
 
     private function getOpenId(Consumer $consumer)
@@ -44,7 +55,7 @@ class WechatMpapp extends Controller
      * @Route(
      *     name="mpapp_login_or_create",
      *     path="/mpapp/login_or_create",
-     *     methods={"POST"},
+     *     methods={"GET"},
      *     defaults={
      *         "_api_receive"= false,
      *         "_api_resource_class"=Consumer::class,
@@ -56,9 +67,12 @@ class WechatMpapp extends Controller
     {
         $code = $request->query->get('code');
 
-        // $sessionInfos = $this->app->auth->session($code);
-        // $openId = $sessionInfos['openid'];
-        $openId = '1';
+        $sessionInfos = $this->app->auth->session($code);
+
+        if($sessionInfos == '45011') throw new \InvalidArgumentException('\'code\' is not validity');
+ 
+        $openId = $sessionInfos['openid'];
+        // $openId = '1';
 
         $em = $this->getDoctrine()->getManager();
 
@@ -172,30 +186,32 @@ class WechatMpapp extends Controller
      *     methods={"GET", "POST"},
      * )
      */
-    public function payNotify()
+    public function payNotify(LoggerInterface $logger)
     {
-        $response = $app->handlePaidNotify(function($message, $fail) {
+        $response = $this->pay->handlePaidNotify(function($message, $fail) use($logger) {
             ///////////// <- 建议在这里调用微信的【订单查询】接口查一下该笔订单的情况，确认是已经支付 /////////////
             if ($message['return_code'] === 'SUCCESS') { // return_code 表示通信状态，不代表支付状态
                 // 用户是否支付成功
-                if (array_get($message, 'result_code') === 'SUCCESS') {
+                if ($message['result_code'] === 'SUCCESS') {
                     $wechatPayNotifyEvent = new WechatPayNotifyEvent($message);
                     // TODO success log
-                    switch ($message[attach]) {
+                    switch ($message['attach']) {
                     case Events::ORDER_PAY_NOTIFY:
-                        return $this->event_dispatcher->dispatch(
+                        $this->event_dispatcher->dispatch(
                             Events::ORDER_PAY_NOTIFY,
                             $wechatPayNotifyEvent
                         );
                     case Events::MEMBER_PAY_NOTIFY:
-                        return $this->event_dispatcher->dispatch(
+                        $this->event_dispatcher->dispatch(
                             Events::MEMBER_PAY_NOTIFY,
                             $wechatPayNotifyEvent
                         );
                     }
+                    
+                    if ($wechatPayNotifyEvent->isPropagationStopped()) return true;
 
                     // 用户支付失败
-                } elseif (array_get($message, 'result_code') === 'FAIL') {
+                } elseif ($message['result_code'] === 'FAIL') {
                     // TODO error log
                 }
             } else {

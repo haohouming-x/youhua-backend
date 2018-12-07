@@ -1,20 +1,20 @@
 parameters:
     rip.miniapp:
-      app_id: ""
-      secret: ""
+      app_id: "wx7c0c304a87dddaca"
+      secret: "6b94a806f0bc5396211385744ab4f26d"
       token: ""
       aes_key: ""
 
     # 微信支付
     rip.payment:
-      app_id: ""
-      mch_id: ""
-      key: ""
+      app_id: "wx7c0c304a87dddaca"
+      mch_id: "1509749001"
+      key: "k6vC1uVczIN92AffoIXVRWwknGAMhApe"
       # 如需使用敏感接口（如退款、发送红包等）需要配置 API 证书路径(登录商户平台下载 API 证书)
       cert_path: "" # 绝对路径
       key_path: ""  # 绝对路径
 
-      notify_url: "/mpapp/pay/notify"
+      notify_url: "http://www.nowhoarts.com/mpapp/pay/notify"
 
 # rip.wechat:
 #     oauth:
