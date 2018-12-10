@@ -12,6 +12,7 @@ use App\Entity\Helper\{TimestampableEntity, FileUploadTrait};
 /**
  * @Gedmo\Uploadable(path="uploads/images", filenameGenerator="SHA1", allowOverwrite=false, appendNumber=true)
  * @ORM\Entity(repositoryClass="App\Repository\MarketingRepository")
+ * @Gedmo\SoftDeleteable(fieldName="deleted_at", timeAware=false, hardDelete=true)
  */
 class Marketing
 {
@@ -68,6 +69,11 @@ class Marketing
      * @ORM\OneToMany(targetEntity="App\Entity\Member", mappedBy="market")
      */
     private $members;
+
+    /**      
+     * @ORM\Column(name="deleted_at", type="datetime", nullable=true) 
+     */     
+    private $deleted_at;
 
     public function __construct()
     {
@@ -191,6 +197,16 @@ class Marketing
             }
         }
 
+        return $this;
+    }
+
+    public function getDeletedAt(): ?\DateTimeInterface     {
+        return $this->deleted_at;
+    }
+    
+    public function setDeletedAt(\DateTimeInterface $deleted_at): self
+    {
+        $this->deleted_at = $deleted_at;
         return $this;
     }
 

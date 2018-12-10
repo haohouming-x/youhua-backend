@@ -3,6 +3,8 @@ resources:
         attributes:
             normalization_context:
                 groups: ['classify:read']
+            order:
+                position: 'ASC'
         description: '分类'
         shortName: 'Classify'
 

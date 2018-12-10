@@ -73,7 +73,7 @@ final class MarketingAdmin extends FileUploaderAdmin
             ->add('_action', null, [
                 'actions' => [
                     'edit' => [],
-                    // 'delete' => [],
+                    'delete' => [],
                 ],
             ]);
     }
@@ -118,13 +118,13 @@ final class MarketingAdmin extends FileUploaderAdmin
             ;
     }
 
-    public function getBatchActions()
-    {
-        $actions = parent::getBatchActions();
-        unset($actions['delete']);
-
-        return $actions;
-    }
+    // public function getBatchActions()
+    // {
+    //     $actions = parent::getBatchActions();
+    //     unset($actions['delete']);
+    //
+    //     return $actions;
+    // }
 
     public function prePersist($market)
     {
