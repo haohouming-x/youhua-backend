@@ -1,0 +1,18 @@
+{% extends 'SonataAdminBundle:CRUD:base_show_field.html.twig' %}
+  {% block field %}
+     {% set width = field_description.options.width is defined ? field_description.options.width : 80 %}
+     {% set height = field_description.options.height is defined ? field_description.options.height : 80 %}
+     {% if value %}
+         {% if value is  iterable %}
+             <ul class="sonata-ba-show-one-to-many">
+                 {% for val in value %}
+                     <li class="col-md-4">
+                         <img src="{% if field_description.options.prefix is defined %}{{ field_description.options.prefix }}{% endif %}{{ val|render_relation_element(field_description) }}" style="max-width:{{ width }}px; max-height:{{ height }}px;" />
+                     </li>
+                 {% endfor %}
+             </ul>
+         {% else %}
+             <img src="{% if field_description.options.prefix is defined %}{{ field_description.options.prefix }}{% endif %}{{ value }}" style="max-width:{{ width }}px; max-height:{{ height }}px;" />
+         {% endif %}
+     {% endif %}
+{% endblock %}

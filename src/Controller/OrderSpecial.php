@@ -62,7 +62,7 @@ class OrderSpecial
                ->setStatus(OrderType::WAIT_PAY)
                ->setTotal($total_stat['inc'])
                ->setTotalExcl($total_excl)
-               ->setConsumer($this->em->getReference('App\Entity\Consumer', 1));
+               ->setConsumer($this->em->getReference('App\Entity\Consumer', $id));
 
         return $order;
     }

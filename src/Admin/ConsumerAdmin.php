@@ -60,7 +60,7 @@ final class ConsumerAdmin extends AbstractAdmin
             ->add('id')
             ->add('image', 'image', [
                 'label' => '图片',
-                'prefix' => '/',
+                'prefix' => '',
                 'width' => 45,
                 'height' => 45,
             ])
@@ -117,7 +117,7 @@ final class ConsumerAdmin extends AbstractAdmin
             ->add('id')
             ->add('image', 'image', [
                 'label' => '图片',
-                'prefix' => '/',
+                'prefix' => '',
                 'width' => 45,
                 'height' => 45,
             ])
@@ -130,8 +130,9 @@ final class ConsumerAdmin extends AbstractAdmin
             // ->add('type', null, [
             //     'label' => '类型'
             // ])
-            ->add('sex', null, [
-                'label' => '性别'
+            ->add('sex', 'choice', [
+                'label' => '性别',
+                'choices' => SexType::getReadableValues()
             ])
             ->add('deleted_at', 'datetime', [
                 'label' => '删除时间',
