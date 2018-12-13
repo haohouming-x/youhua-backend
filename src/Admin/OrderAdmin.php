@@ -9,6 +9,7 @@ use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
 use Sonata\AdminBundle\Admin\AdminInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Symfony\Component\Form\Extension\Core\Type\{TextType, ChoiceType};
 use App\DBAL\Types\{OrderType, OrderActionType};
@@ -218,7 +219,11 @@ final class OrderAdmin extends AbstractAdmin
     {
         $order = $this->getSubject();
 
-        if(!OrderActionType::isValueExist($order->getStatus())) return;
+        if(!OrderActionType::isValueExist($order->getStatus())) {
+            $admin = $this->isChild() ? $this->getParent() : $this;
+            $response = new RedirectResponse($admin->generateUrl('list'));
+            return $response->send();
+        }
 
         $btns = OrderActionType::ACTION_SELECT[$order->getStatus()];
 

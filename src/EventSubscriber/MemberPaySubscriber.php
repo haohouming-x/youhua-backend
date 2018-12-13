@@ -4,15 +4,17 @@ namespace App\EventSubscriber;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Psr\Log\LoggerInterface;
 use App\Event\Events;
 use App\Entity\{Wechat, Consumer, Member, Marketing};
 
 
 class MemberPaySubscriber implements EventSubscriberInterface
 {
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, LoggerInterface $logger)
     {
         $this->em = $em;
+        $this->logger = $logger;
     }
 
     public function onRipWechatMemberPay($event)
@@ -20,13 +22,14 @@ class MemberPaySubscriber implements EventSubscriberInterface
         $message = $event->getCallBackMessages();
         $em = $this->em;
 
-        $marketing_id = strstr($message['out_trade_no'], '@').trim('@');
+        $marketing_id = trim(strstr($message['out_trade_no'], '_'), '_');
         $openId = $message['openid'];
 
         $marketing = $em->getRepository(Marketing::class)
                    ->find($marketing_id);
 
         if (!$marketing) {
+            $this->logger->error('pay.faid.member.not_found_id', $message);
             // TODO error log
             return true;
         }

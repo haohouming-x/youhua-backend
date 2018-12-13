@@ -15,11 +15,12 @@ use App\Entity\{Consumer, Wechat, Order, Marketing};
 
 class WechatMpapp extends Controller
 {
-    public function __construct(array $config, array $pay_config, EventDispatcherInterface $event_dispatcher)
+    public function __construct(array $config, array $pay_config, EventDispatcherInterface $event_dispatcher, LoggerInterface $logger)
     {
         $this->app = Factory::miniProgram($config);
         $this->pay = Factory::payment($pay_config);
         $this->event_dispatcher = $event_dispatcher;
+        $this->logger = $logger;
     }
 
     private function payment(array $config)
@@ -31,12 +32,16 @@ class WechatMpapp extends Controller
         unset($config['title']);
         $config['total_fee'] = $config['total_fee'] * 100;
 
-        $result = $this->pay->order->unify(array_merge($default_config, $config));
+        $new_config =  array_merge($default_config, $config);
+        $result = $this->pay->order->unify($new_config);
         
         if($result['return_code'] === 'SUCCESS') {
           return $this->pay->jssdk->sdkConfig($result['prepay_id']);
         } else {
-          throw new InvalidArgumentException('wecaht pay faid'); 
+          $this->logger->error('pay.faid.config', $new_config);
+          $this->logger->error('pay.faid', $result);
+
+          throw new InvalidArgumentException('Wecaht pay faid'); 
         }
     }
 
@@ -46,7 +51,7 @@ class WechatMpapp extends Controller
 
         $openId = $consumer->getWechat()->getOpenId();
 
-        if(!$openId) throw new ItemNotFoundException('Consumer not login');
+        if(!$openId) throw new ItemNotFoundException('Consumer don\'t relation with wechat');
 
         return $openId;
     }
@@ -124,7 +129,7 @@ class WechatMpapp extends Controller
 
         $order = $em->find(Order::class, $id);
 
-        if(!$order) throw new ItemNotFoundException('Not found order');
+        if(!$order) throw new ItemNotFoundException('Not found order by id');
 
         $out_trade_no = $order->getOrderNumber();
         $total_fee = $order->getTotal();
@@ -160,19 +165,19 @@ class WechatMpapp extends Controller
 
         $marketing = $em->find(Marketing::class, $id);
 
-        if(!$marketing) throw new ItemNotFoundException('An error occurred');
+        if(!$marketing) throw new ItemNotFoundException('Not found markeing by id');
 
         $total_fee = $marketing->getPresentPrice();
 
         if($total_fee == 0) return null;
 
-        $openId = $this->getOpenId($en->find(Consumer::class, $consumer_id));
+        $openId = $this->getOpenId($em->find(Consumer::class, $consumer_id));
 
         $out_trade_no = 'HY'. date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
 
         return $this->payment([
             'title' => $marketing->getName(),
-            'out_trade_no' => $out_trade_no . '@' . $marketing->getId(),
+            'out_trade_no' => $out_trade_no . '_' . $marketing->getId(),
             'total_fee' => $total_fee,
             'attach' => Events::MEMBER_PAY_NOTIFY,
             'openid' => $openId
@@ -186,9 +191,9 @@ class WechatMpapp extends Controller
      *     methods={"GET", "POST"},
      * )
      */
-    public function payNotify(LoggerInterface $logger)
+    public function payNotify()
     {
-        $response = $this->pay->handlePaidNotify(function($message, $fail) use($logger) {
+        $response = $this->pay->handlePaidNotify(function($message, $fail) {
             ///////////// <- 建议在这里调用微信的【订单查询】接口查一下该笔订单的情况，确认是已经支付 /////////////
             if ($message['return_code'] === 'SUCCESS') { // return_code 表示通信状态，不代表支付状态
                 // 用户是否支付成功
