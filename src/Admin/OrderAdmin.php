@@ -113,7 +113,7 @@ final class OrderAdmin extends AbstractAdmin
                 'label' => '押金',
                 'currency' => '￥'
             ])
-            ->add('total_excl', 'currency', [
+            ->add('getTotalProfit', 'currency', [
                 'label' => '押金差价',
                 'currency' => '￥'
             ])
@@ -161,7 +161,7 @@ final class OrderAdmin extends AbstractAdmin
                     'label' => '押金',
                     'currency' => '￥'
                 ])
-                ->add('total_excl', 'currency', [
+                ->add('getTotalProfit', 'currency', [
                     'label' => '押金差价',
                     'currency' => '￥'
                 ])

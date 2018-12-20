@@ -59,9 +59,9 @@ class OrderSpecial
 
         $order = $data
                ->setOrderNumber('YH' . $this->build_order_no())
-               ->setStatus(OrderType::WAIT_PAY)
+               ->setStatus($total_stat['inc'] === 0 ? OrderType::WAIT_SEND : OrderType::WAIT_PAY)
                ->setTotal($total_stat['inc'])
-               ->setTotalExcl($total_excl)
+               ->setTotalExcl($total_stat['excl'])
                ->setConsumer($this->em->getReference('App\Entity\Consumer', $id));
 
         return $order;

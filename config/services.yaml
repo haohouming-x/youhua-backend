@@ -30,6 +30,9 @@ services:
     Picoss\SonataExtraAdminBundle\Controller\ExtraAdminController:
       autowire: true
 
+    Symfony\Component\Serializer\Normalizer\DateTimeNormalizer:
+      arguments:
+        $format: 'Y-m-d H:i:s'
 
     App\Controller\ReceiptInfoSpecial:
       arguments: ['@doctrine.orm.entity_manager']

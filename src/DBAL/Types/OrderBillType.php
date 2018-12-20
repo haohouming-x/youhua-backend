@@ -10,7 +10,7 @@ final class OrderBillType extends AbstractEnumType
     public const APPEND = 'AE';
 
     protected static $choices = [
-        self::RETURN => '新增',
-        self::APPEND => '退还',
+        self::APPEND => '新增',
+        self::RETURN => '退还',
     ];
 }

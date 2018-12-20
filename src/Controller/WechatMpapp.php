@@ -107,6 +107,9 @@ class WechatMpapp extends Controller
         $consumer = $wechat->getConsumer();
 
         $consumer->setLastLoginAt(new \DateTime("now"));
+        
+        $em->persist($consumer);
+        $em->flush();
 
         return $consumer;
     }

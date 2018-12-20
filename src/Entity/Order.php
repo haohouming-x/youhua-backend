@@ -235,6 +235,11 @@ class Order
         return $this;
     }
 
+    public function getTotalProfit(): ?float
+    {
+        return $this->getTotalExcl() == 0 ? 0 : $this->getTotal() - $this->getTotalExcl(); 
+    }
+
     public function __toString()
     {
         return $this->getOrderNumber();
