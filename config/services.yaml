@@ -43,9 +43,18 @@ services:
       tags: ['controller.service_arguments']
 
     App\Controller\WechatMpapp:
-      arguments: ['%rip.miniapp%', '%rip.payment%']
+      arguments: ['%rip.miniapp%']
       tags: ['controller.service_arguments']
 
     App\EventSubscriber\:
       resource: '../src/EventSubscriber'       
       tags: ['kernel.event_subscriber']
+
+    App\DependencyInjection\WechatMessage: 
+      arguments: ['%rip.miniapp%', '%rip.miniapp_message.ids%', '%rip.miniapp_message.pages%']
+
+    App\DependencyInjection\WechatPay:
+      arguments: ['%rip.payment%']
+
+    App\DependencyInjection\WechatPrePayIdStorage:
+      arguments: ['@rip.redis.pool']

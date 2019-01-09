@@ -1,6 +1,8 @@
 parameters:
     locale: 'zh_CN'
     mailer_user: 'rip'
+    redis_host: 'localhost'
+    redis_port: '6379'
 
 framework:
     translator: { fallbacks: ["%locale%"] }
@@ -35,6 +37,11 @@ framework:
 
         # APCu (not recommended with heavy random-write workloads as memory fragmentation can cause perf issues)
         #app: cache.adapter.apcu
+        pools:
+            rip.redis.pool:
+                adapter: cache.adapter.redis
+                public: true
+                provider: '%env(REDIS_URL)%'
 
     serializer:
         enabled: true

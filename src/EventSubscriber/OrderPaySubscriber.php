@@ -5,7 +5,7 @@ namespace App\EventSubscriber;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use App\DBAL\Types\OrderType;
-use App\Event\Events;
+use App\Event\{Events, WechatPayNotifyEvent};
 use App\Entity\Order;
 
 
@@ -16,7 +16,7 @@ class OrderPaySubscriber implements EventSubscriberInterface
         $this->em = $em;
     }
 
-    public function onRipWechatOrderPay($event)
+    public function onRipWechatOrderPay(WechatPayNotifyEvent $event)
     {
         $message = $event->getCallBackMessages();
         $em = $this->em;
@@ -36,6 +36,17 @@ class OrderPaySubscriber implements EventSubscriberInterface
 
         // TODO order payed log
 
+        // provided messages for notify wechat user
+        $event->setNotifyMessages(
+            [
+                'keyword1' => $message['out_trade_no'],
+                'keyword2' => '油画出租', 
+                'keyword3' => $message['total_fee']/100, 
+                'keyword4' => $order->getStatus(), 
+                'keyword5' => $order->getPaidAt()->format('Y-m-d H:i:s') 
+            ]
+        );
+  
         return true;
     }
 

@@ -16,6 +16,18 @@ parameters:
 
       notify_url: "http://www.nowhoarts.com/mpapp/pay/notify"
 
+    rip.miniapp_message.ids:
+       member_success: 'r3qqjO16CXRe32HIP8hjIE9Z5hGltwVv4uxg4EttiCQ'
+       expired_notify: '8BN6t1TH1JbYVzubx-tgFI3_tZBUjxugcuoZ0kAsNF8'
+       order_success: '8BN6t1TH1JbYVzubx-tgFI3_tZBUjxugcuoZ0kAsNF8'
+       return_success: 'ywXaPD7r9Dr_EuG9tpK0f1ps5GauajG5p6atqWH_LMc'
+  
+    rip.miniapp_message.pages:
+       member_success: ''
+       expired_notify: ''
+       order_success: ''
+       return_success: ''
+
 # rip.wechat:
 #     oauth:
 #         scopes: ['snsapi_userinfo']

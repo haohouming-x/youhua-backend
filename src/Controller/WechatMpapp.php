@@ -8,41 +8,20 @@ use ApiPlatform\Core\Exception\{InvalidArgumentException, ItemNotFoundException}
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use EasyWeChat\Factory;
-use App\Event\{Events, WechatPayNotifyEvent};
+use App\Event\Events;
 use App\DBAL\Types\SexType;
+use App\DependencyInjection\WechatPay;
 use App\Entity\{Consumer, Wechat, Order, Marketing};
 
 
 class WechatMpapp extends Controller
 {
-    public function __construct(array $config, array $pay_config, EventDispatcherInterface $event_dispatcher, LoggerInterface $logger)
+    public function __construct(array $config, WechatPay $wechat_pay, EventDispatcherInterface $event_dispatcher, LoggerInterface $logger)
     {
         $this->app = Factory::miniProgram($config);
-        $this->pay = Factory::payment($pay_config);
+        $this->pay = $wechat_pay;
         $this->event_dispatcher = $event_dispatcher;
         $this->logger = $logger;
-    }
-
-    private function payment(array $config)
-    {
-        $default_config = [
-            'trade_type' => 'JSAPI',
-            'body' => '琥珀艺术-' . $config['title']
-        ];
-        unset($config['title']);
-        $config['total_fee'] = $config['total_fee'] * 100;
-
-        $new_config =  array_merge($default_config, $config);
-        $result = $this->pay->order->unify($new_config);
-        
-        if($result['return_code'] === 'SUCCESS') {
-          return $this->pay->jssdk->sdkConfig($result['prepay_id']);
-        } else {
-          $this->logger->error('pay.faid.config', $new_config);
-          $this->logger->error('pay.faid', $result);
-
-          throw new InvalidArgumentException('Wecaht pay faid'); 
-        }
     }
 
     private function getOpenId(Consumer $consumer)
@@ -141,7 +120,7 @@ class WechatMpapp extends Controller
 
         $openId = $this->getOpenId($order->getConsumer());
 
-        return $this->payment([
+        return $this->pay->payment([
             'title' => '油画出租',
             'out_trade_no' => $out_trade_no,
             'total_fee' => $total_fee,
@@ -178,7 +157,7 @@ class WechatMpapp extends Controller
 
         $out_trade_no = 'HY'. date('Ymd') . str_pad(mt_rand(1, 99999), 5, '0', STR_PAD_LEFT);
 
-        return $this->payment([
+        return $this->pay->payment([
             'title' => $marketing->getName(),
             'out_trade_no' => $out_trade_no . '_' . $marketing->getId(),
             'total_fee' => $total_fee,
@@ -196,39 +175,7 @@ class WechatMpapp extends Controller
      */
     public function payNotify()
     {
-        $response = $this->pay->handlePaidNotify(function($message, $fail) {
-            ///////////// <- 建议在这里调用微信的【订单查询】接口查一下该笔订单的情况，确认是已经支付 /////////////
-            if ($message['return_code'] === 'SUCCESS') { // return_code 表示通信状态，不代表支付状态
-                // 用户是否支付成功
-                if ($message['result_code'] === 'SUCCESS') {
-                    $wechatPayNotifyEvent = new WechatPayNotifyEvent($message);
-                    // TODO success log
-                    switch ($message['attach']) {
-                    case Events::ORDER_PAY_NOTIFY:
-                        $this->event_dispatcher->dispatch(
-                            Events::ORDER_PAY_NOTIFY,
-                            $wechatPayNotifyEvent
-                        );
-                    case Events::MEMBER_PAY_NOTIFY:
-                        $this->event_dispatcher->dispatch(
-                            Events::MEMBER_PAY_NOTIFY,
-                            $wechatPayNotifyEvent
-                        );
-                    }
-                    
-                    if ($wechatPayNotifyEvent->isPropagationStopped()) return true;
-
-                    // 用户支付失败
-                } elseif ($message['result_code'] === 'FAIL') {
-                    // TODO error log
-                }
-            } else {
-                // TODO error log
-                return $fail('通信失败，请稍后再通知我');
-            }
-
-            return true; // 返回处理完成
-        });
+        $response = $this->pay->payNotify();
 
         return $response;
     }
