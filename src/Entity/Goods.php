@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
+use App\DBAL\Types\OrderBillType;
 use App\Entity\Helper\{TimestampableEntity, FileUploadTrait};
 
 
@@ -84,10 +85,16 @@ class Goods
      */
     private $pictures;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\OrderBill", mappedBy="goods", orphanRemoval=true, cascade={"persist"})
+     */
+    private $orderBill;
+
     public function __construct()
     {
         $this->classify = new ArrayCollection();
         $this->pictures = new ArrayCollection();
+        $this->orderBill = new ArrayCollection();
     }
 
     public function getId()
@@ -246,6 +253,43 @@ class Goods
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection|OrderBill[]
+     */
+    public function getOrderBill(): Collection
+    {
+        return $this->orderBill;
+    }
+
+    public function addOrderBill(OrderBill $orderBill): self
+    {
+        if (!$this->orderBill->contains($orderBill)) {
+            $this->orderBill[] = $orderBill;
+            $orderBill->setOrderInfo($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrderBill(OrderBill $orderBill): self
+    {
+        if ($this->orderBill->contains($orderBill)) {
+            $this->orderBill->removeElement($orderBill);
+            // set the owning side to null (unless already changed)
+            if ($orderBill->getOrderInfo() === $this) {
+                $orderBill->setOrderInfo(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getTotalBill() {
+        return $this->getOrderBill()->filter(function($entry) {
+            return $entry->getStatus() === OrderBillType::APPEND;
+        })->count();
     }
 
     public function getName(): ?string

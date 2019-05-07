@@ -64,6 +64,9 @@ final class GoodsAdmin extends FileUploaderAdmin
             ->add('stock', 'number', [
                 'label' => '库存'
             ])
+            ->add('getTotalBill', 'number', [
+                'label' => '销量'
+            ])
             ->add('market_price', 'currency', [
                 'label' => '市场价',
                 'currency' => '￥'
@@ -136,10 +139,12 @@ final class GoodsAdmin extends FileUploaderAdmin
                 'class' => 'col-xs-6'
             ])
                 ->add('long_size', NumberType::class, [
-                        'label' => false
+                    'label' => false,
+                    'help'=>'mm'
                     ])
                 ->add('wide_size', NumberType::class, [
-                        'label' => false
+                    'label' => false,
+                    'help'=>'mm'
                     ])
             ->end()
             ->add('details', SimpleFormatterType::class, [
