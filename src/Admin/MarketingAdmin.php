@@ -8,6 +8,7 @@ use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Show\ShowMapper;
 use Symfony\Component\Form\Extension\Core\Type\{TextType, TextareaType, FileType, MoneyType, NumberType};
+use Sonata\AdminBundle\Route\RouteCollection;
 use Gedmo\Uploadable\UploadableListener;
 use App\Admin\FileUploaderAdmin;
 use App\Entity\Marketing;
@@ -118,13 +119,14 @@ final class MarketingAdmin extends FileUploaderAdmin
             ;
     }
 
-    // public function getBatchActions()
-    // {
-    //     $actions = parent::getBatchActions();
-    //     unset($actions['delete']);
-    //
-    //     return $actions;
-    // }
+    public function configureRoutes(RouteCollection $collection)
+    {
+        $container = $this->getConfigurationPool()->getContainer();
+        $em = $container->get('doctrine.orm.entity_manager');
+        if($em->getRepository('App\Entity\Marketing')->count([]) > 0){
+          $collection->remove('create');
+        }
+    }
 
     public function prePersist($market)
     {
