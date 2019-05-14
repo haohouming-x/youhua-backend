@@ -112,8 +112,8 @@ class Order
 
     private function getTotalBillByStatus($type)
     {
-        return $this->getOrderBill()->filter(function($entry) use($type) {
-            return $entry->getStatus() === $type;
+        return $this->getOrderBill()->filter(function($entity) use($type) {
+            return $entity->getStatus() === $type;
         })->count();
     }
 
@@ -235,9 +235,9 @@ class Order
         return $this;
     }
 
-    public function getTotalProfit(): ?float
+    public function getTotalProfit(): float
     {
-        return $this->getTotalExcl() == 0 ? 0 : $this->getTotal() - $this->getTotalExcl(); 
+        return $this->getTotalExcl() == 0 ? 0 : $this->getTotal() - $this->getTotalExcl();
     }
 
     public function __toString()

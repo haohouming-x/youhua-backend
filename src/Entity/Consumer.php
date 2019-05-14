@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\DBAL\Types\{ConsumerType, SexType};
+use App\DBAL\Types\{ConsumerType, SexType, OrderType};
 use Gedmo\Mapping\Annotation as Gedmo;
 use Fresh\DoctrineEnumBundle\Validator\Constraints as DoctrineAssert;
 use App\Entity\Helper\TimestampableEntity;
@@ -134,6 +134,26 @@ class Consumer
 
     //     return $this;
     // }
+
+    // 已收货手动退押金; 除取消、未付有押金
+    public function getDeposit(): float
+    {
+        $return_deposit_arr = $this->orders->filter(function($entity) {
+            return $entity->getStatus() === OrderType::ALREADY_TAKE;
+        })->toArray();
+        $return_deposit = array_reduce($return_deposit_arr, function($acc, $entity) {
+            return $acc + $entity->getTotalExcl();
+        }, 0);
+
+        $append_deposit_arr = $this->orders->filter(function($entity) {
+            return !in_array($entity->getStatus, [OrderType::WAIT_PAY, OrderType::ALREADY_CLOSE]);
+        })->toArray();
+        $append_deposit = array_reduce($append_deposit_arr, function($acc, $entity) {
+            return $acc + $entity->getTotal();
+        }, 0);
+
+        return $append_deposit - $return_deposit;
+    }
 
     public function getSex(): ?string
     {

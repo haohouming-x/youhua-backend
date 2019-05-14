@@ -134,6 +134,10 @@ final class ConsumerAdmin extends AbstractAdmin
                 'label' => '性别',
                 'choices' => SexType::getReadableValues()
             ])
+            ->add('getDeposit', 'currency', [
+                'label' => '押金总价',
+                'currency' => '￥'
+            ])
             ->add('deleted_at', 'datetime', [
                 'label' => '删除时间',
                 'format' => 'Y-m-d H:i:s'
