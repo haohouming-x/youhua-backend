@@ -1,0 +1,10 @@
+App\Entity\CustomPage:
+    attributes:
+        id:
+            groups: ['banner:read', 'custom_page:read']
+
+        name:
+            groups: ['custom_page:read']
+
+        content:
+            groups: ['custom_page:read']

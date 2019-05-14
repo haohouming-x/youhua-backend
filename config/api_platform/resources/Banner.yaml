@@ -47,3 +47,8 @@ resources:
                 attributes:
                   swagger_context:
                     description: '商品'
+
+            customPage:
+                attributes:
+                  swagger_context:
+                    description: '自定义页面'

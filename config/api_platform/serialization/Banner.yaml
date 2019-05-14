@@ -14,3 +14,6 @@ App\Entity\Banner:
 
       goods:
           groups: ['banner:read']
+
+      customPage:
+          groups: ['banner:read']

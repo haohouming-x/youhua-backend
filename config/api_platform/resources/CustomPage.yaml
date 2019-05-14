@@ -1,8 +1,8 @@
 resources:
     App\Entity\CustomPage:
-        # attributes:
-        #     normalization_context:
-        #         groups: ['custom_page:read']
+        attributes:
+            normalization_context:
+                groups: ['custom_page:read']
         description: '自定义页面'
 
         collectionOperations: []
@@ -24,3 +24,19 @@ resources:
                     description: '自定义页面详情'
                     parameters:
                         - { name: 'id', in: 'path', required: true, type: 'integer', description: '自定义页面id' }
+
+        properties:
+            id:
+                attributes:
+                    swagger_context:
+                        description: '编号'
+
+            name:
+                attributes:
+                    swagger_context:
+                        description: '名称'
+
+            content:
+                attributes:
+                    swagger_context:
+                        description: '内容'
