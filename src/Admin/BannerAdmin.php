@@ -60,11 +60,20 @@ final class BannerAdmin extends FileUploaderAdmin
                 'map' => [
                     BannerType::GOODS => ['goods'],
                     BannerType::LINK => ['link'],
+                    BannerType::CUSTOM => ['custom_page']
                 ]
             ])
             ->add('link', TextType::class, [
                 'label' => '链接',
                 'required' => false
+            ])
+            ->add('custom_page', ModelListType::class, [
+                'by_reference' => true,
+                'label' => '自定义页面选择',
+                'btn_list' => '选择',
+                'btn_delete' => '移除',
+                'btn_edit' => false,
+                'btn_add' => false
             ])
             ->add('goods', ModelListType::class, [
                 'by_reference' => true,

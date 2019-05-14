@@ -51,6 +51,12 @@ class Banner
 
     private $file;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CustomPage")
+     * @ORM\JoinColumn(nullable=true)
+     */
+    private $custom_page;
+
     public function getId()
     {
         return $this->id;
@@ -107,5 +113,17 @@ class Banner
     public function __toString()
     {
         return (string) $this->getId();
+    }
+
+    public function getCustomPage(): ?CustomPage
+    {
+        return $this->custom_page;
+    }
+
+    public function setCustomPage(?CustomPage $custom_page): self
+    {
+        $this->custom_page = $custom_page;
+
+        return $this;
     }
 }

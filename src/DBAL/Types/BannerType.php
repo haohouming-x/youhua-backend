@@ -9,8 +9,11 @@ final class BannerType extends AbstractEnumType
 
     public const GOODS = 'GD';
 
+    public const CUSTOM = 'CP';
+
     protected static $choices = [
         self::LINK => '链接',
         self::GOODS => '商品',
+        self::CUSTOM => '自定义页面'
     ];
 }
