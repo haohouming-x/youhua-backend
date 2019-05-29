@@ -8,8 +8,9 @@ class WechatPayNotifyEvent extends Event
 {
 
     private $call_back_messages;
-    
+
     private $notify_messages;
+    private $template_name;
 
     /**
      * WechatPayNotifyEvent constructor.
@@ -33,11 +34,12 @@ class WechatPayNotifyEvent extends Event
 
     public function getNotifyMessages()
     {
-        return $this->notify_messages;
+        return [$this->template_name, $this->notify_messages];
     }
 
-    public function setNotifyMessages($notify_messages)
+    public function setNotifyMessages($template_name, $notify_messages)
     {
+        $this->template_name = $template_name;
         $this->notify_messages = $notify_messages;
         return $this;
     }

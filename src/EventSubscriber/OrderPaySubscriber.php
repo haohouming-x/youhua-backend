@@ -3,7 +3,7 @@
 namespace App\EventSubscriber;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\{EventSubscriberInterface, EventDispatcherInterface};
 use App\DBAL\Types\OrderType;
 use App\Event\{Events, WechatPayNotifyEvent};
 use App\Entity\Order;
@@ -11,9 +11,10 @@ use App\Entity\Order;
 
 class OrderPaySubscriber implements EventSubscriberInterface
 {
-    public function __construct(EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em, EventDispatcherInterface $event_dispatcher)
     {
         $this->em = $em;
+        $this->event_dispatcher = $event_dispatcher;
     }
 
     public function onRipWechatOrderPay(WechatPayNotifyEvent $event)
@@ -38,15 +39,20 @@ class OrderPaySubscriber implements EventSubscriberInterface
 
         // provided messages for notify wechat user
         $event->setNotifyMessages(
+            'order_success',
             [
                 'keyword1' => $message['out_trade_no'],
-                'keyword2' => '油画出租', 
-                'keyword3' => $message['total_fee']/100, 
-                'keyword4' => $order->getStatus(), 
-                'keyword5' => $order->getPaidAt()->format('Y-m-d H:i:s') 
+                'keyword2' => '油画出租',
+                'keyword3' => $message['total_fee']/100,
+                'keyword4' => OrderType::getReadableValue($order->getStatus()),
+                'keyword5' => $order->getPaidAt()->format('Y-m-d H:i:s')
             ]
         );
-  
+        $this->event_dispatcher->dispatch(
+            Events::NOTIFY_MESSAGE,
+            $event
+        );
+
         return true;
     }
 

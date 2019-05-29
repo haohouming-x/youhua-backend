@@ -3,17 +3,18 @@
 namespace App\EventSubscriber;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+use Symfony\Component\EventDispatcher\{EventSubscriberInterface, EventDispatcherInterface};
 use Psr\Log\LoggerInterface;
 use App\Event\{Events, WechatPayNotifyEvent};
 use App\Entity\{Wechat, Consumer, Member, Marketing};
 
 class MemberPaySubscriber implements EventSubscriberInterface
 {
-    public function __construct(EntityManagerInterface $em, LoggerInterface $logger)
+    public function __construct(EntityManagerInterface $em, EventDispatcherInterface $event_dispatcher, LoggerInterface $logger)
     {
         $this->em = $em;
         $this->logger = $logger;
+        $this->event_dispatcher = $event_dispatcher;
     }
 
     public function onRipWechatMemberPay(WechatPayNotifyEvent $event)
@@ -56,12 +57,17 @@ class MemberPaySubscriber implements EventSubscriberInterface
 
         // provided messages for notify wechat user
         $event->setNotifyMessages(
+            'member_success',
             [
                 'keyword1' => $message['body'],
                 'keyword2' => $message['total_fee']/100,
                 'keyword3' => $recharge_at->format('Y-m-d H:i:s'),
                 'keyword4' => $expire_at->format('Y-m-d H:i:s')
             ]
+        );
+        $this->event_dispatcher->dispatch(
+            Events::NOTIFY_MESSAGE,
+            $event
         );
 
         return true;
