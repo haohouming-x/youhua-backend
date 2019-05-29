@@ -42,10 +42,10 @@ class MemberPaySubscriber implements EventSubscriberInterface
         $recharge_at = new \DateTime('now');
         $expire_at = new \DateTime('now +'.$validity_date.' day');
 
-        $member = (new Member())
-                ->setMarket($marketing)
-                ->setRechargeAt($recharge_at)
-                ->setExpireAt($expire_at);
+        $member = $consumer->getMember() ?? new Member();
+        $member->setMarket($marketing)
+            ->setRechargeAt($recharge_at)
+            ->setExpireAt($expire_at);
 
         $consumer->setMember($member);
 
@@ -58,8 +58,8 @@ class MemberPaySubscriber implements EventSubscriberInterface
         $event->setNotifyMessages(
             [
                 'keyword1' => $message['body'],
-                'keyword2' => $message['total_fee']/100, 
-                'keyword3' => $recharge_at->format('Y-m-d H:i:s'), 
+                'keyword2' => $message['total_fee']/100,
+                'keyword3' => $recharge_at->format('Y-m-d H:i:s'),
                 'keyword4' => $expire_at->format('Y-m-d H:i:s')
             ]
         );
