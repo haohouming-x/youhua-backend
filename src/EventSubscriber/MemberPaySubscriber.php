@@ -59,7 +59,7 @@ class MemberPaySubscriber implements EventSubscriberInterface
         $event->setNotifyMessages(
             'member_success',
             [
-                'keyword1' => $message['body'],
+                'keyword1' => $marketing->getName(),
                 'keyword2' => $message['total_fee']/100,
                 'keyword3' => $recharge_at->format('Y-m-d H:i:s'),
                 'keyword4' => $expire_at->format('Y-m-d H:i:s')
