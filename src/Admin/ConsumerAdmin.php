@@ -38,11 +38,12 @@ final class ConsumerAdmin extends AbstractAdmin
             ->add('first_login_at', 'doctrine_orm_date', [
                 'label' => '第一次登录时间'
             ])
-            ->add('member.market.name', 'doctrine_orm_model', [
+            ->add('member.market', null, [
                 'label' => '用户类型'
             ], null, [
-                'multiple' => true,
-                'class' => 'App\Entity\Marketing'
+                'multiple' => true
+                // 'property' => 'name',
+                // 'class' => 'App\Entity\Marketing'
             ])
             ->add('member.recharge_at', 'doctrine_orm_date', [
                 'label' => '充值时间'

@@ -121,6 +121,7 @@ final class MarketingAdmin extends FileUploaderAdmin
 
     public function configureRoutes(RouteCollection $collection)
     {
+        $collection->add('create');
         $container = $this->getConfigurationPool()->getContainer();
         $em = $container->get('doctrine.orm.entity_manager');
         if($em->getRepository('App\Entity\Marketing')->count([]) > 0){

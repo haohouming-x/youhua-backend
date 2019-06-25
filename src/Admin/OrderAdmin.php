@@ -61,7 +61,7 @@ final class OrderAdmin extends AbstractAdmin
                 'label' => '押金差价',
                 'currency' => '￥'
             ])
-            ->add('status', null, [
+            ->add('status', 'doctrine_orm_choice', [
                 'show_filter' => true,
                 'label' => '订单状态'
             ], ChoiceType::class, [
