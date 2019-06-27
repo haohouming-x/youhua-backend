@@ -59,6 +59,10 @@ final class OrderBillAdmin extends AbstractAdmin
                 'label' => '押金',
                 'currency' => '￥'
             ])
+            ->add('goods', null, [
+                'label' => '商品',
+                'associated_property' => 'name'
+            ])
             ->add('status', 'choice', [
                 'label' => '状态',
                 'choices' => OrderBillType::getReadableValues()
