@@ -54,7 +54,7 @@ class WechatMpapp extends Controller
         $sessionInfos = $this->app->auth->session($code);
 
         if($sessionInfos == '45011') throw new \InvalidArgumentException('\'code\' is not validity');
- 
+
         $openId = $sessionInfos['openid'];
         // $openId = '1';
 
@@ -86,7 +86,7 @@ class WechatMpapp extends Controller
         $consumer = $wechat->getConsumer();
 
         $consumer->setLastLoginAt(new \DateTime("now"));
-        
+
         $em->persist($consumer);
         $em->flush();
 
@@ -176,6 +176,20 @@ class WechatMpapp extends Controller
     public function payNotify()
     {
         $response = $this->pay->payNotify();
+
+        return $response;
+    }
+
+    /**
+     * @Route(
+     *     name="refund_notify",
+     *     path="/mpapp/refund/notify",
+     *     methods={"GET", "POST"},
+     * )
+     */
+    public function refundNotify()
+    {
+        $response = $this->refund->notify();
 
         return $response;
     }

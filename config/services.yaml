@@ -47,11 +47,14 @@ services:
       tags: ['controller.service_arguments']
 
     App\EventSubscriber\:
-      resource: '../src/EventSubscriber'       
+      resource: '../src/EventSubscriber'
       tags: ['kernel.event_subscriber']
 
-    App\DependencyInjection\WechatMessage: 
+    App\DependencyInjection\WechatMessage:
       arguments: ['%rip.miniapp%', '%rip.miniapp_message.ids%', '%rip.miniapp_message.pages%']
+
+    App\DependencyInjection\WechatPayRefund:
+      arguments: ['%rip.miniapp%', '%rip.refund%']
 
     App\DependencyInjection\WechatPay:
       arguments: ['%rip.payment%']

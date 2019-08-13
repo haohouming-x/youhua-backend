@@ -21,12 +21,15 @@ parameters:
        expired_notify: '8BN6t1TH1JbYVzubx-tgFI3_tZBUjxugcuoZ0kAsNF8'
        order_success: '8BN6t1TH1JbYVzubx-tgFI3_tZBUjxugcuoZ0kAsNF8'
        return_success: 'ywXaPD7r9Dr_EuG9tpK0f1ps5GauajG5p6atqWH_LMc'
-  
+
     rip.miniapp_message.pages:
        member_success: ''
        expired_notify: ''
        order_success: ''
        return_success: ''
+
+    rip.refund:
+       notify_url: "http://www.nowhoarts.com/mpapp/refund/notify"
 
 # rip.wechat:
 #     oauth:
