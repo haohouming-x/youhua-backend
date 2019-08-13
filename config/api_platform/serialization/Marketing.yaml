@@ -6,6 +6,9 @@ App\Entity\Marketing:
         name:
             groups: ['market:read', 'member:item:read', 'consumer:item:read']
 
+        image:
+            groups: ['market:read']
+
         explainText:
             groups: ['market:read']
 

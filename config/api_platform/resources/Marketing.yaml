@@ -35,6 +35,11 @@ resources:
                     swagger_context:
                         description: '会员类型名称'
 
+            image:
+                attributes:
+                    swagger_context:
+                        description: '会员图片'
+
             explainText:
                 attributes:
                     swagger_context:
