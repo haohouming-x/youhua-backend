@@ -53,7 +53,8 @@ services:
     App\DependencyInjection\WechatMessage:
       arguments: ['%rip.miniapp%', '%rip.miniapp_message.ids%', '%rip.miniapp_message.pages%']
 
-    App\DependencyInjection\WechatPayRefund:
+    rip.wechat.pay_refund:
+      class: App\DependencyInjection\WechatPayRefund
       arguments: ['%rip.miniapp%', '%rip.refund%']
 
     App\DependencyInjection\WechatPay:

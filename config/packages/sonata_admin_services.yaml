@@ -74,6 +74,7 @@ services:
             - { name: sonata.admin, manager_type: orm, group: sonata_admin_order, label: OrderAdmin }
         calls:
             - [addChild, ['@app.admin.order_bill', 'order_info']]
+            - [setWechatPayRefund, [ "@rip.wechat.pay_refund" ]]
         public: true
 
     app.admin.order_bill:

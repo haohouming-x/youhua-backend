@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Knp\Menu\ItemInterface as MenuItemInterface;
 use Symfony\Component\Form\Extension\Core\Type\{TextType, ChoiceType};
 use App\DBAL\Types\{OrderType, OrderActionType};
-
+use App\DependencyInjection\WechatPayRefund;
 
 final class OrderAdmin extends AbstractAdmin
 {
@@ -235,6 +235,23 @@ final class OrderAdmin extends AbstractAdmin
                 }),
             ])
             ;
+    }
+
+    public function postUpdate($order)
+    {
+        if($order->getStatus() !== OrderType::ALREADY_TAKE) return;
+
+        if($order->getTotalProfit() >= 0) return;
+
+        $this->pay_refund
+            ->tradeRefund($order->getOrderNumber(), $order->getTotal(), $order->getTotalProfit(), [
+                'refund_desc' => '已归还油画'
+            ]);
+    }
+
+    public function setWechatPayRefund(WechatPayRefund $pay_refunder)
+    {
+        $this->pay_refund = $pay_refunder;
     }
 
     public function getBatchActions()
