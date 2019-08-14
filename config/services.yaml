@@ -55,7 +55,7 @@ services:
 
     rip.wechat.pay_refund:
       class: App\DependencyInjection\WechatPayRefund
-      arguments: ['%rip.miniapp%', '%rip.refund%']
+      arguments: ['%rip.payment%', '%rip.refund%']
 
     App\DependencyInjection\WechatPay:
       arguments: ['%rip.payment%']

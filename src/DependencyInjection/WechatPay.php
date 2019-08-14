@@ -29,7 +29,7 @@ class WechatPay
         $new_config = array_merge($default_config, $config);
         $result = $this->pay->order->unify($new_config);
 
-        $this->afterPay($result, $new_config);
+        return $this->afterPay($result, $new_config);
     }
 
     public function payNotify()

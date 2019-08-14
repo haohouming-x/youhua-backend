@@ -11,19 +11,20 @@ class WechatPayRefund
 {
     public function __construct(array $config, array $refund_config, EventDispatcherInterface $event_dispatcher, LoggerInterface $logger)
     {
-        $this->app = Factory::miniProgram($config);
+        $this->app = Factory::payment($config);
         $this->refund_config = $refund_config;
         $this->event_dispatcher = $event_dispatcher;
+        $this->logger = $logger;
     }
 
     public function tradeRefund(string $out_trade_no, float $total_fee, float $refund_fee, array $config)
     {
         $new_config = array_merge($this->refund_config, $config);
 
-        $result = $app->refund
+        $result = $this->app->refund
                 ->byOutTradeNumber($out_trade_no, $out_trade_no.'|refund', $total_fee, $refund_fee, $new_config);
 
-        $this->afterRefund($result, $new_config);
+        return $this->afterRefund($result, $new_config);
     }
 
     public function notify()

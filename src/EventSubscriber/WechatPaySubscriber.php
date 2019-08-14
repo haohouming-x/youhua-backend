@@ -7,7 +7,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use EasyWeChat\Factory;
 use App\DependencyInjection\{WechatPrePayIdStorage};
-use App\Event\{Events, WechatPayOrderEvent};
+use App\Event\{Events, WechatPayOrderEvent, WechatPayNotifyEvent};
 
 class WechatPaySubscriber implements EventSubscriberInterface
 {

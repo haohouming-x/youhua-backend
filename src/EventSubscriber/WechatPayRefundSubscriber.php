@@ -7,7 +7,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use EasyWeChat\Factory;
 use App\DependencyInjection\{WechatPrePayIdStorage};
-use App\Event\{Events, WechatPayOrderEvent};
+use App\Event\{Events, WechatPayNotifyEvent};
 
 class WechatPayRefundSubscriber implements EventSubscriberInterface
 {
@@ -18,7 +18,7 @@ class WechatPayRefundSubscriber implements EventSubscriberInterface
         $this->logger = $logger;
     }
 
-    public function onRipWechatSuccessRefund(WechatPayOrderEvent $event)
+    public function onRipWechatSuccessRefund(WechatPayNotifyEvent $event)
     {
         $message = $event->getCallBackMessages();
 
