@@ -5,7 +5,7 @@ namespace App\DependencyInjection;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Psr\Log\LoggerInterface;
 use EasyWeChat\Factory;
-use App\Event\{Events, WechatPayNotifyEvent};
+use App\Event\{Events, WechatPayNotifyEvent, WechatPayRefundEvent};
 
 class WechatPayRefund
 {
