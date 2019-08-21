@@ -244,7 +244,7 @@ final class OrderAdmin extends AbstractAdmin
         if($order->getTotalProfit() >= 0) return;
 
         $this->pay_refund
-            ->tradeRefund($order->getOrderNumber(), $order->getTotal(), $order->getTotalProfit(), [
+            ->tradeRefund($order->getOrderNumber(), $order->getTotal(), abs($order->getTotalProfit()), [
                 'refund_desc' => '已归还油画'
             ]);
     }

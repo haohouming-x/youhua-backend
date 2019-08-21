@@ -23,7 +23,7 @@ class WechatPayRefundSubscriber implements EventSubscriberInterface
         $message = $event->getCallBackMessages();
 
         $event->setNotifyMessages(
-            'refund_success',
+            'return_success',
             [
                 'keyword1' => $message['out_trade_no'],
                 'keyword2' => $message['refund_fee']/100,

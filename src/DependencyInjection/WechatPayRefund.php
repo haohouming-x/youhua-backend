@@ -3,6 +3,7 @@
 namespace App\DependencyInjection;
 
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use ApiPlatform\Core\Exception\{InvalidArgumentException, ItemNotFoundException};
 use Psr\Log\LoggerInterface;
 use EasyWeChat\Factory;
 use App\Event\{Events, WechatPayNotifyEvent, WechatPayRefundEvent};
@@ -20,11 +21,17 @@ class WechatPayRefund
     public function tradeRefund(string $out_trade_no, float $total_fee, float $refund_fee, array $config)
     {
         $new_config = array_merge($this->refund_config, $config);
+        $refund_trade_no = $out_trade_no.'|refund';
 
         $result = $this->app->refund
-                ->byOutTradeNumber($out_trade_no, $out_trade_no.'|refund', $total_fee, $refund_fee, $new_config);
+                ->byOutTradeNumber($out_trade_no, $refund_trade_no, $total_fee*100, $refund_fee*100, $new_config);
 
-        return $this->afterRefund($result, $new_config);
+        return $this->afterRefund($result, array_merge([
+            'total_fee' => $total_fee*100,
+            'refund_fee' => $refund_fee*100,
+            'out_trade_no' => $out_trade_no,
+            'refund_trade_no' => $refund_trade_no
+        ], $new_config));
     }
 
     public function notify()
